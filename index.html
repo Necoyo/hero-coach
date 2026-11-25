@@ -88,12 +88,12 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 <div id="roster" class="roster" aria-label="Choose a hero"></div><p id="empty" class="muted"></p><div id="heroDetail" aria-live="polite"></div>
 </section>
 <details><summary>How do recommendations work?</summary>
-<p><strong>Three main candidates, plus an evidence-based trial pick.</strong> Main picks require at least 20 personal games and no clear performance risk. The discovery slot looks for an unplayed or rarely played hero using current rank meta, your optional aim preference and shared kit skills. This is a learning hypothesis, not a guarantee. Ten wins in ten games receive at most 9.1% personal-result weight and are insufficient for a main slot. Poorly performing heroes appear separately under Improve first; they do not occupy the discovery slot.</p>
-<p><strong>Results, experience and meta.</strong> Competitive and Quick Play are combined. The meta baseline uses 70% current role rank and 30% target rank. Evidence is the minimum of hero games and minutes played / 10. Personal-result weight is min(evidence, 400) / (min(evidence, 400) + 100): even with abundant data, at least 20% of that baseline remains current meta weight. Hours provide up to 3 familiarity points, reduced for negative personal results. An uncertainty deduction moderates small samples. The index is not a predicted win rate.</p>
-<p><strong>Hours do not rescue poor performance.</strong> A DPS hero with fewer than one elimination per death, at least 20 deaths and either an hour or 10 games cannot become a main or trial pick. Eliminations include assists; this DPS threshold is not applied to support or tank. For all heroes, persistently poor win results are compared with the same hero in rank meta, moderated for small samples. At 20 games or more, below 45% wins and more than 5 percentage points below hero meta, improvement comes first. Clear underperformance is screened before aim and hours bonuses. These are conservative coaching rules, not official rank standards.</p>
+<p><strong>Three main candidates, plus an evidence-based trial pick.</strong> Main picks require at least 20 personal games and no clear performance risk. The discovery slot looks for an unplayed or rarely played hero using current rank win-rate data, your optional aim preference and shared kit skills. This is a learning hypothesis, not a guarantee. Ten wins in ten games receive at most 9.1% personal-result weight and are insufficient for a main slot. Poorly performing heroes appear separately under Improve first; they do not occupy the discovery slot.</p>
+<p><strong>Results, experience and rank win rates.</strong> Competitive and Quick Play are combined. The population context blends 70% current role rank and 30% target rank. Win rate is central. Below-median pick share within the same role tempers positive win-rate deviations by up to 25%; it never conceals a poor win rate. Above-median pick share adds at most 0.75 points and bans at most 0.5, reduced for win rates below 52% and absent at 48% or lower. Missing context is neutral. These are bounded coaching heuristics, not statistical confidence or an official tier list. Evidence is the minimum of hero games and minutes played / 10. Personal-result weight is min(evidence, 400) / (min(evidence, 400) + 100): even with abundant data, at least 20% of that baseline remains current meta weight. Hours provide up to 3 familiarity points, reduced for negative personal results. An uncertainty deduction moderates small samples. The index is not a predicted win rate.</p>
+<p><strong>Hours do not rescue poor performance.</strong> A DPS hero with fewer than one elimination per death, at least 20 deaths and either an hour or 10 games cannot become a main or trial pick. Eliminations include assists; this DPS threshold is not applied to support or tank. For all heroes, persistently poor win results are compared with the same hero in rank win-rate data, moderated for small samples. At 20 games or more, below 45% wins and more than 5 percentage points below hero meta, improvement comes first. Clear underperformance is screened before aim and hours bonuses. These are conservative coaching rules, not official rank standards.</p>
 <p><strong>Less aim.</strong> Current heroes are assessed across their full kits: targeted healing, melee, spread and explosions versus tracking, precise hits and projectile prediction. Preferences range from −4 to +6 points and apply only while the mode is enabled. Positive bonuses are reduced for poor personal results. Low aim requirements do not imply easy positioning, timing or movement. Each hero's assessment appears under Playstyle and aim requirements.</p>
 <p><strong>New heroes and reworks.</strong> The catalogue and ability descriptions refresh online. Reviewed assessments are tied to the exact set of ability descriptions, not just the hero name. Changed descriptions or an age of 90 days trigger a limited primary-weapon analysis instead. Numerical balance changes without text changes are not detected as mechanical changes; current meta remains important for those. There are no fixed hero-to-hero recommendations.</p>
-<p><strong>Discovery.</strong> Specific weapon tasks carry more weight than generic shared movement. A source hero must be in your current top 3 for a role. A positive source requires at least 30 games and two hours, at least 5% of role playtime and 25% of the hours on your most-played role hero, wins above its loaded rank meta and no clear performance risk. Ignored heroes cannot be source heroes. At least two sufficiently specific shared traits must support transfer. The signal is capped at 5 points and halved across roles. Without a supported match to your top 3, no arbitrary flex hero appears. The aim toggle affects ordering but is not evidence of transferable skill by itself. An unproven hero does not displace a proven main.</p>
+<p><strong>Discovery.</strong> Specific weapon tasks carry more weight than generic shared movement. A source hero must be in your current top 3 for a role. A positive source requires at least 30 games and two hours, at least 5% of role playtime and 25% of the hours on your most-played role hero, wins above its loaded rank win-rate data and no clear performance risk. Ignored heroes cannot be source heroes. At least two sufficiently specific shared traits must support transfer. The signal is capped at 5 points and halved across roles. Without a supported match to your top 3, no arbitrary flex hero appears. The aim toggle affects ordering but is not evidence of transferable skill by itself. An unproven hero does not displace a proven main.</p>
 <p><strong>Seasons and freshness.</strong> Public meta is fetched again on refresh. The API does not provide a selectable season or reliable patch ID with these figures: fetched today does not guarantee coverage of the latest patch. Blizzard warns updates may lag by up to a day. Local meta older than 24 hours is flagged; after 72 hours it no longer ranks heroes. Known season changes, source changes and decreasing counters break recent-form comparisons. Career stats may include old seasons and kits; exact game dates are unavailable.</p>
 <p><strong>What is compared with other players?</strong> Hero win rates at the loaded role rank and target rank, platform and region. This HTML fetches a shared pool of public profiles directly and calculates the mean of player averages for each hero and current role rank. Competitive and Quick Play are combined on both sides, weighted by hero playtime. Each eligible player counts once. Averages are shown from five players; from ten, a supported adjustment may contribute up to two points. These are not official population standards or percentiles. Good healing does not automatically mean sufficient offensive contribution; high damage may come from farming tanks. Mitigation uses actual mitigation fields only, never silently substituting damage blocked.</p>
 <p><strong>Recent form.</strong> Up to 120 local snapshots over 14 days. From five comparable additional hero games, recent form can contribute up to ±3 points. These are changes in career counters, not individual match logs. They may change recommendations, but ten new games do not guarantee a different order.</p>
@@ -606,19 +606,19 @@ function performanceRisk(hero,stats,meta){
     return {kind:'combat',reason:"Practise first: "+fmt(combat.ratio)+' eliminations per death ('+fmt(combat.eliminations)+' / '+fmt(combat.deaths)+') in '+combat.rows.map(x=>modes[x.mode]).join(' + ')+". This is a DPS risk signal, not a rank standard."};
   if(played(stats) && stats.games_played>=model.minMainGames && meta && winrate(stats)<50){
     const adjusted=100*(stats.games_won+model.priorGames*meta.winrate/100)/(stats.games_played+model.priorGames);
-    if(adjusted<meta.winrate-10)return {kind:'results',reason:"Practise first: "+percent(winrate(stats))+" wins over "+fmt(stats.games_played)+" games. Even after adjusting for sample size, results remain more than 10 points below the loaded rank meta."};
+    if(adjusted<meta.winrate-10)return {kind:'results',reason:"Practise first: "+percent(winrate(stats))+" wins over "+fmt(stats.games_played)+" games. Even after adjusting for sample size, results remain more than 10 points below the loaded rank win-rate data."};
   }
   if(played(stats)&&stats.games_played>=40&&meta&&winrate(stats)<45){
     const p=(stats.games_won+60*meta.winrate/100)/(stats.games_played+60),upper=100*(p+1.28*Math.sqrt(p*(1-p)/(stats.games_played+61)));
-    if(upper<meta.winrate-3)return {kind:'results',reason:"Practise first: "+percent(winrate(stats))+" wins over "+fmt(stats.games_played)+" games, with a persistent shortfall against this hero in the loaded rank meta. Hours and aim preference do not override this."};
+    if(upper<meta.winrate-3)return {kind:'results',reason:"Practise first: "+percent(winrate(stats))+" wins over "+fmt(stats.games_played)+" games, with a persistent shortfall against this hero in the loaded rank win-rate data. Hours and aim preference do not override this."};
   }
   return null;
 }
 function suitability(hero,stats,meta) {
   const risk=performanceRisk(hero,stats,meta);
   if(risk)return {eligible:false,reason:risk.reason,kind:'practice',risk};
-  if(!meta)return {eligible:false,reason:"No rank meta loaded · main recommendations not calculated yet",kind:'source'};
-  if(!played(stats))return {eligible:true,reason:"Meta candidate · personal performance and mechanical fit unknown",kind:'sample'};
+  if(!meta)return {eligible:false,reason:"No rank win-rate data loaded · main recommendations not calculated yet",kind:'source'};
+  if(!played(stats))return {eligible:true,reason:"Population win-rate candidate · personal performance and mechanical fit unknown",kind:'sample'};
   return {eligible:true,reason:"No clear measured risk signal · no guarantee of rank suitability",kind:'candidate'};
 }
 
@@ -683,10 +683,26 @@ function candidates(role) {
     return {hero,stats,meta,target:targetFor(hero.key),fit:suitability(hero,stats,meta)};
   });
 }
+function populationContext(row,rows,role){
+ if(!Number.isFinite(row?.winrate))return null;
+ const roleKeys=new Set(catalog.filter(h=>h.role===role).map(h=>h.key));
+ const picks=(rows||[]).filter(r=>roleKeys.has(r.hero)&&Number.isFinite(r.pickrate)&&r.pickrate>0).map(r=>r.pickrate).sort((a,b)=>a-b);
+ const mid=Math.floor(picks.length/2),median=picks.length?(picks.length%2?picks[mid]:(picks[mid-1]+picks[mid])/2):null;
+ const ratio=picks.length>=3&&Number.isFinite(row.pickrate)&&row.pickrate>=0&&median>0?row.pickrate/median:null;
+ // Pick share is not a match count or statistical confidence interval.
+ // Only temper positive win-rate outliers; rarity must not hide poor results.
+ const presence=ratio===null?1:.75+.25*Math.min(1,ratio);
+ const win=row.winrate-50,winContext=win>0?win*presence:win;
+ const viable=Math.max(0,Math.min(1,(row.winrate-48)/4));
+ const popularity=ratio===null||ratio<=1?0:.75*Math.min(1,Math.log2(ratio))*viable;
+ const bans=Number.isFinite(row.banrate)?Math.max(0,Math.min(.5,row.banrate/40))*viable:0;
+ return {score:50+winContext+popularity+bans,winrate:row.winrate,presence,popularity,bans,ratio};
+}
 function metaScore(item) {
-  if(!Number.isFinite(item.meta?.winrate))return null;
-  const goal=Number.isFinite(item.target?.winrate)?item.target.winrate:item.meta.winrate;
-  return item.meta.winrate*(1-model.goalWeight/100)+goal*model.goalWeight/100;
+ const current=populationContext(item.meta,metaEntry(item.hero.role)?.rows,item.hero.role);if(!current)return null;
+ const targetEntry=usableMeta(metaCache[metaKey('competitive',goalFor(item.hero.role))]);
+ const target=populationContext(item.target,targetEntry?.rows,item.hero.role)||current;
+ return current.score*(1-model.goalWeight/100)+target.score*model.goalWeight/100;
 }
 
 const endpoint = mode => "https://overfast-api.tekrop.fr/players/" + encodeURIComponent(account.player) + "/stats/summary?platform=" + account.platform + "&gamemode=" + mode;
@@ -850,7 +866,7 @@ function syncControls() {
   byId("personalToggle").textContent = "Toggle Less Aim Mode";
   byId("personalToggle").title = "Less aim: "+(personal?"on":"off")+" · preference, not a conclusion drawn from your accuracy";
   for (const button of document.querySelectorAll("[data-role]")) button.setAttribute("aria-pressed",String(button.dataset.role === selectedRole));
-  byId("modeExplanation").textContent = personal ? "Your results + role meta · preference for heroes that rely less on precision." : "The loaded player's results + role meta.";
+  byId("modeExplanation").textContent = personal ? "Your results + role win-rate data · preference for heroes that rely less on precision." : "The loaded player's results + role win-rate data.";
 }
 function rankControls(role) {
   const block = node("div","","rank-flow");
@@ -918,11 +934,11 @@ function renderAdvice() {
 
     if (profileError && profile) context.append(node("small","Rank from saved profile data."));
     const roleEntry = metaEntry(role);
-    if (!profile?.competitive?.[account.platform]?.[role] && rankOverrides[role] === "auto") context.append(node("small","All-rank meta is used while your role rank is unavailable."));
-    if (!metaEntry(role)) context.append(node("small","No recent rank meta (maximum age: 72 hours); refresh to calculate recommendations."));
-    else if(Date.now()-metaEntry(role).at>86400000) context.append(node("small","Saved rank meta is over 24 hours old; refreshing is recommended."));
-    if (!usableMeta(metaCache[metaKey("competitive",goalFor(role))])) context.append(node("small","Target-rank meta is missing; using your current rank as the baseline."));
-    if (metaErrors[metaKey("competitive",roleRank(role))]) context.append(node("small","Meta refresh failed; saved stats remain visible."));
+    if (!profile?.competitive?.[account.platform]?.[role] && rankOverrides[role] === "auto") context.append(node("small","All-rank win-rate data is used while your role rank is unavailable."));
+    if (!metaEntry(role)) context.append(node("small","No recent rank win-rate data (maximum age: 72 hours); refresh to calculate recommendations."));
+    else if(Date.now()-metaEntry(role).at>86400000) context.append(node("small","Saved rank win-rate data is over 24 hours old; refreshing is recommended."));
+    if (!usableMeta(metaCache[metaKey("competitive",goalFor(role))])) context.append(node("small","Target-rank win-rate data is missing; using your current rank as the baseline."));
+    if (metaErrors[metaKey("competitive",roleRank(role))]) context.append(node("small","Population stats refresh failed; saved stats remain visible."));
     card.append(intro);
     for (const [index,item] of picks.entries()) {
       const {hero,stats,meta:heroMeta,target,fit} = item;
@@ -943,7 +959,7 @@ function renderAdvice() {
       row.append(portrait(hero));
       const info = node("div");
       const inspectButton=node('button',(index+1)+'. '+hero.name,'pick-name');inspectButton.type='button';inspectButton.onclick=inspect;inspectButton.setAttribute('aria-label',"View "+hero.name);info.append(inspectButton);
-      const currentText = heroMeta ? "Meta " + percent(heroMeta.winrate) : "Meta —";
+      const currentText = heroMeta ? "Rank win rate " + percent(heroMeta.winrate) : "Rank win rate —";
       const targetText = target ? ranks[goalFor(role)] + " " + percent(target.winrate) : "Target —";
       const metaText=currentText + (goalFor(role) !== roleRank(role) ? " · " + targetText : "");
       const personalText = played(stats) ? "You " + percent(winrate(stats)) + " · " + fmt(stats.games_played) + " games · " + duration(stats.time_played) : "Your results are unknown";
@@ -953,7 +969,7 @@ function renderAdvice() {
       info.append(own,infoPopover("Why this pick?",node("p",metaText+". Personal result weight "+percent(weights.personalShare*100)+" based on "+fmt(weights.evidenceN)+" time-weighted evidence units. Familiarity +"+fmt(weights.familiarity)+"; aim preference "+fmt(weights.comfort)+"; reference average "+fmt(weights.peerAdjustment)+"; uncertainty deduction "+fmt(weights.uncertainty)+". Competitive and Quick Play are combined; this is not a pure ranked measurement. Open the hero for the full calculation.")));
       info.append(node('small',item.label,'pick-verdict'));
       if(item.learning){const favorite=roleHistory(role).favorite;info.append(node('small',"Played less than "+favorite.hero.name));}
-      if(item.provisional)info.append(node('small',"Provisional · more personal experience needed"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pickrate " + percent(heroMeta.pickrate) + " · Banrate " + percent(heroMeta.banrate) : "");
+      if(item.provisional)info.append(node('small',"Provisional · more personal experience needed"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
       row.append(info);
       card.append(row);
     }
@@ -964,13 +980,13 @@ function renderAdvice() {
       const top=node('div','','row'),inspect=node('button',flex.hero.name,'pick-name');inspect.type='button';inspect.onclick=()=>{selectedRole=role;selectedHero=flex.hero.key;render();byId('heroes').scrollIntoView({behavior:'smooth'});};
       const dismiss=node('button','×','flex-dismiss');dismiss.type='button';dismiss.setAttribute('aria-label',"Ignore flex "+flex.hero.name);dismiss.onclick=()=>setIgnored(flex.hero.key,true);
       top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top);
-      const explanation=flex.reason==='transfer'?"Try based on "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank meta; personal suitability is still unknown.";
+      const explanation=flex.reason==='transfer'?"Try based on "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
       flexPanel.append(node('p',explanation));
       flexPanel.append(node('small',played(flex.stats)?fmt(flex.stats.games_played)+" personal games · "+percent(winrate(flex.stats))+" won":"No personal result evidence yet · try in Quick Play first."));
       const details=node('div');
-      details.append(node('p',"Rank meta "+percent(flex.meta.winrate)+'. '+flex.assessment.note));
+      details.append(node('p',"Rank win rate "+percent(flex.meta.winrate)+'. '+flex.assessment.note));
       if(flex.source)details.append(node('p',"Source hero "+flex.source.hero.name+': '+percent(winrate(flex.source.stats))+" wins over "+fmt(flex.source.stats.games_played)+" games. Shared traits suggest a learning opportunity, not proven transferable aim or a guarantee."+(flex.source.hero.role!==role?" Different role: transfer weight is halved.":'')));
-      details.append(node('p',"Flex index "+fmt(flex.flexIndex)+" = rank meta + moderated personal results + optional aim preference + up to 5 transfer points + up to 2 learning opportunity points − a limited uncertainty deduction. Heroes with poor measured performance are excluded."));
+      details.append(node('p',"Flex index "+fmt(flex.flexIndex)+" = rank win-rate data + moderated personal results + optional aim preference + up to 5 transfer points + up to 2 learning opportunity points − a limited uncertainty deduction. Heroes with poor measured performance are excluded."));
       flexPanel.append(infoPopover("Why this trial pick?",details));
     }else flexPanel.append(node('p',"No suitable trial pick with the available data."));
     card.append(flexPanel);
@@ -997,7 +1013,7 @@ function renderAdvice() {
     override.value = rankOverrides[role];
     override.onchange = () => {rankOverrides[role]=override.value;persist();render();loadAllMeta();};
     advanced.append(override,node("p","Profile rank refers to the latest visible season. Profile fetched " + date(profile?._fetchedAt) + ". Meta fetched " + date(roleEntry?.at) + "."));
-    const source = node("a","Open role meta");source.href=metaURL("competitive",roleRank(role));source.target="_blank";source.rel="noopener";advanced.append(source);
+    const source = node("a","Open role win-rate data");source.href=metaURL("competitive",roleRank(role));source.target="_blank";source.rel="noopener";advanced.append(source);
     card.append(advanced);
     if (picks.length < 3) card.append(node("p",picks.length ? "Fewer than three suitable heroes with at least 20 personal games." : "No supported main pick yet: at least 20 personal games, loaded meta and no clear performance risk are required.","role-empty"));
     return card;
@@ -1047,7 +1063,7 @@ function renderRoster() {
   const deaths=heroMetrics(hero).find(m=>m.key==='deaths_avg_per_10_min')?.value;
   if(Number.isFinite(deaths))development.append(node('p',"Your current survival: "+fmt(deaths)+" deaths per 10 minutes ("+fmt(deaths/10)+" per minute). This is your career average, not a rank standard."));
   development.append(node('p',"For "+ranks[goalFor(hero.role)]+", no reliable public standard for your hero is available for accuracy, deaths, damage or healing. A required improvement in percentages or deaths per minute therefore cannot be calculated here. More damage or healing alone does not prove better impact."));
-  development.append(node('p',"You can compare your hero win rate with the same hero in the loaded rank meta. Career stats and meta may cover different periods and modes. During practice, review avoidable deaths while maintaining your role contribution; replay footage and relevant match data are needed to understand why."));
+  development.append(node('p',"You can compare your hero win rate with the same hero in the loaded rank win-rate data. Career stats and meta may cover different periods and modes. During practice, review avoidable deaths while maintaining your role contribution; replay footage and relevant match data are needed to understand why."));
   detail.append(infoPopover("Development towards "+ranks[goalFor(hero.role)],development));
   const report=contribution(hero), panel=node('div','','contribution');
   panel.append(node('h4',report.title),infoPopover("Assessment criteria",node('p',report.text)));
@@ -1065,7 +1081,7 @@ function renderRoster() {
   const calculation=scoreParts(item);
   if(calculation){
     const part=node('div','','calculation');
-    part.append(node('h4',"How your recommendation index is calculated"),node('p','Meta '+fmt(calculation.base)+" + personal result "+fmt(calculation.results)+" + familiarity "+fmt(calculation.familiarity)+" + preference "+fmt(calculation.comfort)+" + reference difference "+fmt(calculation.peerAdjustment)+" + recent form "+fmt(calculation.recentAdjustment)+" − uncertainty "+fmt(calculation.uncertainty)+' = '+fmt(calculation.total)),node('small',"Personal result weight "+fmt(calculation.personalShare*100)+'% · '+fmt(calculation.n)+" hero games, "+fmt(calculation.evidenceN)+" time-weighted evidence units. This index is not a predicted win rate."));
+    part.append(node('h4',"How your recommendation index is calculated"),node('p','Population context '+fmt(calculation.base)+" + personal result "+fmt(calculation.results)+" + familiarity "+fmt(calculation.familiarity)+" + preference "+fmt(calculation.comfort)+" + reference difference "+fmt(calculation.peerAdjustment)+" + recent form "+fmt(calculation.recentAdjustment)+" − uncertainty "+fmt(calculation.uncertainty)+' = '+fmt(calculation.total)),node('small',"Personal result weight "+fmt(calculation.personalShare*100)+'% · '+fmt(calculation.n)+" hero games, "+fmt(calculation.evidenceN)+" time-weighted evidence units. This index is not a predicted win rate. Population context is a heuristic score, not a percentage: it combines win rate with bounded pick-share and ban context."));
     part.append(node('small',calculation.recent.n>=5?"Recent form: "+calculation.recent.w+" won out of "+calculation.recent.n+" additional hero games observed over up to 14 days of tracking. Exact game dates are unknown. Maximum ±3 index points; these games are also included in your career stats.":"Recent form: fewer than five reliably comparable new hero games. Tracking starts with your first saved snapshot."));
     const history=calculation.hours.history;
     if(history.favorite)part.append(node('small',"Playtime "+duration(calculation.hours.seconds)+" compared with "+duration(history.favorite.seconds)+" on "+history.favorite.hero.name+". Hours suggest familiarity and possible preference, not proof of skill."));
@@ -1091,7 +1107,7 @@ function renderRoster() {
     const delta = winrate(stats) - meta.winrate;
     comparison.append(node("small",(delta >= 0 ? "+" : "") + fmt(delta) + " percentage points · " + fmt(stats.games_played) + " personal games"));
   }
-  comparison.append(node("small",meta ? "Pickrate " + percent(meta.pickrate) + " · banrate " + percent(meta.banrate) : "Meta stats are missing for this hero and selection."));
+  comparison.append(node("small",meta ? "Pick rate " + percent(meta.pickrate) + " · Ban rate " + percent(meta.banrate) + " · bounded population context; win rate remains the main input" : "Population stats are missing for this hero and selection."));
   comparison.append(infoPopover("About this comparison",node("p","Career stats and meta may cover different periods and game variants. This difference does not assess your rank.")));
   detail.append(comparison);
   detail.append(infoPopover("About the measurements",node('p',"Output stats are per 10 minutes, weighted by playtime. Utility fields use the source names. Missing means unknown. No rank percentiles or replay assessment.")));
@@ -1229,7 +1245,7 @@ async function refresh() {
     if(token!==generation)return;
     captureProgress();
     if(!referenceCache[referenceKey(selectedHero)])selectedHero=null;
-    if(Object.keys(errors).length<2)notice("Profile loaded · refreshing rank meta and hero descriptions…");
+    if(Object.keys(errors).length<2)notice("Profile loaded · refreshing rank win-rate data and hero descriptions…");
     render();
     await loadAllMeta(true);
     for (const mode of Object.keys(modes)) if (data[mode]?.source === "OverFast" && !errors[mode]) await loadCareer(mode,token);
