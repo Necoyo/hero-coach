@@ -74,7 +74,7 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 <div class="header-actions row spread"><button id="refresh" type="button" hidden>Refresh</button><button id="accountToggle" type="button" hidden>Settings</button></div>
 <div class="account-settings" id="accountSettings"><form id="accountForm" class="row"><label>BattleTag <span class="tag-input"><input id="battletag" aria-label="Player name" value="Necoy" required maxlength="32" autocomplete="off" placeholder="Enter player name"><span>#</span><input id="tagNumber" aria-label="BattleTag number" value="2548" required pattern="[0-9]{3,12}" inputmode="numeric" placeholder="Number"></span></label><label>Platform <select id="platform"><option value="pc">PC</option><option value="console">Console</option></select></label><label>Region <select id="region"><option value="europe">Europe</option><option value="americas">Americas</option><option value="asia">Asia</option></select></label><button type="submit" id="loadProfile">Load / refresh</button></form></div>
 <div class="header-status"><div class="status-message"><p id="status" class="status" role="status">Connecting to profile sources…</p><p id="privacyHelp" class="profile-error-help" hidden><strong>Check that your profile is public:</strong><br>Overwatch → Options → Social → Privacy → Career Profile Visibility → Public.</p></div><small id="stamp">Last update · —</small></div>
-<details class="freshness-disclosure"><summary>How current are your stats?</summary><p id="freshness" class="freshness" role="status"></p></details></header>
+<details class="freshness-disclosure"><summary>How current are your stats?</summary><p id="freshness" class="freshness" role="status"></p></details><p id="historyStorage" class="muted" role="status" style="font-size:11px;margin:8px 0 0">Recent history stays in this browser. Private browsing may erase it when the session ends.</p></header>
 
 <section class="recommendations" aria-labelledby="advice">
 <div class="row spread"><h2 id="advice">Your hero selection</h2><a href="#heroes" class="jump-link">Hero performance ↓</a></div>
@@ -788,8 +788,10 @@ function persist() {
   savedAccounts[accountKey()] = {data,profile,career,goalRanks,rankOverrides,ignoredHeroes:[...ignoredHeroes]};
   try {
     localStorage.setItem(storageKey,JSON.stringify({progressHistory,account,personal,profileProvider,playerPreferences,goalRanks,rankOverrides,metaCache,heroKits,accounts:savedAccounts}));
+    byId("historyStorage").textContent="History saved in this browser only · private browsing or clearing site data may erase it.";
   } catch {
-    byId("storageNote").textContent = "Automatic saving is unavailable here. Use Save snapshot.";
+    byId("storageNote").textContent = "Automatic saving is unavailable here.";
+    byId("historyStorage").textContent="History could not be saved. Recommendations still work, but recent tracking may restart after closing or reloading this page.";
   }
 }
 function restore() {
