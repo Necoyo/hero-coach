@@ -66,6 +66,38 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 @media(max-width:480px){.role-intro{margin:10px 0 14px}.advice-controls{margin-bottom:16px}.lobby-atmosphere:before,.lobby-atmosphere:after{width:75%;filter:blur(12px)}.lobby-atmosphere:before{left:-45%}.lobby-atmosphere:after{right:-45%}.rank-flow{min-height:47px}}
 @media(prefers-reduced-motion:reduce){.lobby-atmosphere:before,.lobby-atmosphere:after,.lobby-atmosphere .side-rays{animation:none!important;will-change:auto}}
 .reference-panel{margin:22px 0;padding:18px;border:1px solid #8cbddd38;border-left:3px solid #8cbddd;background:#112536aa;border-radius:4px}.reference-panel p{font-size:12px;line-height:1.65}.reference-panel small{display:block;font-size:11px;color:#b7c9d8}.reference-table{width:100%;border-collapse:collapse;margin:15px 0;font-size:12px}.reference-table th,.reference-table td{text-align:right;padding:9px 5px;border-bottom:1px solid #ffffff15}.reference-table th:first-child,.reference-table td:first-child{text-align:left}.reference-table th{color:#9fc5df;font-size:10px}.reference-panel details a{font-size:11px}@media(max-width:480px){.reference-panel{padding:12px}.reference-table{font-size:11px}}
+
+/* Compact selection polish: no scoring changes. */
+#recommendations{column-gap:22px}
+.role-heading{padding-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--role) 22%,transparent);margin-bottom:14px}
+.pick{border-radius:8px;min-height:140px;box-shadow:0 6px 20px #0002;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.pick:hover{transform:translateY(-2px);box-shadow:0 10px 24px #0004,0 0 18px color-mix(in srgb,var(--role) 9%,transparent)}
+.pick>img{border-radius:5px;width:68px;height:82px;object-fit:contain;background:linear-gradient(145deg,color-mix(in srgb,var(--role) 12%,transparent),#0b192a)}
+.pick.is-first{height:330px;min-height:330px;isolation:isolate;background:radial-gradient(ellipse at 76% 14%,color-mix(in srgb,var(--role) 27%,#192c42),#0e1c2d 74%)}
+.pick.is-first:before{top:36px;left:14px;font-size:138px;color:#ffffff08;letter-spacing:-9px}
+.pick.is-first:after{border-radius:7px;background:linear-gradient(180deg,transparent 32%,#0d1b2c77 55%,#0d1b2cf5 76%),linear-gradient(125deg,transparent 50%,#c7edff0a 50.3%,transparent 51%)}
+.pick.is-first>img{width:220px;height:220px;max-width:76%;top:20px;left:auto;right:8px;transform:none;object-fit:contain;mask-image:linear-gradient(180deg,#000 65%,transparent 100%);filter:drop-shadow(-10px 15px 18px #0004)}
+.pick.is-first:hover>img{transform:translateY(-3px) scale(1.025)}
+.pick.is-first>div{left:20px;right:20px;bottom:18px}
+.pick.is-first .pick-name{font-size:32px;line-height:1.06;max-width:100%;overflow-wrap:anywhere}
+.pick.is-first .pick-verdict{display:none}
+.pick-kicker{position:absolute;z-index:3;left:17px;top:16px;display:inline-block;padding:6px 9px;border:1px solid color-mix(in srgb,var(--role) 35%,transparent);border-radius:3px;background:#0a1829b8;color:var(--role);font:700 9px/1.2 Arial,sans-serif;letter-spacing:1.2px}
+.pick .personal-result{gap:3px 6px}.pick .personal-result strong{font-size:14px}
+.pick .personal-result .pick-context{display:block;width:100%;margin:5px 0 1px;color:#b9cddd;font-size:10px;line-height:1.4}
+.pick .info-popover>summary{font-size:10px;color:#8fa9bf}.pick .info-popover>summary:hover{color:#eef8ff}
+.pick-verdict{letter-spacing:.8px;font-size:8px;color:color-mix(in srgb,var(--role) 70%,#c9dbea)}
+.flex-choice{position:relative;margin-top:16px;min-height:222px;padding:17px;border:1px solid #f5b66640;border-top:2px solid #f5b666b3;border-radius:8px;background:radial-gradient(ellipse at 100% 0,#d78b3520,transparent 65%),linear-gradient(135deg,#1e2b3de8,#101c2bf5);box-shadow:0 8px 26px #0003}
+.flex-choice:before{content:'+';position:absolute;right:17px;bottom:0;font:200 110px/1 Arial,sans-serif;color:#f5b66608;pointer-events:none}
+.flex-choice .flex-label{display:block;width:fit-content;margin-bottom:14px;padding:5px 8px;border-radius:3px;background:#f5b66613;color:#f5c887;border:1px solid #f5b6662b;letter-spacing:1.5px;font-size:9px;font-weight:700}
+.flex-choice .row{gap:12px;align-items:center;flex-wrap:nowrap}.flex-choice .row>img{width:54px;height:58px;object-fit:contain;border-radius:5px;background:#d3e7ff0a}
+.flex-choice .pick-name{font-size:26px;line-height:1.05;min-width:0;overflow-wrap:anywhere}.flex-choice>p{font-size:12px;line-height:1.6;color:#d4dfeb;margin:12px 0 8px}.flex-choice>small:not(.flex-label){font-size:10px;line-height:1.5;color:#99adc3}
+.flex-dismiss{flex:none}.pick-name:focus-visible,.dismiss-pick:focus-visible,.flex-dismiss:focus-visible{outline:2px solid #ffc276;outline-offset:4px}
+.christmas .flex-choice{border-color:#bce9ef55;border-top-color:#c0f0f3;background:radial-gradient(ellipse at 100% 0,#72d1d523,transparent 65%),linear-gradient(135deg,#18323de8,#101d2bf5)}
+.christmas .flex-choice .flex-label{color:#d2f7fa;background:#97e9ef12;border-color:#97e9ef35}
+@media(max-width:1100px){.pick{padding-right:34px;gap:10px}.pick>img{width:54px;height:72px}.pick-name{font-size:22px}.pick.is-first>div{left:16px;right:16px}.pick.is-first .pick-name{font-size:29px}.pick.is-first>img{width:205px;height:205px;right:4px;top:28px}}
+@media(max-width:700px){.pick.is-first{height:330px}.pick.is-first>img{width:220px;height:220px;right:7px;top:22px}.pick.is-first .pick-name{font-size:32px}.flex-choice{min-height:210px}.pick{min-height:138px}}
+@media(prefers-reduced-motion:reduce){.pick,.pick>img{transition:none!important}.pick:hover,.pick.is-first:hover>img{transform:none!important}}
+
 </style>
 <div class="lobby-atmosphere" aria-hidden="true"><div class="sky-ribbon"></div><div class="sky-ribbon second"></div><div class="city-glow"></div><div class="side-rays"></div></div><div class="snowfall" aria-hidden="true"><i style="--x:0%;--delay:-0s;--duration:12s;--size:1px"></i><i style="--x:31%;--delay:-0.7s;--duration:14s;--size:2px"></i><i style="--x:62%;--delay:-1.4s;--duration:16s;--size:3px"></i><i style="--x:93%;--delay:-2.0999999999999996s;--duration:18s;--size:4px"></i><i style="--x:24%;--delay:-2.8s;--duration:20s;--size:1px"></i><i style="--x:55%;--delay:-3.5s;--duration:22s;--size:2px"></i><i style="--x:86%;--delay:-4.199999999999999s;--duration:24s;--size:3px"></i><i style="--x:17%;--delay:-4.8999999999999995s;--duration:12s;--size:4px"></i><i style="--x:48%;--delay:-5.6s;--duration:14s;--size:1px"></i><i style="--x:79%;--delay:-6.3s;--duration:16s;--size:2px"></i><i style="--x:10%;--delay:-7s;--duration:18s;--size:3px"></i><i style="--x:41%;--delay:-7.699999999999999s;--duration:20s;--size:4px"></i><i style="--x:72%;--delay:-8.399999999999999s;--duration:22s;--size:1px"></i><i style="--x:3%;--delay:-9.1s;--duration:24s;--size:2px"></i><i style="--x:34%;--delay:-9.799999999999999s;--duration:12s;--size:3px"></i><i style="--x:65%;--delay:-10.5s;--duration:14s;--size:4px"></i><i style="--x:96%;--delay:-11.2s;--duration:16s;--size:1px"></i><i style="--x:27%;--delay:-11.899999999999999s;--duration:18s;--size:2px"></i><i style="--x:58%;--delay:-12.6s;--duration:20s;--size:3px"></i><i style="--x:89%;--delay:-13.299999999999999s;--duration:22s;--size:4px"></i><i style="--x:20%;--delay:-14s;--duration:24s;--size:1px"></i><i style="--x:51%;--delay:-14.7s;--duration:12s;--size:2px"></i><i style="--x:82%;--delay:-15.399999999999999s;--duration:14s;--size:3px"></i><i style="--x:13%;--delay:-16.099999999999998s;--duration:16s;--size:4px"></i><i style="--x:44%;--delay:-16.799999999999997s;--duration:18s;--size:1px"></i><i style="--x:75%;--delay:-17.5s;--duration:20s;--size:2px"></i><i style="--x:6%;--delay:-18.2s;--duration:22s;--size:3px"></i><i style="--x:37%;--delay:-18.9s;--duration:24s;--size:4px"></i><i style="--x:68%;--delay:-19.599999999999998s;--duration:12s;--size:1px"></i><i style="--x:99%;--delay:-20.299999999999997s;--duration:14s;--size:2px"></i><i style="--x:30%;--delay:-21s;--duration:16s;--size:3px"></i><i style="--x:61%;--delay:-21.7s;--duration:18s;--size:4px"></i><i style="--x:92%;--delay:-22.4s;--duration:20s;--size:1px"></i><i style="--x:23%;--delay:-23.099999999999998s;--duration:22s;--size:2px"></i><i style="--x:54%;--delay:-23.799999999999997s;--duration:24s;--size:3px"></i><i style="--x:85%;--delay:-24.5s;--duration:12s;--size:4px"></i><i style="--x:16%;--delay:-25.2s;--duration:14s;--size:1px"></i><i style="--x:47%;--delay:-25.9s;--duration:16s;--size:2px"></i><i style="--x:78%;--delay:-26.599999999999998s;--duration:18s;--size:3px"></i><i style="--x:9%;--delay:-27.299999999999997s;--duration:20s;--size:4px"></i><i style="--x:40%;--delay:-28s;--duration:22s;--size:1px"></i><i style="--x:71%;--delay:-28.7s;--duration:24s;--size:2px"></i><i style="--x:2%;--delay:-29.4s;--duration:12s;--size:3px"></i><i style="--x:33%;--delay:-30.099999999999998s;--duration:14s;--size:4px"></i><i style="--x:64%;--delay:-30.799999999999997s;--duration:16s;--size:1px"></i><i style="--x:95%;--delay:-31.499999999999996s;--duration:18s;--size:2px"></i><i style="--x:26%;--delay:-32.199999999999996s;--duration:20s;--size:3px"></i><i style="--x:57%;--delay:-32.9s;--duration:22s;--size:4px"></i></div><main>
 <header>
@@ -931,6 +963,7 @@ function renderAdvice() {
       dismiss.setAttribute('aria-label',"Ignore "+hero.name);dismiss.title="Not for me · ignore";
       dismiss.onclick=()=>{setIgnored(hero.key,true);document.querySelector?.('.'+role+' .pick-name')?.focus();};
       row.append(dismiss);
+      if(index===0)row.append(node('span',item.provisional?'PROVISIONAL MAIN':'YOUR MAIN PICK','pick-kicker'));
       row.append(portrait(hero));
       const info = node("div");
       const inspectButton=node('button',(index+1)+'. '+hero.name,'pick-name');inspectButton.type='button';inspectButton.onclick=inspect;inspectButton.setAttribute('aria-label',"View "+hero.name);info.append(inspectButton);
@@ -938,8 +971,9 @@ function renderAdvice() {
       const targetText = target ? ranks[goalFor(role)] + " " + percent(target.winrate) : "Target —";
       const metaText=currentText + (goalFor(role) !== roleRank(role) ? " · " + targetText : "");
       const personalText = played(stats) ? "You " + percent(winrate(stats)) + " · " + fmt(stats.games_played) + " games · " + duration(stats.time_played) : "Your results are unknown";
-      const own=node("div","","personal-result");
-      if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",percent(winrate(stats))+" won · not a prediction"));else own.append(node("small",personalText));
+      const own=node("div","","personal-result");own.title=personalText;
+      const trend=recentMetricTrend(hero);const shortReason=trend.ready?(trend.score>.05?"Recent contribution improving":trend.score<-.05?"Recent contribution needs attention":"Recent contribution holding steady"):"Rank context · recent history building";
+      if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",shortReason,"pick-context"));else own.append(node("small",personalText));
       const weights=scoreParts(item);
       info.append(own,infoPopover("Why this pick?",node("p",metaText+". Weak outcome context based on "+fmt(weights.evidenceN)+" time-weighted evidence units. Familiarity +"+fmt(weights.familiarity)+"; aim preference "+fmt(weights.comfort)+"; reference average "+fmt(weights.peerAdjustment)+"; uncertainty deduction "+fmt(weights.uncertainty)+". Competitive and Quick Play are combined; this is not a pure ranked measurement. Open the hero for the full calculation. Recent contribution: "+weights.trend.reason)));
       info.append(node('small',item.label.replace(/^\d+\. /,''),'pick-verdict'));
@@ -950,12 +984,12 @@ function renderAdvice() {
     }
 
     const flex=flexChoice(role),flexPanel=node('aside','','flex-choice');
-    flexPanel.append(node('small',"4 · TRY FOR FUN",'flex-label'));
+    flexPanel.append(node('small',"04 / TRY FOR FUN",'flex-label'));
     if(flex){
       const top=node('div','','row'),inspect=node('button',flex.hero.name,'pick-name');inspect.type='button';inspect.onclick=()=>{selectedRole=role;selectedHero=flex.hero.key;render();byId('heroes').scrollIntoView({behavior:'smooth'});};
       const dismiss=node('button','×','flex-dismiss');dismiss.type='button';dismiss.setAttribute('aria-label',"Ignore flex "+flex.hero.name);dismiss.onclick=()=>setIgnored(flex.hero.key,true);
       top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top);
-      const explanation=flex.reason==='transfer'?"Try based on "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
+      const explanation=flex.reason==='transfer'?"From your "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
       flexPanel.append(node('p',explanation));
       flexPanel.append(node('small',played(flex.stats)?fmt(flex.stats.games_played)+" personal games · "+percent(winrate(flex.stats))+" won":"No personal result evidence yet · try in Quick Play first."));
       const details=node('div');
