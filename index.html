@@ -107,7 +107,7 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 .pick-explanation>strong{display:block;color:#ffd09a;margin:14px 0 4px;font-size:12px}.pick-explanation>strong:first-child{margin-top:0}.pick-explanation details{padding:10px;margin-top:14px}.score-line{display:flex;justify-content:space-between;gap:14px;font-size:11px;margin:7px 0}.score-line strong{white-space:nowrap}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #ffb35f;outline-offset:3px}
 .reference-table{width:100%;font-variant-numeric:tabular-nums}.reference-table td,.reference-table th{padding:8px 5px;overflow-wrap:anywhere}
-@media(pointer:coarse){.dismiss-pick,.dismiss-flex,.info-content .popover-close{min-width:36px;min-height:36px}.info-popover>summary{padding:10px 0}.profile-presets button{min-height:36px}}
+@media(pointer:coarse){.dismiss-pick,.flex-dismiss,.info-content .popover-close{min-width:36px;min-height:36px}.info-popover>summary{padding:10px 0}.profile-presets button{min-height:36px}}
 @media(max-width:700px){.info-popover[open]>.info-content{position:fixed;left:16px;right:16px;top:15vh;bottom:auto;width:auto;max-width:none;max-height:70vh;z-index:1000;box-shadow:0 0 0 100vmax #020a13b8,0 16px 60px #000b}.reference-table{font-size:11px}.dismissal-feedback{font-size:11px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 /* Keep explanations inside the viewport, independent of card hover transforms. */
@@ -138,7 +138,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 <div id="roster" class="roster" aria-label="Choose a hero"></div><p id="empty" class="muted"></p><div id="heroDetail" aria-live="polite"></div>
 </section>
 <details><summary>How do recommendations work?</summary>
-<p><strong>Three mains and one for fun.</strong> Played heroes can qualify immediately with provisional labels for small samples. Existing choices get a small tie margin; meaningful score changes still move them. The fourth pick shares mechanics with a selected main and is an experiment.</p><p><strong>Recent contribution.</strong> This browser saves per-account snapshots of explicit cumulative metric totals. Comparable source and season segments are used to calculate observed rates since an earlier snapshot, against that hero’s own earlier baseline. Counters that reset, disappear or change without playtime break the comparison. Nothing is reconstructed from rounded averages. A trend affects scoring after 30 observed minutes over at least two advancing intervals, against at least two hours of earlier history. One exceptional interval cannot change the trend score.</p><p><strong>What matters.</strong> Supports balance survival, healing and available damage, final blows or assists. DPS and tanks balance survival, damage and finishing. A large decline in one dimension cannot be erased by gains elsewhere. Explicit utility changes are shown in the detailed trend, but unknown or ambiguous utility is not assigned invented scoring weights. Recent contribution adds at most ±6 points, moderated by playtime and intervals. Quick Play outcomes add at most ±0.5, Competitive ±1.5 before time weighting and sample moderation. Hours add no skill bonus. Improvement against yourself does not prove higher rank readiness.</p><p><strong>Population context.</strong> Current and target rank context blend 70/30, with the overall score adjustment bounded at ±3. Win rate remains central; pick share is relative to the same role, and pick/ban adjustments are small and capped. Missing context is neutral. Available same-hero reference comparisons add at most ±2. These are coaching heuristics, not predictions.</p><p><strong>Your browser history.</strong> History stays in this browser, separately for each BattleTag and platform. Friends visiting the same GitHub Pages URL build their own histories. History does not synchronise across devices, and moving from a local file to this website starts a new history. API caches may delay matches. Leave the dashboard open or revisit and refresh after playing; no tracking happens while the page is closed.</p><a href="https://overwatch.blizzard.com/en-us/rates/" target="_blank" rel="noopener">Blizzard Hero Statistics</a> · <a href="https://overfast-api.tekrop.fr/" target="_blank" rel="noopener">OverFast API and source limitations</a></details><details id="connectionPanel"><summary>Data and connection</summary><label>Profile source <select id="profileProvider"><option value="auto">Automatic · OWAPI.EU → OverFast</option><option value="eu">OWAPI.EU only</option><option value="overfast">OverFast only</option></select></label><p>Automatic tries the second source when data is missing. Both read public Blizzard profiles. Meta and hero descriptions come from OverFast.</p><div id="providerDiagnostics" aria-live="polite"></div><div id="dataDetails"></div></details><details><summary>Open or save local JSON</summary><p id="storageNote">Your settings and successful updates are saved automatically in this browser.</p>
+<p><strong>Three mains and one for fun.</strong> Played heroes can qualify immediately with provisional labels for small samples. Existing choices get a small tie margin; meaningful score changes still move them. The fourth pick shares mechanics with a selected main and is an experiment.</p><p><strong>Recent contribution.</strong> This browser saves per-account snapshots of explicit cumulative metric totals. Comparable source and season segments are used to calculate observed rates since an earlier snapshot, against that hero’s own earlier baseline. Counters that reset, disappear or change without playtime break the comparison. Nothing is reconstructed from rounded averages. A trend affects scoring after 30 observed minutes over at least two advancing intervals, against at least two hours of earlier history. One exceptional interval cannot change the trend score.</p><p><strong>What matters.</strong> Supports balance survival, healing and available damage, final blows or assists. DPS balance survival, damage and finishing. Tanks also include available mitigation. A large decline in one dimension cannot be erased by gains elsewhere. Explicit utility changes are shown in the detailed trend, but unknown or ambiguous utility is not assigned invented scoring weights. Recent contribution adds at most ±2 points, moderated by playtime and intervals. Quick Play outcomes add at most ±0.5, Competitive ±1.5 before time weighting and sample moderation. Hours add no skill bonus. Improvement against yourself does not prove higher rank readiness.</p><p><strong>Population context.</strong> Current and target rank context blend 70/30, with the overall score adjustment bounded at ±1.25. Win rate remains central; pick share is relative to the same role, and pick/ban adjustments are small and capped. Missing context is neutral. Same-hero personal performance is the primary signal, bounded at ±12 before sample confidence, metric coverage and comparison quality reduce its influence. Same-rank references are preferred; mixed-rank references receive less weight and are clearly labelled. Three compatible players per metric permit a limited comparison; larger samples strengthen confidence. Survival and the role’s primary output must both be available. Missing comparisons remain unavailable, not average performance. These are coaching heuristics, not predictions.</p><p><strong>Your browser history.</strong> History stays in this browser, separately for each BattleTag and platform. Friends visiting the same GitHub Pages URL build their own histories. History does not synchronise across devices, and moving from a local file to this website starts a new history. API caches may delay matches. Leave the dashboard open or revisit and refresh after playing; no tracking happens while the page is closed.</p><a href="https://overwatch.blizzard.com/en-us/rates/" target="_blank" rel="noopener">Blizzard Hero Statistics</a> · <a href="https://overfast-api.tekrop.fr/" target="_blank" rel="noopener">OverFast API and source limitations</a></details><details id="connectionPanel"><summary>Data and connection</summary><label>Profile source <select id="profileProvider"><option value="auto">Automatic · OWAPI.EU → OverFast</option><option value="eu">OWAPI.EU only</option><option value="overfast">OverFast only</option></select></label><p>Automatic tries the second source when data is missing. Both read public Blizzard profiles. Meta and hero descriptions come from OverFast.</p><div id="providerDiagnostics" aria-live="polite"></div><div id="dataDetails"></div></details><details><summary>Open or save local JSON</summary><p id="storageNote">Your settings and successful updates are saved automatically in this browser.</p>
 <p>Save a successful update as a snapshot. You can also save the JSON for <a id="competitiveLink" target="_blank" rel="noopener">Competitive</a> or <a id="quickplayLink" target="_blank" rel="noopener">Quick Play</a> directly and open it here.</p>
 <div class="row"><button type="button" id="save">Save snapshot</button><label>Game mode for standalone API JSON <select id="importMode"><option value="competitive">Competitive</option><option value="quickplay">Quick Play</option></select></label><label>Open JSON <input type="file" id="file" accept=".json,application/json"></label></div>
 </details>
@@ -149,22 +149,64 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 const referenceCache={},referenceBatch={},referencePending=new Set();
 const referenceLabels={damage:'Hero damage',healing:'Healing',deaths:'Deaths',finals:'Final blows',elims:'Eliminations',assists:'Assists',mitigation:'Mitigation'};
 function referenceKey(hero){return [account.player.toLowerCase(),account.platform,hero].join('|');}
-function referenceResult(hero){const r=referenceCache[referenceKey(hero)];return r?.state==='ready'&&Date.now()-r.at<48*3600000?r:null;}
-function referenceAdjustment(hero){
- const r=referenceResult(hero.key),group=r?.current,own=r?.own;
- if(!r||group.n<10||own.n<20||own.time<7200||group.mixGap>.2)return 0;
- // A modest context signal, not a promotion test. Only survival plus finishing or healing;
- // do not reward farmed damage or punish a support's low weapon damage by itself.
- const keys=hero.role==='support'?['deaths','healing','assists']:['deaths','finals'];
- const components=[];
- for(const key of keys){const b=group.metrics[key],v=own.metrics[key];if(!b||b.n<10||!Number.isFinite(v))continue;
-  const scale=Math.max(b.q75-b.q25,b.median*.2,1),direction=key==='deaths'?-1:1;
-  components.push(Math.max(-1,Math.min(1,direction*(v-b.mean)/scale)));
- }
- if(components.length!==keys.length)return 0;
- const confidence=Math.min(1,group.n/30)*Math.min(1,own.n/100)*(1-group.mixGap/.4);
- return 2*confidence*components.reduce((a,b)=>a+b,0)/components.length;
+function referenceResult(hero){const r=referenceCache[referenceKey(hero)];return r?.state==='ready'&&r.version===2&&r.at<=Date.now()&&Date.now()-r.at<48*3600000?r:null;}
+function usefulUtility(key){return /^(players_saved|damage_amplified|healing_amplified|enemies_slept|negative_effects_cleansed|successful_resurrections|resurrects|knockback_kills|damage_absorbed)_avg_per_10_min$/.test(key);}
+function performanceWeights(hero){
+ const roles={tank:{deaths:.32,damage:.28,finals:.12,mitigation:.20,utility:.08},damage:{deaths:.32,damage:.30,finals:.30,utility:.08},support:{deaths:.30,healing:.30,damage:.12,finals:.08,assists:.10,utility:.10}};
+ // Mechanics-specific criteria, never player-specific winners. No fabricated benchmark values.
+ const overrides={mercy:{deaths:.32,healing:.30,assists:.16,utility:.22},lifeweaver:{deaths:.30,healing:.32,damage:.10,assists:.12,utility:.16}};
+ return overrides[hero.key]||roles[hero.role];
 }
+function personalRates(hero){
+ const keys={hero_damage_done_avg_per_10_min:'damage',healing_done_avg_per_10_min:'healing',deaths_avg_per_10_min:'deaths',final_blows_avg_per_10_min:'finals',assists_avg_per_10_min:'assists',damage_mitigated_avg_per_10_min:'mitigation'};
+ const result={};for(const m of heroMetrics(hero)){const k=keys[m.key]||(usefulUtility(m.key)?'utility:'+m.key:null);if(k&&Number.isFinite(m.value)&&m.value>=0)result[k]=m.value;}
+ return result;
+}
+function metricName(key){return referenceLabels[key]||(key.replace('utility:','').replace(/_avg_per_10_min$/,'').replaceAll('_',' '));}
+function performanceAssessment(hero){
+ const empty={state:'unavailable',score:0,confidence:0,effect:0,rows:[],strengths:[],weaknesses:[],scope:null,reason:'Same-hero comparisons have not arrived yet.',risk:false};
+ const record=referenceCache[referenceKey(hero.key)],r=referenceResult(hero.key);
+ if(!r){const batch=referenceBatch[[account.player.toLowerCase(),account.platform].join('|')];return {...empty,reason:record?.state==='unavailable'?record.message:record?.state==='ready'?'Saved comparisons need refreshing.':batch?.state==='error'?'Reference collection failed: '+batch.message:empty.reason};}
+ const own=combinedHero(hero.key),n=own?.games_played||0,seconds=own?.time_played||0;
+ if(!n||!seconds)return {...empty,reason:'No personal hero sample is available.'};
+ const currentRank=profile?.competitive?.[account.platform]?.[hero.role]?.division||null;
+ const season=profile?.competitive?.[account.platform]?.season;
+ if((currentRank&&(r.own.division||null)!==currentRank)||(Number.isInteger(season)&&r.own.season!==season))return {...empty,reason:'Role rank or season changed; refreshing the comparison.'};
+ for(const [mode,entry]of Object.entries(data)){if(entry.stats?.heroes?.[hero.key]?.time_played>0&&entry.source==='OverFast'&&(!career[mode]||careerErrors[mode]||(Number.isFinite(entry.at)&&career[mode].at<entry.at)))return {...empty,reason:'Waiting for matching detailed personal stats.'};}
+ const hasCoverage=g=>g&&Object.keys(g.metrics||{}).length>=2;
+ const exact=currentRank&&r.current?.scope==='same-rank'?r.current:null;
+ const group=hasCoverage(exact)&&exact.n>=5?exact:hasCoverage(r.broader)?r.broader:hasCoverage(exact)?exact:null;
+ if(!group)return {...empty,reason:'Too few compatible same-hero measurements; at least three references per metric are needed.'};
+ const values=personalRates(hero),weights=performanceWeights(hero),rows=[];
+ const utilityKeys=Object.keys(values).filter(k=>k.startsWith('utility:')&&group.metrics[k]);
+ for(const [key,value]of Object.entries(values)){
+  const weight=key.startsWith('utility:')?(weights.utility||0)/Math.max(1,utilityKeys.length):weights[key]||0,b=group.metrics[key];
+  if(!weight||!b||b.n<3||!Number.isFinite(b.median))continue;
+  const scale=Math.max(b.q75-b.q25,Math.abs(b.median)*.25,key==='deaths'?.75:1),direction=key==='deaths'?-1:1;
+  const effect=Math.max(-1,Math.min(1,direction*(value-b.median)/scale));
+  rows.push({key,label:metricName(key),value,baseline:b.median,n:b.n,effect,weight,confidence:b.n/(b.n+8),difference:value-b.median});
+ }
+ const primary=hero.role==='support'?'healing':'damage';
+ if(!rows.some(r=>r.key==='deaths')||!rows.some(r=>r.key===primary))return {...empty,rows,scope:group.scope,reason:'Survival and '+primary+' need compatible comparisons before personal fit can be scored.'};
+ const coverage=rows.reduce((n,r)=>n+r.weight,0),sample=Math.min(n/(n+15),seconds/(seconds+5400));
+ const groupConfidence=rows.reduce((n,r)=>n+r.weight*r.confidence,0)/coverage;
+ const scopeFactor=group.scope==='same-rank'?1:.65;
+ const confidence=sample*groupConfidence*Math.min(1,coverage/.85)*scopeFactor;
+ let effect=rows.reduce((n,r)=>n+r.effect*r.weight,0)/coverage;
+ // Big output must not erase clear survival failure or a missing primary contribution.
+ const survival=rows.find(r=>r.key==='deaths'),primaryRow=rows.find(r=>r.key===primary);
+ if(survival.effect<-.5)effect=Math.min(effect,survival.effect*.5);
+ if(primaryRow.effect<-.65)effect=Math.min(effect,primaryRow.effect*.35);
+ const risk=n>=20&&seconds>=7200&&confidence>=.25&&effect<-.35;
+ const state=confidence<.25?'limited':effect>.12?'above':effect<-.12?'below':'similar';
+ const scope=group.scope==='same-rank'?'same-rank':'mixed-rank';
+ return {state,score:12*confidence*effect,confidence,effect,rows,coverage,scope,group,risk,
+ strengths:rows.filter(r=>r.effect>.12).sort((a,b)=>b.effect*b.weight-a.effect*a.weight),
+ weaknesses:rows.filter(r=>r.effect<-.12).sort((a,b)=>a.effect*a.weight-b.effect*b.weight),
+ reason:(scope==='same-rank'?'Same role rank':'Mixed ranks; not a rank benchmark')+' · '+Math.min(...rows.map(r=>r.n))+'+ references per scored metric · '+(state==='limited'?'limited evidence':state==='above'?'stronger measured contribution':state==='below'?'weaker measured contribution':'mixed or similar contribution')+(r.partial?' · collection still in progress':'')};
+}
+function referenceAdjustment(hero){return performanceAssessment(hero).score;}
+
 // All reference requests go directly to the public API. No localhost or proxy.
 const browserReferences=(()=>{
 const TTL=24*3600000, MAX_AGE=48*3600000;
@@ -192,25 +234,38 @@ function discoverRankHints(html,divisions){
 function flatten(raw){const out={};for(const cat of raw||[])if(Array.isArray(cat.stats))out[cat.category]=Object.fromEntries(cat.stats.filter(x=>Number.isFinite(x.value)).map(x=>[x.key,x.value]));return out;}
 function extract(payload,tag,platform,hero,role,at=Date.now()){
  const comp=payload.summary?.competitive?.[platform],rank=comp?.[role];
- if(!['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'].includes(rank?.division)||!Number.isInteger(comp?.season))return {reject:"No verifiable role rank or season"};
+ const division=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'].includes(rank?.division)?rank.division:null;
  const samples=['quickplay','competitive'].map(mode=>({mode,raw:flatten(payload.stats?.[platform]?.[mode]?.career_stats?.[hero])})).filter(s=>s.raw.game?.time_played>0);
  const time=samples.reduce((n,s)=>n+s.raw.game.time_played,0),n=samples.reduce((n,s)=>n+(s.raw.game.games_played||0),0);
  if(!(time>0)||!Number.isFinite(n)||n<0)return {reject:"No hero experience in Competitive or Quick Play"};
- const metrics={},modeTimes=Object.fromEntries(samples.map(s=>[s.mode,s.raw.game.time_played]));
+ const metrics={},modeMetrics={},modeTimes=Object.fromEntries(samples.map(s=>[s.mode,s.raw.game.time_played]));
  for(const [key,field] of Object.entries(fields)){
   const values=samples.map(({raw})=>{let v=raw.average?.[field+'_avg_per_10_min']??raw.hero_specific?.[field+'_avg_per_10_min'];
    if(!Number.isFinite(v)){const total=raw.combat?.[field]??raw.assists?.[field]??raw.hero_specific?.[field];if(Number.isFinite(total))v=total*600/raw.game.time_played;}
    return Number.isFinite(v)&&v>=0?v*raw.game.time_played:null;});
   if(values.every(Number.isFinite))metrics[key]=values.reduce((a,b)=>a+b,0)/time;
+  samples.forEach((sample,i)=>{(modeMetrics[sample.mode]??={})[key]=values[i]===null?null:values[i]/sample.raw.game.time_played;});
  }
- return {tag,hero,role,platform,division:rank.division,tier:rank.tier,season:comp.season,n,time,metrics,modeTimes,qpShare:(modeTimes.quickplay||0)/time,at,url:'https://overwatch.blizzard.com/en-us/career/'+encodeURIComponent(tag)+'/'};
+ for(const sample of samples){for(const [key,value]of Object.entries(sample.raw.hero_specific||{})){if(!key.endsWith('_avg_per_10_min')||!Number.isFinite(value)||value<0||!usefulUtility(key))continue;(modeMetrics[sample.mode]??={})['utility:'+key]=value;}}
+ for(const key of new Set(Object.values(modeMetrics).flatMap(x=>Object.keys(x))))if(key.startsWith('utility:')&&samples.every(x=>Number.isFinite(modeMetrics[x.mode]?.[key])))metrics[key]=samples.reduce((a,x)=>a+modeMetrics[x.mode][key]*x.raw.game.time_played,0)/time;
+ return {tag,hero,role,platform,division,tier:rank?.tier??null,season:Number.isInteger(comp?.season)?comp.season:null,n,time,metrics,modeMetrics,modeTimes,qpShare:(modeTimes.quickplay||0)/time,at,url:'https://overwatch.blizzard.com/en-us/career/'+encodeURIComponent(tag)+'/'};
 }
 function summarize(rows,own,division){
- const unique=[...new Map(rows.filter(r=>!r.reject&&r.hero===own.hero&&r.platform===own.platform&&r.role===own.role&&r.season===own.season).map(r=>[r.tag.toLowerCase(),r])).values()];
- const accepted=unique.filter(r=>!r.reject&&r.tag.toLowerCase()!==own.tag.toLowerCase()&&r.division===division&&r.platform===own.platform&&r.hero===own.hero&&r.role===own.role&&r.season===own.season&&r.n>=20&&r.time>=7200&&Date.now()-r.at<=MAX_AGE);
- const metrics={};for(const key of Object.keys(fields)){const values=accepted.map(r=>r.metrics[key]).filter(Number.isFinite);if(values.length>=5)metrics[key]={n:values.length,mean:values.reduce((a,b)=>a+b,0)/values.length,maxMeanShift:Math.max(...values.map(v=>Math.abs(v-values.reduce((a,b)=>a+b,0)/values.length)/(values.length-1))),median:median(values),q25:quantile(values,.25),q75:quantile(values,.75)};}
- const qpMedian=median(accepted.map(r=>r.qpShare)),mixGap=qpMedian===null?null:Math.abs(qpMedian-own.qpShare);
- return {division,n:accepted.length,metrics,qpMedian,mixGap,players:accepted.map(r=>({tag:r.tag,url:r.url,n:r.n,hours:r.time/3600,qpShare:r.qpShare,division:r.division,tier:r.tier,at:r.at}))};
+ const all=[...new Map(rows.filter(r=>!r.reject&&r.hero===own.hero&&r.platform===own.platform&&r.role===own.role&&r.tag.toLowerCase()!==own.tag.toLowerCase()&&r.n>=5&&r.time>=1800&&Date.now()-r.at<=MAX_AGE).map(r=>[r.tag.toLowerCase(),r])).values()];
+ const accepted=all.filter(r=>division===null||(r.division===division&&own.season!==null&&r.season===own.season));
+ const metrics={};
+ for(const key of new Set(accepted.flatMap(r=>Object.keys(r.metrics)))){
+  const values=[];let matched=0;
+  for(const r of accepted){
+   let value=null;const weights={quickplay:own.qpShare,competitive:1-own.qpShare};
+   if(Object.entries(weights).every(([mode,w])=>w<.01||Number.isFinite(r.modeMetrics?.[mode]?.[key]))){value=Object.entries(weights).reduce((sum,[mode,w])=>sum+(w<.01?0:w*r.modeMetrics[mode][key]),0);matched++;}
+   else if(Math.abs(r.qpShare-own.qpShare)<=.2)value=r.metrics[key];
+   if(Number.isFinite(value))values.push(value);
+  }
+  if(values.length>=3)metrics[key]={n:values.length,mean:values.reduce((a,b)=>a+b,0)/values.length,median:median(values),q25:quantile(values,.25),q75:quantile(values,.75),modeMatched:matched};
+ }
+ const qpMedian=median(accepted.map(r=>r.qpShare));
+ return {division,scope:division===null?'mixed-rank':'same-rank',n:accepted.length,metrics,qpMedian,mixGap:qpMedian===null?null:Math.abs(qpMedian-own.qpShare),players:accepted.map(r=>({tag:r.tag,url:r.url,n:r.n,hours:r.time/3600,qpShare:r.qpShare,division:r.division,tier:r.tier,at:r.at}))};
 }
 
 const seeds=["AboGhazi-2346","Aherion-21580","AlexPain-21138","Apaath-21713","ArgoDerg-1910","AskingHippos-1799","Atlantic-11216","Auriferous-11898","Axe-22261","Ballenslicke-2735","Balzweet-2529","Berg-12534","BootyBlunder-2413","BreadSticks-21938","Capresis-1913","CatMomTM-1707","Chirix-11271","Cloudy-22747","Cnewton69-2711","CoochMooch-1201","Crayonie-3476","Cucumber-11794","Cypress-21239","D1HATER-1917","Dabrofin-1742","Derek-13115","DestinyHawk-11178","Dimpy-11558","Dionysus-12334","DjAshTray-1471","Dolphino-21393","Ender-16542","Espeon-21146","FOCUSKKMERCY-2148","FistofYang-11733","Foirr-1356","Full-21296","GameMoment22-1723","Gothic-2280","Granemann-1236","HangPik-2634","Hoen-21973","Hypnoti-2783","Impo077-2603","Jhin-41137","Jimbob-11966","JinjiKitty-1114","Juggler-21820","JunKz-21197","JustManny-1502","KLEZZ-21843","Kami-12215","Kevin-113984","KfcBucket-21842","LEOG-11317","LOLǃ-1232","LexaStepOnMe-2467","LindyBoy-1355","Linguine-11141","MaZwen-2490","Magnus-24769","Mari-23195","Markoos-11444","Masa-31827","MaxCallesen-2947","Monky-11559","MrOctomelon-1118","Mumin-21273","N1sizumiTTV-1723","NH3-31846","Nanox-21305","Nel-22221","NoodleKitty-11324","Novelle-21664","ObamaCubed-1348","Overlord-21532","Oxydz-2269","ParkinsonAim-3113","Pierric-2216","Pocket-21650","QasimC4-2146","Raiqu-21161","RemD5653-2971","Residentslep-2687","ReticleBlind-1694","Ricebowl-11423","RichHomie-11409","Risaiah-11794","S8mm-1250","SHIROKIbtw-2291","SadboyKyiiju-2169","Sayner-21749","Scubasteven-1511","Scubillas26-1471","Simon-212915","SmaugTheFrog-1937","SoloWing-11646","Soren1446-11924","Speedie-21333","StrawHatTosh-1933","Syloph-2662","Sympathy-1317","Talieson-1393","Tarrelkam-2273","Tentalex-2839","TheDudeMan-11185","Thebiznesman-1341","Thelegend27-23417","ThemmeFaetal-1918","Tilin-11847","Vanish-21559","Vizmar-2331","Vleesch-2872","WILLYLORD3-2673","Wild-12770","Wonderlightz-2325","Wormgirl-11701","YASLEY-1208","Yaya-22319","asuna-15311","avi-12585","blink-22514","brandeen-1358","bruhsauce-1637","chaewon-11245","cheze-11184","cipEfOetsaT-2573","door-21919","drochila345-2508","eggs-11411","goyim-11661","göran-21623","josef-22206","kutXryu-1905","lavanknee-1120","mrlolas-1683","poidah-1984","pooken-11209","quAKr-11418","rest-11902","rock3003-21705","santaclau321-2754","sealion-21280","shellcia-2241","shinknown-3184","shugaze-2335","sightsync-2904","sprEEEzy-2240","springi-21890","strata-11224","tamapul-3536","trey-13385","trollty-2798","winton-21544","ŦKorkenŦ-2908","しんばくん-3343","뿌붕웅-3119"];
@@ -220,7 +275,7 @@ try{const saved=JSON.parse(localStorage.getItem('hero-coach-reference-players')|
 function remember(tag){const normalized=tag.replace(/#(\d+)$/,'-$1');if(/^.{1,40}-\d{3,12}$/.test(normalized))encountered.add(normalized);try{localStorage.setItem('hero-coach-reference-players',JSON.stringify([...encountered].slice(-100)));}catch{}}
 const pools=new Map(),pending=new Map();let lastStart=0,throttle=Promise.resolve();
 const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
-function read(platform){try{const p=JSON.parse(localStorage.getItem('hero-coach-direct-pool-v2-'+platform));return p?.version===1&&p.platform===platform&&Array.isArray(p.rows)?p:null;}catch{return null;}}
+function read(platform){try{const p=JSON.parse(localStorage.getItem('hero-coach-direct-pool-v3-'+platform));return p?.version===1&&p.platform===platform&&Array.isArray(p.rows)?p:null;}catch{return null;}}
 async function getProfile(tag,platform){
  throttle=throttle.then(async()=>{await pause(Math.max(0,1100-(Date.now()-lastStart)));lastStart=Date.now();});await throttle;
  const response=await fetch('https://overfast-api.tekrop.fr/players/'+encodeURIComponent(tag.replace(/#(\d+)$/,'-$1'))+'?platform='+encodeURIComponent(platform),{signal:AbortSignal.timeout(20000)});
@@ -241,12 +296,12 @@ async function pool(platform,heroes,progress){
    const src=await getProfile(tag,platform);
    for(const hero of heroes){const row=extract(src.body,tag,platform,hero.key,hero.role,src.at);if(!row.reject)rows.push(row);}
   }catch(e){errors++;if(e.status===429||e.status===403)stop=Error("The profile source is limiting requests. Try again later.");}
-  checked++;progress({state:'loading',checked,discovered:tags.length,errors,message:"Fetching public profiles directly"});
+  checked++;if(checked%12===0&&rows.length)progress({rows:[...rows],at:Date.now(),checked,discovered:tags.length,errors});else progress({state:'loading',checked,discovered:tags.length,errors,message:'Fetching public profiles directly'});
   }}
   await Promise.all([worker(),worker()]);
   if(stop)throw stop;if(!rows.length)throw Error("No usable public reference profiles received. Check your connection or try again later.");
   const value={version:1,platform,rows,tags:tags.map(t=>t.toLowerCase()),at:reuse?old.at:Date.now(),checked,discovered:tags.length,errors};pools.set(platform,value);
-  try{localStorage.setItem('hero-coach-direct-pool-v2-'+platform,JSON.stringify(value));}catch{}
+  try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(value));}catch{}
   return value;
  })();pending.set(platform,task);
  try{return await task;}finally{pending.delete(platform);}
@@ -254,15 +309,21 @@ async function pool(platform,heroes,progress){
 async function collect(tag,platform,heroes,progress){
  remember(tag);
  const src=await getProfile(tag,platform);
- if(!Object.values(src.body.summary?.competitive?.[platform]||{}).some(x=>x&&typeof x==='object'&&x.division))throw Error("No public role rank found; no rank average will be assumed.");
- const p=await pool(platform,heroes,progress),order=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'];
- const batch={state:'ready',at:Date.now(),heroes:{}};
- for(const hero of heroes){const own=extract(src.body,tag.replace(/#(\d+)$/,'-$1'),platform,hero.key,hero.role,src.at);
-  if(own.reject){batch.heroes[hero.key]={state:'unavailable',message:own.reject};continue;}
-  const target=order[Math.min(order.indexOf(own.division)+1,order.length-1)];
-  batch.heroes[hero.key]={state:'ready',own,current:summarize(p.rows,own,own.division),target:summarize(p.rows,own,target),at:Date.now(),poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors};
- }return batch;
+
+ const order=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'];
+ const ownRows=heroes.map(hero=>({hero,own:extract(src.body,tag.replace(/#(\d+)$/,'-$1'),platform,hero.key,hero.role,src.at)}));
+ function batch(p,partial=false){
+  const result={state:'ready',partial,at:Date.now(),heroes:{}};
+  for(const {hero,own}of ownRows){
+   if(own.reject){result.heroes[hero.key]={state:'unavailable',message:own.reject};continue;}
+   const target=own.division?order[Math.min(order.indexOf(own.division)+1,order.length-1)]:null;
+   result.heroes[hero.key]={version:2,state:'ready',partial,own,current:summarize(p.rows,own,own.division),broader:summarize(p.rows,own,null),target:summarize(p.rows,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors};
+  }return result;
+ }
+ const cached=pools.get(platform)||read(platform);if(cached&&Date.now()-cached.at<MAX_AGE)progress(batch(cached,true));
+ const p=await pool(platform,heroes,status=>{if(status.rows)progress(batch(status,true));else progress(status);});return batch(p);
 }
+
 return {collect};
 })();
 async function loadReference(){
@@ -283,30 +344,14 @@ async function loadReference(){
 
 function queueReferences(){void loadReference();}
 function renderReferences(hero){
- const panel=node('section','','reference-panel');panel.id='referencePanel';panel.append(node('h4',"Collected rank references · same hero · all modes"));
- const r=referenceCache[referenceKey(hero.key)]||referenceBatch[[account.player.toLowerCase(),account.platform].join('|')];
- if(!r){const b=node('button',"Compare references");b.type='button';b.onclick=()=>void loadReference(hero.key);panel.append(node('p',"Your combined Competitive + Quick Play stats, compared with the same combination for other players."),b);return panel;}
- if(r.state!=='ready'){panel.append(node('p',(r.state==='error'||r.state==='unavailable')?"Comparison unavailable: "+r.message:(r.state==='queued'?"Reference check queued.":(r.message||"Checking references")+" · Shared player pool: "+r.checked+' / '+(r.discovered||'…')+" profiles checked. Averages will then be calculated for all heroes.")));panel.append(node('small',"Your recommendations and toggles remain available during this check."));return panel;}
- const group=r.current,own=r.own;
- panel.append(node('p',group.n+" verified references · "+(ranks[own.division]||own.division)+' '+own.role+' · '+own.platform.toUpperCase()+" · references fetched "+date(r.poolAt||r.at)));
- panel.append(node('small','Both sides combine Competitive + Quick Play, weighted by hero playtime. Sources may be delayed. Quick Play share: you '+percent(own.qpShare*100)+" · reference median "+percent((group.qpMedian??0)*100)+". Region unknown."));
- if(group.n<5){panel.append(node('p',"Not enough matching profiles yet. At least five are required; no recommendation bonus is applied."));}
- else{
-  const table=node('table','','reference-table'),head=node('tr');for(const title of ['Per 10 min',"You","Rank group","Difference"])head.append(node('th',title));const thead=node('thead');thead.append(head);table.append(thead);const body=node('tbody');
-  const keys=hero.role==='support'?['healing','damage','deaths','finals','assists']:hero.role==='tank'?['damage','deaths','finals','mitigation']:['damage','finals','deaths','elims'];
-  for(const k of keys){const b=group.metrics[k],v=own.metrics[k];if(!b||!Number.isFinite(v))continue;const row=node('tr'),average=node('td',fmt(b.mean));average.title=b.n+" players · median "+fmt(b.median)+" · middle 50%: "+fmt(b.q25)+'–'+fmt(b.q75);row.append(node('td',referenceLabels[k]),node('td',fmt(v)),average,node('td',(v-b.mean>=0?'+':'')+fmt(v-b.mean)));body.append(row);}table.append(body);panel.append(table);
-  panel.append(node('small',"Each reference player counts once. This is the average of the collected rank group, not a standard for all players. A difference is a quantity, not a quality rating."));
- }
- const adjustment=referenceAdjustment(hero);
- panel.append(node('p',adjustment?"Recommendation adjustment: "+(adjustment>0?'+':'')+fmt(adjustment)+" points (capped at ±2).":"No extra recommendation points: insufficient evidence, different mode shares, missing metrics, or similar contribution."));
- const more=node('details');more.append(node('summary',"Review sources and confidence"));
- more.append(node('p',"A bundled list of public BattleTags, independent of the hero. Their stats and role ranks are refreshed directly from the API; the name list is not a complete or automatically growing rank population. Only players with sufficient hero experience and the matching role rank qualify. These are not official percentiles or promotion targets. Each reference needs at least 20 hero games and two hours; current role rank and source season are checked. Historical rank, Quick Play MMR and queue variant are unknown. A small recommendation adjustment requires at least ten matching profiles and a Quick Play share difference of no more than 20 percentage points."));
- more.append(node('p',"Checked: "+r.checked+" of "+r.discovered+" discovered BattleTags; "+r.errors+" source errors. Source errors and missing role ranks are not treated as zero performance."));
- if(r.target.n>=5)more.append(node('p',"Next role rank "+(ranks[r.target.division]||r.target.division)+': '+r.target.n+" references. Average deaths "+fmt(r.target.metrics.deaths?.mean)+' / 10 min; healing '+fmt(r.target.metrics.healing?.mean)+'; hero damage '+fmt(r.target.metrics.damage?.mean)+". Descriptive difference, not a requirement for promotion."));
- for(const p of group.players){const a=node('a',p.tag.replace(/-(\d+)$/,'#$1')+' · '+fmt(p.hours)+" h · "+p.n+" games");a.href=p.url;a.target='_blank';a.rel='noopener noreferrer';const line=node('p');line.append(a);more.append(line);}panel.append(more);
- return panel;
+ const panel=node('section','','reference-panel');panel.id='referencePanel';panel.append(node('h4','Same-hero performance comparison'));
+ const a=performanceAssessment(hero);panel.append(node('p',a.reason));
+ if(a.rows.length){const table=node('table','','reference-table'),head=node('tr');for(const label of ['Per 10 min','You','Reference median','Difference'])head.append(node('th',label));const thead=node('thead');thead.append(head);table.append(thead);const body=node('tbody');for(const m of a.rows){const row=node('tr');row.append(node('td',m.label),node('td',fmt(m.value)),node('td',fmt(m.baseline)),node('td',(m.difference>=0?'+':'')+fmt(m.difference)));row.title=m.n+' comparable players; '+(m.key==='deaths'?'lower':'higher')+' is directionally favourable, not proof of impact.';body.append(row);}table.append(body);panel.append(table);}
+ panel.append(node('small','Each reference player counts once. Rates use your Quick Play / Competitive mixture where both modes are available; otherwise only a similar mixture qualifies. Mixed-rank comparisons are labelled and receive less weight. No official rank standards or promotion targets.'));
+ const details=node('details');details.append(node('summary','Sources and assessment limits'));details.append(node('p','Personal metric contribution: '+(a.state==='unavailable'?'Unavailable — '+a.reason:fmt(a.score)+' points. '+a.reason)+'. Population context is capped at ±1.25 points; personal metrics at ±12 before confidence adjustment. These are coaching heuristics, not a validated prediction model.'));
+ const r=referenceResult(hero.key);if(r)details.append(node('p','Reference check: '+date(r.poolAt||r.at)+'. Known current role rank does not establish historical rank or Quick Play MMR. Reference players are a collected sample, not the whole player population.'));
+ for(const p of a.group?.players||[]){const link=node('a',p.tag.replace(/-(\d+)$/,'#$1')+' · '+fmt(p.hours)+' h');link.href=p.url;link.target='_blank';link.rel='noopener noreferrer';const line=node('p');line.append(link);details.append(line);}panel.append(details);return panel;
 }
-
 
 let catalog = [{"key":"ana","name":"Ana","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/985b06beae46b7ba3ca87d1512d0fc62ca7f206ceca58ef16fc44d43a1cc84ed.png","role":"support","subrole":"tactician","gamemodes":["quickplay","stadium"]},{"key":"anran","name":"Anran","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/2c38b41d79a1ce9a08b9ad8eb7edf3ff819bd448af16a5815be8c7fdb7203aa0.png","role":"damage","subrole":"flanker","gamemodes":["quickplay"]},{"key":"ashe","name":"Ashe","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/4076bbaa2eb52a0bfe612434071e56e7702d5454473dbbea2f9e392a9d997a94.png","role":"damage","subrole":"sharpshooter","gamemodes":["quickplay","stadium"]},{"key":"baptiste","name":"Baptiste","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/d4e6f1ca45d9f88fa89260787397f141a6f007b14e5b26698883b6a17bab9680.png","role":"support","subrole":"tactician","gamemodes":["quickplay"]},{"key":"bastion","name":"Bastion","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/4ede795c2a681aaccfa72d0c901cba0cb8a2c292fd6a97b2ba9faed161c2d184.png","role":"damage","subrole":"specialist","gamemodes":["quickplay"]},{"key":"brigitte","name":"Brigitte","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/795fba91376d87d441a7f359ae12a3175dfa95825ccc4414cc6b95b129fc4cb0.png","role":"support","subrole":"survivor","gamemodes":["quickplay","stadium"]},{"key":"cassidy","name":"Cassidy","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/9240cd64cc8ef58df9acbf55204ab1b5d8578f743fda5931f0dbccbd75ab841b.png","role":"damage","subrole":"sharpshooter","gamemodes":["quickplay","stadium"]},{"key":"dmon","name":"D.Mon","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/a46c60b8562fdbd0b8308396d0808f7606fba208bc67cccf3f82fe56d2c73b9d.png","role":"tank","subrole":"stalwart","gamemodes":["quickplay"]},{"key":"doctrine","name":"Doctrine","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/2492a15c575c12314907d0d77501ec337b4d56796bc7f03e5dfb50d415612bae.png","role":"support","subrole":"survivor","gamemodes":["quickplay"]},{"key":"domina","name":"Domina","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/1161c112292c56c052c0ae711792fcde06e3251b98bc9709e582dd7585b5dcd6.png","role":"tank","subrole":"stalwart","gamemodes":["quickplay"]},{"key":"doomfist","name":"Doomfist","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/ff5c54f43ad253c7faeda9c4ed31d42582ea6b19205d197866f3dd0c0aa14c16.png","role":"tank","subrole":"initiator","gamemodes":["quickplay","stadium"]},{"key":"dva","name":"D.Va","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/df5a5532862d9292634fb3dc0e51a4705aa601de65e5e815513ccc663d84de56.png","role":"tank","subrole":"initiator","gamemodes":["quickplay","stadium"]},{"key":"echo","name":"Echo","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/d4f2d5b0c2b7e82d61353186c5f23152ccba9d3569b50839aa580dca3e9114ba.png","role":"damage","subrole":"recon","gamemodes":["quickplay"]},{"key":"emre","name":"Emre","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/c51e2f698138861c0e3b6cfab3c3ca9d67fd709be175e7c397aa6f2649712a30.png","role":"damage","subrole":"specialist","gamemodes":["quickplay"]},{"key":"freja","name":"Freja","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/811963897c352d9f178bec882d94bd0281074feee7c429c5145b6b8ea8ebe862.png","role":"damage","subrole":"recon","gamemodes":["quickplay","stadium"]},{"key":"genji","name":"Genji","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/156b12c20b1aea872c1eeb5bb37a7de1047b2ab30ecefd0663a8925badde1ea8.png","role":"damage","subrole":"flanker","gamemodes":["quickplay","stadium"]},{"key":"hanzo","name":"Hanzo","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/78b61c3e806fb26b02b8980fba62189155074fc15bd865b0883268e546030be5.png","role":"damage","subrole":"sharpshooter","gamemodes":["quickplay"]},{"key":"hazard","name":"Hazard","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/ca48b96dbae6ea7f58ce8a5e73513c8c62b1685bdbf258020fb78bb21a008b5f.png","role":"tank","subrole":"initiator","gamemodes":["quickplay","stadium"]},{"key":"illari","name":"Illari","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/ce42d1455e03e79f321345fea84b27a8918b5db8bd7ab9b2ca9e569606ede9e4.png","role":"support","subrole":"survivor","gamemodes":["quickplay"]},{"key":"jetpack-cat","name":"Jetpack Cat","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/03a184cd0de27091e0099ac22635ad9615a8f6997881a5c25cc5f2444764f729.png","role":"support","subrole":"tactician","gamemodes":["quickplay","stadium"]},{"key":"junker-queen","name":"Junker Queen","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/06eeecb359f311f43a8f5121d4f9f3a93c565d70b30e94ef543c05596c9a39dc.png","role":"tank","subrole":"stalwart","gamemodes":["quickplay","stadium"]},{"key":"junkrat","name":"Junkrat","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/7660b9fc6f25f30858fdd8797fe0d52b2306f1e78fef99843f58a274e69af046.png","role":"damage","subrole":"specialist","gamemodes":["quickplay","stadium"]},{"key":"juno","name":"Juno","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/c0167d251e57b0aa2b1e16c37d87f0e7c77263db9dd0503d77b5f2589bf3e4a0.png","role":"support","subrole":"survivor","gamemodes":["quickplay","stadium"]},{"key":"kiriko","name":"Kiriko","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/408603fe037e8576078eaac5eab2fb251489ced4003b11f5f522776d43d0b83d.png","role":"support","subrole":"medic","gamemodes":["quickplay","stadium"]},{"key":"lifeweaver","name":"Lifeweaver","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/3376515cebed0904012e67e956f6d1b9c12e03da642845eeaf787b7e4c7b339d.png","role":"support","subrole":"medic","gamemodes":["quickplay"]},{"key":"lucio","name":"Lúcio","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/040bb13f5123ab93faad2f95627ba184608aef4b2469a4d3003859c7087df044.png","role":"support","subrole":"tactician","gamemodes":["quickplay","stadium"]},{"key":"mauga","name":"Mauga","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/33d39bb439c08975197fc52eff4874716839711b5356c4fdc174f9c24bac1d0e.png","role":"tank","subrole":"bruiser","gamemodes":["quickplay"]},{"key":"mei","name":"Mei","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/4a55ced3bd597fb08e0fde9dc007f8543ac616ba98ca3db9b0e4d871a8ae17f8.png","role":"damage","subrole":"specialist","gamemodes":["quickplay","stadium"]},{"key":"mercy","name":"Mercy","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/3bfb8bd8ec827e53d870f1238ab73d8aa1f5dbfbcfaaf7f96ffcd35b5c6102ab.png","role":"support","subrole":"medic","gamemodes":["quickplay","stadium"]},{"key":"mizuki","name":"Mizuki","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/a9733c2367e0cbd70b9316fd2e1e17028653ec56d0051ea6ff098531dc4f99fc.png","role":"support","subrole":"survivor","gamemodes":["quickplay"]},{"key":"moira","name":"Moira","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/f48f8485056d5d00dad195859188d23e50f7126b8b08b5646f46ef1b42f5e1de.png","role":"support","subrole":"medic","gamemodes":["quickplay","stadium"]},{"key":"orisa","name":"Orisa","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/a73958a28551f5254f3ab3f97c5f5f8d698a95c0b6a515d1a2b1caac169205a6.png","role":"tank","subrole":"bruiser","gamemodes":["quickplay","stadium"]},{"key":"pharah","name":"Pharah","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/60ac2d5de4a6d34644d8872233da402f1436c87f804bb11a21661bb30bf4a51f.png","role":"damage","subrole":"recon","gamemodes":["quickplay","stadium"]},{"key":"ramattra","name":"Ramattra","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/ddef7c9fb8ce4256e8508196b486f81950efe7aaa6cf27fec4668beb4cd15774.png","role":"tank","subrole":"stalwart","gamemodes":["quickplay","stadium"]},{"key":"reaper","name":"Reaper","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/dc6ff07ac790c00dc95a40882449617bb6e0e38906b353a630cffe0c815270a9.png","role":"damage","subrole":"flanker","gamemodes":["quickplay","stadium"]},{"key":"reinhardt","name":"Reinhardt","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/551fbe070c16fdfcc17f7f1de63af22c53e7d2f1340fc2f3172441504527bc4e.png","role":"tank","subrole":"stalwart","gamemodes":["quickplay","stadium"]},{"key":"roadhog","name":"Roadhog","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/89ddf07e4b619ed96169042e296a1b8856d102746f35add88284b44a9a5a6a03.png","role":"tank","subrole":"bruiser","gamemodes":["quickplay"]},{"key":"shion","name":"Shion","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/070481cf871590a2b45a51d1335f9fe3d65eb4e4d361ecdd998b34fae2ed65d5.png","role":"damage","subrole":"flanker","gamemodes":["quickplay"]},{"key":"sierra","name":"Sierra","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/4bfd3d8b95844231115cb5bf4db03344c71bc3e865189c52403b2dc51438e63a.png","role":"damage","subrole":"recon","gamemodes":["quickplay"]},{"key":"sigma","name":"Sigma","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/a4c032fa466c9a6d9c6974747635d7ef910027f91cd58892af0c899db565f92d.png","role":"tank","subrole":"stalwart","gamemodes":["quickplay","stadium"]},{"key":"sojourn","name":"Sojourn","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/82b8c1b8765dcb9a0ba16e343c3516bf324c771ac81e9878473280216e70a889.png","role":"damage","subrole":"sharpshooter","gamemodes":["quickplay","stadium"]},{"key":"soldier-76","name":"Soldier: 76","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/c93b5f0a528c40473188f77cc2a267aee7d5b6cf5c9e104105d634b4388674e2.png","role":"damage","subrole":"specialist","gamemodes":["quickplay","stadium"]},{"key":"sombra","name":"Sombra","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/47727b02a16e3bd7b2447d86ae1edf11587bc320b2aecb4f2f16a7ca4ad4e8a0.png","role":"support","subrole":"tactician","gamemodes":["quickplay"]},{"key":"symmetra","name":"Symmetra","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/ebec57e8bd68b3d4383edfeb34f8f52dd0b94a6467d594c2fee722e8a97c32aa.png","role":"damage","subrole":"specialist","gamemodes":["quickplay"]},{"key":"torbjorn","name":"Torbjörn","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/ce17118cedc29b0d2ac1e059666bed36b9531c85079b0b894bb402d12c917ba9.png","role":"damage","subrole":"specialist","gamemodes":["quickplay","stadium"]},{"key":"tracer","name":"Tracer","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/4504f6f15cb3feaa92ecd38e01dcf751cb5abdac2e0bb52d0555727e53277502.png","role":"damage","subrole":"flanker","gamemodes":["quickplay","stadium"]},{"key":"vendetta","name":"Vendetta","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/cf8ffb52b6f315546d5e94e9d6defad5a2c570798776956de23f47536f9529da.png","role":"damage","subrole":"flanker","gamemodes":["quickplay","stadium"]},{"key":"venture","name":"Venture","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/dcab9123f5f55df22e54d4e797de43c71b917e0149dd059a7fd6136f48464cd0.png","role":"damage","subrole":"flanker","gamemodes":["quickplay"]},{"key":"widowmaker","name":"Widowmaker","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/6e4702b45f196aaf51555cf57327322721f45458b17f5f0643ed008a88378259.png","role":"damage","subrole":"sharpshooter","gamemodes":["quickplay"]},{"key":"winston","name":"Winston","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/46a10db3aa908c590ddc4e7606376a88143d1f1306ecfbea043263040f9529a5.png","role":"tank","subrole":"initiator","gamemodes":["quickplay","stadium"]},{"key":"wrecking-ball","name":"Wrecking Ball","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/9ef1d58867136e0b26f928d896000b9dab216118f6e2f59e53f2e975e1e27afa.png","role":"tank","subrole":"initiator","gamemodes":["quickplay"]},{"key":"wuyang","name":"Wuyang","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/4959500b495b35c0908be2abda56b53f2601b2c5cc39a1cfde8df1bffd38d66d.png","role":"support","subrole":"survivor","gamemodes":["quickplay","stadium"]},{"key":"zarya","name":"Zarya","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/9b6f63cc66ddf9d5e0862173c733cc0d2e574c5c89357798d91b93b2f95a7080.png","role":"tank","subrole":"bruiser","gamemodes":["quickplay","stadium"]},{"key":"zenyatta","name":"Zenyatta","portrait":"https://d15f34w2p8l1cc.cloudfront.net/overwatch/7d1546b1541a8afc39353f9337a408d6275a141b0432b7e560ef61579996b0fc.png","role":"support","subrole":"tactician","gamemodes":["quickplay","stadium"]}];
 const metaCache = {}; // Populated only by fetched or explicitly saved source data.
@@ -554,7 +599,7 @@ function kitSimilarity(source,target){
   return {shared,value:union.length?weight/union.reduce((n,k)=>n+traitWeight(k),0):0,weight};
 }
 function transferSources(){
- return ['support','damage','tank'].flatMap(role=>recommendations(role)).filter(i=>played(i.stats)&&!ignoredHeroes.has(i.hero.key)&&kitFeatures(i.hero.key).length).map(i=>({hero:i.hero,stats:i.stats,meta:i.meta,strength:2+Math.min(2,Math.max(0,recentMetricTrend(i.hero).score))}));
+ return ['support','damage','tank'].flatMap(role=>recommendations(role)).filter(i=>played(i.stats)&&!ignoredHeroes.has(i.hero.key)&&kitFeatures(i.hero.key).length).map(i=>({hero:i.hero,stats:i.stats,meta:i.meta,assessment:performanceAssessment(i.hero),strength:Math.max(.5,1+performanceAssessment(i.hero).score)}));
 }
 function practiceCandidates(role){return candidates(role).filter(i=>i.fit.kind==='practice'&&!ignoredHeroes.has(i.hero.key)).sort((a,b)=>(b.stats?.time_played||0)-(a.stats?.time_played||0));}
 function flexChoice(role){
@@ -573,10 +618,11 @@ function flexChoice(role){
       if(!best||signal>best.signal)best={source,similarity,signal};
     }
     const part=scoreParts(item),assessment=kitAssessment(item.hero.key),comfort=personal?Math.max(0,assessment.aim):0;
+    if(part.assessment.effect<-.25&&part.assessment.confidence>=.2)continue;
     if(!best||best.signal<.5)continue; // A flex suggestion must connect to this player's supported top three.
     const reason='transfer';
     const signal=best?.signal||0;
-    choices.push({...item,...best,signal,reason,assessment,flexIndex:part.base+part.results+part.comfort+signal+hours.novelty*2-part.uncertainty*.35});
+    choices.push({...item,...best,signal,reason,assessment,flexIndex:50+signal*2+part.peerAdjustment+part.comfort+(part.base-50)*.5+hours.novelty-part.uncertainty});
   }
   return choices.sort((a,b)=>b.flexIndex-a.flexIndex||a.hero.name.localeCompare(b.hero.name))[0]||null;
 }
@@ -631,13 +677,14 @@ function combatEvidence(hero){
   return {...result,rows,ratio:result.deaths>0?result.eliminations/result.deaths:null,adequate:result.deaths>=20 && (result.time>=3600||result.games>=10)};
 }
 function performanceRisk(hero,stats,meta){
+ const measured=performanceAssessment(hero);if(measured.risk)return {kind:'metrics',reason:'Several relevant same-hero measurements are weak. '+measured.reason};
  const combat=combatEvidence(hero.key);
  if(hero.role==='damage'&&combat.adequate&&combat.ratio<1)return {kind:'combat',reason:'Deaths exceed eliminations in a substantial DPS sample. Review survival before making this a main; this is a coaching safeguard, not a rank standard.'};
  return null;
 }
 function suitability(hero,stats,meta){
  const risk=performanceRisk(hero,stats,meta);if(risk)return {eligible:false,reason:risk.reason,kind:'practice',risk};
- return {eligible:true,reason:played(stats)?'Metrics and available population context; small samples remain provisional.':'Personal performance unknown; population context only.',kind:played(stats)?'candidate':'sample'};
+ return {eligible:true,reason:played(stats)?'Personal fit uses same-hero metrics where comparisons are available. Missing comparisons remain provisional.':'Personal performance unknown; population context only.',kind:played(stats)?'candidate':'sample'};
 }
 
 // Use explicit API fields. Missing metrics remain null, never zero.
@@ -688,7 +735,7 @@ function contribution(hero) {
   const metrics=heroMetrics(hero),criteria=roleCriteria[hero.role];
   let text=criteria?.text||"Hero-specific contribution.";
   text+=" Accuracy is not compared across weapons. Damage and healing per 10 minutes describe output, but damage to tanks and overhealing do not prove decisive impact. Environmental kills are valuable but already included in eliminations; no double bonus. High healing does not automatically offset low utility or frequent deaths.";
-  text+=" There are no official rank standards for these output stats. Reference comparisons show checked public profiles and their limitations; sufficiently comparable data can adjust the recommendation by up to two points.";
+  text+=" There are no official rank standards for these output stats. Reference comparisons show checked public profiles and their limitations; same-hero comparisons form the primary performance signal, adjusted for sample quality.";
   if(hero.role==='tank'&&mitigationMetric(hero.key)===null)text+=" Mitigation is missing from the public source; shield damage blocked is not automatically the same measurement.";
   if(!metrics.some(m=>Number.isFinite(m.value)))text+=" Measurements are not yet available.";
   return {title:criteria?.title||"Hero contribution",text,metrics};
@@ -767,12 +814,12 @@ function hoursSignal(hero){
 function scoreParts(item){
  const meta=metaScore(item),stats=item.stats,n=played(stats)?stats.games_played:0,own=n?winrate(stats):null;
  const evidenceN=Math.min(n,Math.max(0,(stats?.time_played||0)/600),400),hours=hoursSignal(item.hero);
- const base=50+(meta===null?0:Math.max(-3,Math.min(3,meta-50)));
+ const base=50+(meta===null?0:Math.max(-1.25,Math.min(1.25,(meta-50)*.45)));
  const rows=evidence(item.hero.key),time=rows.reduce((s,r)=>s+(r.stats.time_played||0),0);
  let results=0;for(const row of rows){const units=Math.min(row.stats.games_played,(row.stats.time_played||0)/600,400);const share=time?(row.stats.time_played||0)/time:0;results+=share*(row.mode==='competitive'?1.5:.5)*Math.max(-1,Math.min(1,(winrate(row.stats)-50)/15))*units/(units+50);}
  const comfort=(preference(item.hero.key)?.[0]||0)*.35,peerAdjustment=referenceAdjustment(item.hero),trend=recentMetricTrend(item.hero);
- const uncertainty=1.5/Math.sqrt(1+evidenceN/15);
- return {base,meta,results,comfort,familiarity:0,hours,personalShare:0,recent:recentSignal(item.hero.key),recentAdjustment:trend.score,trend,peerAdjustment,uncertainty,total:base+results+comfort+peerAdjustment+trend.score-uncertainty,n,own,evidenceN};
+ const uncertainty=.6/Math.sqrt(1+evidenceN/15),assessment=performanceAssessment(item.hero),recentAdjustment=trend.score/3;
+ return {base,meta,results,comfort,familiarity:0,hours,personalShare:0,recent:recentSignal(item.hero.key),recentAdjustment,trend,assessment,peerAdjustment,uncertainty,total:base+results+comfort+peerAdjustment+recentAdjustment-uncertainty,n,own,evidenceN};
 }
 function mainScore(item){return scoreParts(item)?.total ?? -Infinity;}
 function rankedCandidates(role){
@@ -788,11 +835,11 @@ function recommendationQueue(role){
  return playedOptions.length>=3?playedOptions:playedOptions.concat(all.filter(i=>!played(i.stats)&&i.meta));
 }
 function recommendations(role){
- const queue=recommendationQueue(role),key='hero-coach-stable-v2:'+accountKey()+':'+role+':'+personal;
+ const queue=recommendationQueue(role),key='hero-coach-stable-v3:'+accountKey()+':'+role+':'+personal;
  let previous=[];try{const x=JSON.parse(localStorage.getItem(key)||'null');if(x&&Array.isArray(x.heroes)&&x.at<=Date.now()&&Date.now()-x.at<7*86400000)previous=x.heroes;}catch{}
  const picks=queue.sort((a,b)=>(mainScore(b)+(previous.includes(b.hero.key)?.35:0))-(mainScore(a)+(previous.includes(a.hero.key)?.35:0))||a.hero.name.localeCompare(b.hero.name)).slice(0,3);
  if(picks.length)try{localStorage.setItem(key,JSON.stringify({at:Date.now(),heroes:picks.map(i=>i.hero.key)}));}catch{}
- return picks.map((item,index)=>({...item,provisional:(item.stats?.games_played||0)<20,label:(index+1)+'. '+((item.stats?.games_played||0)<20?'Provisional main':index===0?'Main candidate':'Alternative main')}));
+ return picks.map((item,index)=>({...item,provisional:performanceAssessment(item.hero).confidence<.25,label:(index+1)+'. '+(performanceAssessment(item.hero).confidence<.25?'Provisional main':index===0?'Main candidate':'Alternative main')}));
 }
 let lastIgnored=null;
 function undoIgnored(){
@@ -1000,13 +1047,13 @@ function renderAdvice() {
       const metaText=currentText + (goalFor(role) !== roleRank(role) ? " · " + targetText : "");
       const personalText = played(stats) ? "You " + percent(winrate(stats)) + " · " + fmt(stats.games_played) + " games · " + duration(stats.time_played) : "Your results are unknown";
       const own=node("div","","personal-result");own.title=personalText;
-      const trend=recentMetricTrend(hero);const shortReason=trend.ready?(trend.score>.05?"Recent contribution improving":trend.score<-.05?"Recent contribution needs attention":"Recent contribution holding steady"):"Rank context · recent history building";
+      const assessment=performanceAssessment(hero);const strongest=assessment.strengths[0];const shortReason=strongest?strongest.label+' '+(strongest.key==='deaths'?'lower':'higher')+' than '+(assessment.scope==='same-rank'?'same-rank':'mixed-rank')+' median':assessment.rows.length?assessment.reason:'Personal fit unverified · comparisons unavailable';
       if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",shortReason,"pick-context"));else own.append(node("small",personalText));
       const weights=scoreParts(item);
       info.append(own,infoPopover("Why this pick?",pickExplanation(item)));
       info.append(node('small',item.label.replace(/^\d+\. /,''),'pick-verdict'));
       if(item.learning){const favorite=roleHistory(role).favorite;info.append(node('small',"Played less than "+favorite.hero.name));}
-      if(item.provisional)info.append(node('small',"Provisional · more personal experience needed"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
+      if(item.provisional)info.append(node('small',"Provisional · comparison evidence limited"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
       row.append(info);
       card.append(row);
     }
@@ -1017,13 +1064,14 @@ function renderAdvice() {
       const top=node('div','','row'),inspect=node('button',flex.hero.name,'pick-name');inspect.type='button';inspect.onclick=()=>{selectedRole=role;selectedHero=flex.hero.key;render();byId('heroes').scrollIntoView({behavior:'smooth'});};
       const dismiss=node('button','×','flex-dismiss');dismiss.type='button';dismiss.setAttribute('aria-label',"Ignore flex "+flex.hero.name);dismiss.onclick=()=>setIgnored(flex.hero.key,true);
       top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top);
-      const explanation=flex.reason==='transfer'?"From your "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
+      const explanation=flex.reason==='transfer'?"Related to your "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
       flexPanel.append(node('p',explanation));
       flexPanel.append(node('small',played(flex.stats)?fmt(flex.stats.games_played)+" personal games · "+percent(winrate(flex.stats))+" won":"No personal result evidence yet · try in Quick Play first."));
       const details=node('div');
       details.append(node('p',"Rank win rate "+(flex.meta?percent(flex.meta.winrate):"unavailable")+'. '+flex.assessment.note));
+      if(flex.source){const sourceAssessment=performanceAssessment(flex.source.hero);details.append(node('p','Source assessment: '+sourceAssessment.reason+'. '+(sourceAssessment.strengths[0]?'Measured strength: '+sourceAssessment.strengths[0].label+'.':'Transfer is based on shared mechanics only; no measured strength is established.')));}
       if(flex.source)details.append(node('p',"Source hero "+flex.source.hero.name+': '+percent(winrate(flex.source.stats))+" wins over "+fmt(flex.source.stats.games_played)+" games. Shared traits suggest a learning opportunity, not proven transferable aim or a guarantee."+(flex.source.hero.role!==role?" Different role: transfer weight is halved.":'')));
-      details.append(node('p',"Flex index "+fmt(flex.flexIndex)+" = rank win-rate data + moderated outcome context + optional aim preference + up to 5 transfer points + up to 2 learning opportunity points − a limited uncertainty deduction. Heroes with poor measured performance are excluded."));
+      details.append(node('p',"Trial index "+fmt(flex.flexIndex)+" combines source-hero performance and shared mechanics, the target hero’s measured performance, optional aim preference, a small population adjustment and a small novelty allowance. This is an exploration hypothesis. Heroes with sufficiently supported poor performance are excluded."));
       flexPanel.append(infoPopover("Why this trial pick?",details));
     }else flexPanel.append(node('p',"No suitable trial pick with the available data."));
     card.append(flexPanel);
@@ -1116,16 +1164,7 @@ function renderRoster() {
 
   const item={hero,stats,meta:metaFor(hero.key,hero.role),target:targetFor(hero.key)};
   const calculation=scoreParts(item);
-  if(calculation){
-    const part=node('div','','calculation');
-    part.append(node('h4',"How your recommendation index is calculated"),node('p','Population context '+fmt(calculation.base)+" + personal result "+fmt(calculation.results)+" + familiarity "+fmt(calculation.familiarity)+" + preference "+fmt(calculation.comfort)+" + reference difference "+fmt(calculation.peerAdjustment)+" + recent form "+fmt(calculation.recentAdjustment)+" − uncertainty "+fmt(calculation.uncertainty)+' = '+fmt(calculation.total)),node('small',"Outcome influence is capped; hours add no skill bonus. "+fmt(calculation.n)+" hero games, "+fmt(calculation.evidenceN)+" time-weighted evidence units. This index is not a predicted win rate. Population context is a heuristic score, not a percentage: it combines win rate with bounded pick-share and ban context."));
-    part.append(node('small',calculation.trend.reason));for(const m of calculation.trend.metrics){part.append(node('small',m.key.replace('utility:','').replaceAll('_',' ')+': '+fmt(m.previous)+' → '+fmt(m.recent)+' / 10 min'));}
-    const history=calculation.hours.history;
-    if(history.favorite)part.append(node('small',"Playtime "+duration(calculation.hours.seconds)+" compared with "+duration(history.favorite.seconds)+" on "+history.favorite.hero.name+". Hours suggest familiarity and possible preference, not proof of skill."));
-    
-    const gap=modeConflict(hero.key);if(gap!==null)part.append(node('small',"Difference between modes: "+fmt(gap)+" percentage points. All games count; a mode difference may limit transfer to Competitive."));
-    panel.append(infoPopover("How your recommendation index is calculated",part));
-  }
+  if(calculation)panel.append(infoPopover('How your recommendation index is calculated',pickExplanation(item)));
 
   detail.append(panel);
   const combat=combatEvidence(hero.key);
@@ -1144,24 +1183,26 @@ function renderRoster() {
     const delta = winrate(stats) - meta.winrate;
     comparison.append(node("small",(delta >= 0 ? "+" : "") + fmt(delta) + " percentage points · " + fmt(stats.games_played) + " personal games"));
   }
-  comparison.append(node("small",meta ? "Pick rate " + percent(meta.pickrate) + " · Ban rate " + percent(meta.banrate) + " · bounded population context; win rate remains the main input" : "Population stats are missing for this hero and selection."));
+  comparison.append(node("small",meta ? "Pick rate " + percent(meta.pickrate) + " · Ban rate " + percent(meta.banrate) + " · population context only; win rate is the main population input" : "Population stats are missing for this hero and selection."));
   comparison.append(infoPopover("About this comparison",node("p","Career stats and meta may cover different periods and game variants. This difference does not assess your rank.")));
   detail.append(comparison);
   detail.append(infoPopover("About the measurements",node('p',"Output stats are per 10 minutes, weighted by playtime. Utility fields use the source names. Missing means unknown. No rank percentiles or replay assessment.")));
 }
 function pickExplanation(item){
-  const box=node('div','','pick-explanation'),w=scoreParts(item);
-  const signals=[['Rank win-rate context',w.base-50],['Personal outcomes',w.results],['Less Aim preference',w.comfort],['Comparable reference stats',w.peerAdjustment],['Recent contribution',w.recentAdjustment]].filter(([,v])=>Number.isFinite(v));
-  const strongest=signals.filter(([,v])=>v>.05).sort((a,b)=>b[1]-a[1])[0];
-  box.append(node('strong','Why this hero'),node('p',strongest?strongest[0]+' is the strongest positive scoring signal.':'No strong positive scoring signal; this is a relative choice among the available eligible heroes.'));
-  const metrics=heroMetrics(item.hero).filter(m=>m.core&&Number.isFinite(m.value));
-  const level=w.trend.ready?'Recent performance observed':item.provisional?'Limited personal sample':'Career data; recent history building';
-  box.append(node('strong','Evidence'),node('p',level+'. '+metrics.length+' available contribution measurements. Hours describe experience, not skill.'));
-  box.append(node('strong','What remains uncertain'),node('p','Career and reference data mix modes and periods. This ranking is not a win prediction or proof of readiness for your next rank. '+(w.peerAdjustment===0?'Reference stats currently add no points. ':'' )+w.trend.reason));
-  const calculation=node('details'),summary=node('summary','See scoring breakdown');calculation.append(summary);
-  for(const [label,value]of [...signals,['Uncertainty',-w.uncertainty]]){const row=node('div','','score-line');row.append(node('span',label),node('strong',(value>=0?'+':'')+fmt(value)));calculation.append(row);}
-  calculation.append(node('p','Neutral baseline 50 → index '+fmt(w.total)+'. Close choices may retain their place with a 0.35-point stability margin. This index is not a percentage.'));
-  box.append(calculation);return box;
+ const box=node('div','','pick-explanation'),w=scoreParts(item),a=w.assessment;
+ box.append(node('strong',item.hero.name+' · your performance'));
+ if(a.rows.length){
+  const explain=m=>m.label+': '+fmt(m.value)+' vs '+fmt(m.baseline)+' / 10 min ('+m.n+' reference players). '+(Math.abs(m.effect)<=.12?'Near the reference median.':m.effect>0?'Favourable measured difference.':'A relative weakness.');
+  for(const m of a.strengths.slice(0,2))box.append(node('p',explain(m)));
+  if(a.weaknesses.length)box.append(node('strong','What holds this pick back'),node('p',explain(a.weaknesses[0])));
+  if(!a.strengths.length)box.append(node('p','No clear measured advantage. '+explain(a.rows.find(m=>m.key==='deaths')||a.rows[0])));
+ }else{box.append(node('p',a.reason));const values=personalRates(item.hero);for(const key of Object.keys(performanceWeights(item.hero)).filter(k=>Number.isFinite(values[k])).slice(0,3))box.append(node('p',metricName(key)+': '+fmt(values[key])+' / 10 min. No usable comparison; not classified as strong or weak.'));}
+ box.append(node('strong','Why this position'),node('p',a.state==='unavailable'?'Provisional choice based on limited outcome and population context. Personal strength is not established.':a.reason+'. Personal metrics contribute '+fmt(a.score)+' points; population context '+fmt(w.base-50)+'.'));
+ if(w.trend.ready)box.append(node('p','Recent direction: '+w.trend.reason));
+ box.append(node('small','Career data combine modes and periods. These measurements cannot establish positioning, fight timing or promotion readiness.'));
+ const calculation=node('details');calculation.append(node('summary','See scoring breakdown'));
+ for(const [label,value]of [['Same-hero performance',a.state==='unavailable'?null:w.peerAdjustment],['Population context',w.base-50],['Personal outcomes',w.results],['Less Aim preference',w.comfort],['Recent direction',w.recentAdjustment],['Uncertainty',-w.uncertainty]]){const row=node('div','','score-line');row.append(node('span',label),node('strong',value===null?'Unavailable':(value>=0?'+':'')+fmt(value)));calculation.append(row);}
+ calculation.append(node('p','Baseline 50 → index '+fmt(w.total)+'. Close choices can retain a 0.35-point stability margin. Hours improve sample confidence; they add no skill bonus.'));box.append(calculation);return box;
 }
 function infoPopover(label,content){
   const info=node('details','','info-popover');
@@ -1479,8 +1520,9 @@ function recentMetricTrend(hero){
  const minutes=observedSeconds/60;
  if(!coverage)return {...empty,metrics,minutes,intervals,reason:describe?describe+'. Required contribution totals are incomplete; no trend score.':empty.reason};
  const change=k=>{const m=by[k];return Math.max(-1,Math.min(1,(m.recent-m.previous)/Math.max(m.previous,1)/.3))*(k==='deaths'?-1:1);};
- const dimensions=[change('deaths'),change(hero.role==='support'?'healing':'damage'),impact.reduce((s,k)=>s+change(k),0)/impact.length];
- let effect=dimensions.reduce((s,v)=>s+v,0)/3;
+ const weights=performanceWeights(hero),available=Object.entries(weights).filter(([k])=>by[k]&&k!=='utility');
+ const dimensions=available.map(([k])=>change(k));
+ let effect=available.reduce((sum,[k,w])=>sum+w*change(k),0)/available.reduce((sum,[,w])=>sum+w,0);
  const weakest=Math.min(...dimensions);if(weakest<-.5)effect=Math.min(effect,weakest/2);
  const ready=minutes>=30&&intervals>=2;
  const strength=Math.min(1,intervals/3)*minutes/(minutes+60);
@@ -1498,6 +1540,7 @@ kitFeatures=memoDerived('features',kitFeatures,k=>k);
 kitSimilarity=memoDerived('similarity',kitSimilarity,(a,b)=>a+':'+b);
 candidates=memoDerived('candidates',candidates,k=>k);
 recentMetricTrend=memoDerived('trend',recentMetricTrend,h=>h.key);
+performanceAssessment=memoDerived('assessment',performanceAssessment,h=>h.key);
 scoreParts=memoDerived('score',scoreParts,i=>i.hero.key);
 recommendations=memoDerived('main',recommendations,k=>k);
 transferSources=memoDerived('transfer',transferSources,()=>0);
