@@ -116,6 +116,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 @media(max-width:700px){.info-popover[open]>.info-content{left:16px;right:16px;transform:none;width:auto;top:12vh;max-height:76vh}}
 .pick>div:has(.info-popover[open]){z-index:1001!important}
 .info-popover[open]>.info-content{background:#091522}
+/* Confidence describes evidence availability, never whether a hero is good. */
+.evidence-unassessed>img,.evidence-unassessed>.row>img{filter:grayscale(1) brightness(.75)!important}
+.evidence-limited>img,.evidence-limited>.row>img{filter:saturate(.5)!important}
+.advice-confidence{display:block;font-size:9px;line-height:1.4;color:#9cdccb;margin:5px 0 2px;font-weight:700}
+.evidence-limited .advice-confidence,.hero-tile.evidence-limited .roster-evidence{color:#efc786}
+.evidence-unassessed .advice-confidence,.hero-tile.evidence-unassessed .roster-evidence{color:#b5c2cc}
+.roster-evidence{display:block;font:9px/1.4 Arial,sans-serif;color:#9cdccb;margin:4px 0 0;white-space:normal}
+.evidence-panel{border-left:2px solid #8cd6bb;background:#102134;padding:12px 14px;margin:12px 0;font-size:12px;line-height:1.55}
+.evidence-panel.evidence-limited{border-color:#e9bd78}.evidence-panel.evidence-unassessed{border-color:#8b9aa7}
+.evidence-panel>strong{display:block}.evidence-panel p{margin:6px 0}.evidence-panel small{display:block;margin-top:5px;font-size:11px;color:#bfd0df}
+.pick .pick-context{display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45!important}
+.pick:not(.is-first){min-height:166px}.pick.is-first{height:350px}
+.pick.is-first .personal-result .pick-context{max-width:100%}
 </style>
 <div class="lobby-atmosphere" aria-hidden="true"><div class="sky-ribbon"></div><div class="sky-ribbon second"></div><div class="city-glow"></div><div class="side-rays"></div></div><div class="snowfall" aria-hidden="true"><i style="--x:0%;--delay:-0s;--duration:12s;--size:1px"></i><i style="--x:31%;--delay:-0.7s;--duration:14s;--size:2px"></i><i style="--x:62%;--delay:-1.4s;--duration:16s;--size:3px"></i><i style="--x:93%;--delay:-2.0999999999999996s;--duration:18s;--size:4px"></i><i style="--x:24%;--delay:-2.8s;--duration:20s;--size:1px"></i><i style="--x:55%;--delay:-3.5s;--duration:22s;--size:2px"></i><i style="--x:86%;--delay:-4.199999999999999s;--duration:24s;--size:3px"></i><i style="--x:17%;--delay:-4.8999999999999995s;--duration:12s;--size:4px"></i><i style="--x:48%;--delay:-5.6s;--duration:14s;--size:1px"></i><i style="--x:79%;--delay:-6.3s;--duration:16s;--size:2px"></i><i style="--x:10%;--delay:-7s;--duration:18s;--size:3px"></i><i style="--x:41%;--delay:-7.699999999999999s;--duration:20s;--size:4px"></i><i style="--x:72%;--delay:-8.399999999999999s;--duration:22s;--size:1px"></i><i style="--x:3%;--delay:-9.1s;--duration:24s;--size:2px"></i><i style="--x:34%;--delay:-9.799999999999999s;--duration:12s;--size:3px"></i><i style="--x:65%;--delay:-10.5s;--duration:14s;--size:4px"></i><i style="--x:96%;--delay:-11.2s;--duration:16s;--size:1px"></i><i style="--x:27%;--delay:-11.899999999999999s;--duration:18s;--size:2px"></i><i style="--x:58%;--delay:-12.6s;--duration:20s;--size:3px"></i><i style="--x:89%;--delay:-13.299999999999999s;--duration:22s;--size:4px"></i><i style="--x:20%;--delay:-14s;--duration:24s;--size:1px"></i><i style="--x:51%;--delay:-14.7s;--duration:12s;--size:2px"></i><i style="--x:82%;--delay:-15.399999999999999s;--duration:14s;--size:3px"></i><i style="--x:13%;--delay:-16.099999999999998s;--duration:16s;--size:4px"></i><i style="--x:44%;--delay:-16.799999999999997s;--duration:18s;--size:1px"></i><i style="--x:75%;--delay:-17.5s;--duration:20s;--size:2px"></i><i style="--x:6%;--delay:-18.2s;--duration:22s;--size:3px"></i><i style="--x:37%;--delay:-18.9s;--duration:24s;--size:4px"></i><i style="--x:68%;--delay:-19.599999999999998s;--duration:12s;--size:1px"></i><i style="--x:99%;--delay:-20.299999999999997s;--duration:14s;--size:2px"></i><i style="--x:30%;--delay:-21s;--duration:16s;--size:3px"></i><i style="--x:61%;--delay:-21.7s;--duration:18s;--size:4px"></i><i style="--x:92%;--delay:-22.4s;--duration:20s;--size:1px"></i><i style="--x:23%;--delay:-23.099999999999998s;--duration:22s;--size:2px"></i><i style="--x:54%;--delay:-23.799999999999997s;--duration:24s;--size:3px"></i><i style="--x:85%;--delay:-24.5s;--duration:12s;--size:4px"></i><i style="--x:16%;--delay:-25.2s;--duration:14s;--size:1px"></i><i style="--x:47%;--delay:-25.9s;--duration:16s;--size:2px"></i><i style="--x:78%;--delay:-26.599999999999998s;--duration:18s;--size:3px"></i><i style="--x:9%;--delay:-27.299999999999997s;--duration:20s;--size:4px"></i><i style="--x:40%;--delay:-28s;--duration:22s;--size:1px"></i><i style="--x:71%;--delay:-28.7s;--duration:24s;--size:2px"></i><i style="--x:2%;--delay:-29.4s;--duration:12s;--size:3px"></i><i style="--x:33%;--delay:-30.099999999999998s;--duration:14s;--size:4px"></i><i style="--x:64%;--delay:-30.799999999999997s;--duration:16s;--size:1px"></i><i style="--x:95%;--delay:-31.499999999999996s;--duration:18s;--size:2px"></i><i style="--x:26%;--delay:-32.199999999999996s;--duration:20s;--size:3px"></i><i style="--x:57%;--delay:-32.9s;--duration:22s;--size:4px"></i></div><main>
 <header>
@@ -128,7 +141,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 <section class="recommendations" aria-labelledby="advice">
 <div class="row spread"><h2 id="advice">Your hero selection</h2><a href="#heroes" class="jump-link">Hero performance ↓</a></div>
-<p class="muted advice-intro">Three mains per role. A new hero to try. Tailored to your profile.</p>
+<p class="muted advice-intro">Three main options and one to try. Gray portraits are unassessed—not bad heroes. Open a hero to see what evidence is missing.</p>
 <div class="row advice-controls"><details class="info-popover advice-basis"><summary>ⓘ Recommendation basis</summary><div class="info-content"><p id="modeExplanation" class="muted"></p><p id="adviceStatus" class="muted" role="status"></p><p>Not for you? Click × on a hero; the next pick moves up.</p></div></details><button type="button" id="resetSuggestions" disabled>Restore all suggestions</button></div><p id="metaStatus" class="muted" role="status"></p><div id="dismissalFeedback" class="dismissal-feedback" hidden><span id="dismissalNotice" role="status" aria-live="polite"></span><button id="undoDismissal" type="button">Undo</button></div><p class="swipe-note">Swipe left for DPS and Tank →</p><div id="recommendations" class="grid"></div>
 
 </section>
@@ -216,6 +229,36 @@ function performanceAssessment(hero){
  weaknesses:rows.filter(r=>r.effect<-.12).sort((a,b)=>a.effect*a.weight-b.effect*b.weight),
  reason:scopeLabel+' · '+Math.min(...rows.map(r=>r.n))+'+ references per scored metric · '+(state==='limited'?'limited evidence':state==='above'?'stronger measured contribution':state==='below'?'weaker measured contribution':'mixed or similar contribution')+(r.partial?' · collection still in progress':'')};
 }
+function adviceEvidence(hero){
+ const a=performanceAssessment(hero),stats=combinedHero(hero.key),values=personalRates(hero);
+ const n=stats?.games_played,seconds=stats?.time_played,primary=hero.role==='support'?'healing':'damage';
+ const make=(level,reason,action)=>({level,label:level==='supported'?'Supported assessment':level==='limited'?'Limited evidence':'Unassessed',reason,action,games:Number.isFinite(n)?n:null,minutes:Number.isFinite(seconds)?Math.floor(seconds/60):null});
+ if(!Object.keys(data).length)return make('unassessed','Your profile data is not available.','Load or refresh your public profile. Playing more is not the remedy for a connection failure.');
+ if(!Number.isFinite(n)||!Number.isFinite(seconds))return make('unassessed','The source has not supplied your hero sample.','Refresh the profile. If this hero is unplayed, Quick Play or Competitive can build an initial sample.');
+ if(n<5||seconds<1800){const games=Math.max(0,Math.ceil(5-n)),minutes=Math.max(0,Math.ceil((1800-seconds)/60));const needs=[games?games+' more '+(games===1?'game':'games'):null,minutes?minutes+' more minutes on this hero':null].filter(Boolean).join(' and ');return make('unassessed',needs+' for an initial sample.','Quick Play and Competitive both count. Meeting this minimum does not guarantee usable comparison data.');}
+ const missing=['deaths',primary].filter(k=>!Number.isFinite(values[k]));
+ if(missing.length)return make('unassessed','Missing your '+missing.map(metricName).join(' and ')+' statistics.','Refresh later; playing more games alone will not fix missing API measurements.');
+ const modesWithHero=Object.entries(data).filter(([,e])=>e.stats?.heroes?.[hero.key]?.time_played>0);
+ const stale=modesWithHero.some(([mode,e])=>Boolean(errors[mode])||Boolean(careerErrors[mode])||(Number.isFinite(e.at)&&(Date.now()-e.at>48*3600000||e.at>Date.now())));
+ if(a.state==='unavailable'){
+  if(/personal stats|personal hero sample/i.test(a.reason))return make('unassessed',a.reason,'Refresh your profile when the source is available. More games cannot resolve missing or mismatched detailed stats.');
+  const batch=referenceBatch[[account.player.toLowerCase(),account.platform].join('|')];
+  const action=batch?.state==='loading'?'Reference collection is running. Leave this page open; status updates as results arrive.':batch?.state==='error'?'Reference collection stopped. Refresh later to retry the public source.':'Refresh later to check for compatible reference measurements.';
+  return make('unassessed',a.reason,action+' More personal games alone will not supply missing comparison players.');
+ }
+ const references=Math.min(...a.rows.map(r=>r.n));
+ if(stale)return make('limited','Using saved personal stats; the latest data is missing or stale.','Refresh when the source is available. More games will not resolve an API delay.');
+ if(modesWithHero.some(([,e])=>!Number.isFinite(e.at)))return make('limited','The age of your personal stats cannot be confirmed.','Refresh online to check the source. Imported or undated stats remain useful, but cannot confirm current form.');
+ if(a.confidence<.25){const sample=Math.min(n/(n+15),seconds/(seconds+5400)),ownLimited=sample<=a.confidence/sample;return make('limited',references+'+ compatible references per metric; '+(ownLimited?'your personal sample is the main limitation.':'comparison coverage or sample size is the main limitation.'),ownLimited?'More time on this hero can strengthen the sample. Quick Play and Competitive count; no fixed game count guarantees a supported assessment.':'More compatible references or complete metrics are needed. Playing more yourself may not resolve this.');}
+ return make('supported','Core metrics available · '+references+'+ compatible references per metric.',a.scope==='same-rank'?'Compared with the same hero at your role rank. Supported means assessable, not necessarily a good pick.':a.scope==='target-rank'?'Compared against an estimated rank target. Your actual role rank is still unknown.':'Mixed-rank comparison with reduced weight. Supported means assessable, not proven rank readiness.');
+}
+function evidencePanel(hero){
+ const e=adviceEvidence(hero),panel=node('div','','evidence-panel evidence-'+e.level);
+ panel.append(node('strong','Advice confidence · '+e.label),node('p',e.reason),node('small',e.action));
+ if(e.games!==null)panel.append(node('small','Your sample: '+fmt(e.games)+' games'+(e.minutes!==null?' · '+fmt(e.minutes)+' minutes on this hero':'')+'. Quick Play + Competitive.'));
+ return panel;
+}
+
 function referenceAdjustment(hero){return performanceAssessment(hero).score;}
 
 // All reference requests go directly to the public API. No localhost or proxy.
@@ -853,9 +896,10 @@ function recommendationQueue(role){
 function recommendations(role){
  const queue=recommendationQueue(role),key='hero-coach-stable-v3:'+accountKey()+':'+role+':'+personal;
  let previous=[];try{const x=JSON.parse(localStorage.getItem(key)||'null');if(x&&Array.isArray(x.heroes)&&x.at<=Date.now()&&Date.now()-x.at<7*86400000)previous=x.heroes;}catch{}
- const picks=queue.sort((a,b)=>(mainScore(b)+(previous.includes(b.hero.key)?.35:0))-(mainScore(a)+(previous.includes(a.hero.key)?.35:0))||a.hero.name.localeCompare(b.hero.name)).slice(0,3);
+ const evidenceOrder={supported:2,limited:1,unassessed:0};
+ const picks=queue.sort((a,b)=>evidenceOrder[adviceEvidence(b.hero).level]-evidenceOrder[adviceEvidence(a.hero).level]||(mainScore(b)+(previous.includes(b.hero.key)?.35:0))-(mainScore(a)+(previous.includes(a.hero.key)?.35:0))||a.hero.name.localeCompare(b.hero.name)).slice(0,3);
  if(picks.length)try{localStorage.setItem(key,JSON.stringify({at:Date.now(),heroes:picks.map(i=>i.hero.key)}));}catch{}
- return picks.map((item,index)=>({...item,provisional:performanceAssessment(item.hero).confidence<.25,label:(index+1)+'. '+(performanceAssessment(item.hero).confidence<.25?'Provisional main':index===0?'Main candidate':'Alternative main')}));
+ return picks.map((item,index)=>({...item,provisional:adviceEvidence(item.hero).level!=='supported',label:(index+1)+'. '+(adviceEvidence(item.hero).level==='unassessed'?'Unassessed option':adviceEvidence(item.hero).level==='limited'?'Provisional option':index===0?'Main candidate':'Alternative main')}));
 }
 let lastIgnored=null;
 function undoIgnored(){
@@ -1041,6 +1085,7 @@ function renderAdvice() {
     for (const [index,item] of picks.entries()) {
       const {hero,stats,meta:heroMeta,target,fit} = item;
       const row = node("div","","pick" + (index === 0 ? " is-first" : ""));
+      const confidence=adviceEvidence(hero);row.className+=" evidence-"+confidence.level;
       row.setAttribute("role","group");
       row.setAttribute("aria-label",hero.name);
       const inspect = () => {
@@ -1054,7 +1099,7 @@ function renderAdvice() {
       dismiss.setAttribute('aria-label',"Ignore "+hero.name);dismiss.title="Not for me · ignore";
       dismiss.onclick=()=>{setIgnored(hero.key,true);document.querySelector?.('.'+role+' .pick-name')?.focus();};
       row.append(dismiss);
-      if(index===0)row.append(node('span',item.provisional?'PROVISIONAL MAIN':'YOUR MAIN PICK','pick-kicker'));
+      if(index===0)row.append(node('span',confidence.level==='unassessed'?'UNASSESSED OPTION':confidence.level==='limited'?'PROVISIONAL OPTION':'YOUR MAIN PICK','pick-kicker'));
       row.append(portrait(hero));
       const info = node("div");
       const inspectButton=node('button',(index+1)+'. '+hero.name,'pick-name');inspectButton.type='button';inspectButton.onclick=inspect;inspectButton.setAttribute('aria-label',"View "+hero.name);info.append(inspectButton);
@@ -1064,12 +1109,13 @@ function renderAdvice() {
       const personalText = played(stats) ? "You " + percent(winrate(stats)) + " · " + fmt(stats.games_played) + " games · " + duration(stats.time_played) : "Your results are unknown";
       const own=node("div","","personal-result");own.title=personalText;
       const assessment=performanceAssessment(hero);const strongest=assessment.strengths[0];const shortReason=strongest?strongest.label+' '+(strongest.key==='deaths'?'lower':'higher')+' than '+(assessment.scope==='same-rank'?'same-rank':assessment.scope==='target-rank'?'target-rank':'mixed-rank')+' median':assessment.rows.length?(assessment.state==='limited'?'Limited comparison evidence':assessment.effect<-.12?'Mixed metrics · relative weaknesses':'Mixed or similar contribution'):'Personal fit unverified · comparisons unavailable';
-      if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",shortReason,"pick-context"));else own.append(node("small",personalText));
+      if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",confidence.level==='supported'?shortReason:confidence.reason,"pick-context"));else own.append(node("small",personalText));
       const weights=scoreParts(item);
-      info.append(own,infoPopover("Why this pick?",pickExplanation(item)));
+      const badge=node('span','Advice confidence · '+confidence.label,'advice-confidence');badge.title=confidence.reason+' '+confidence.action;
+      info.append(own,badge,infoPopover("Why this pick?",pickExplanation(item)));
       info.append(node('small',item.label.replace(/^\d+\. /,''),'pick-verdict'));
       if(item.learning){const favorite=roleHistory(role).favorite;info.append(node('small',"Played less than "+favorite.hero.name));}
-      if(item.provisional)info.append(node('small',"Provisional · comparison evidence limited"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
+      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
       row.append(info);
       card.append(row);
     }
@@ -1079,11 +1125,12 @@ function renderAdvice() {
     if(flex){
       const top=node('div','','row'),inspect=node('button',flex.hero.name,'pick-name');inspect.type='button';inspect.onclick=()=>{selectedRole=role;selectedHero=flex.hero.key;render();byId('heroes').scrollIntoView({behavior:'smooth'});};
       const dismiss=node('button','×','flex-dismiss');dismiss.type='button';dismiss.setAttribute('aria-label',"Ignore flex "+flex.hero.name);dismiss.onclick=()=>setIgnored(flex.hero.key,true);
-      top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top);
+      const e=adviceEvidence(flex.hero);flexPanel.className+=' evidence-'+e.level;
+      top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top,node('small','Advice confidence · '+e.label,'advice-confidence'),node('small',e.reason));
       const explanation=flex.reason==='transfer'?"Related to your "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
       flexPanel.append(node('p',explanation));
       flexPanel.append(node('small',played(flex.stats)?fmt(flex.stats.games_played)+" personal games · "+percent(winrate(flex.stats))+" won":"No personal result evidence yet · try in Quick Play first."));
-      const details=node('div');
+      const details=node('div');details.append(evidencePanel(flex.hero));
       details.append(node('p',"Rank win rate "+(flex.meta?percent(flex.meta.winrate):"unavailable")+'. '+flex.assessment.note));
       if(flex.source){const sourceAssessment=performanceAssessment(flex.source.hero);details.append(node('p','Source assessment: '+sourceAssessment.reason+'. '+(sourceAssessment.strengths[0]?'Measured strength: '+sourceAssessment.strengths[0].label+'.':'Transfer is based on shared mechanics only; no measured strength is established.')));}
       if(flex.source)details.append(node('p',"Source hero "+flex.source.hero.name+': '+percent(winrate(flex.source.stats))+" wins over "+fmt(flex.source.stats.games_played)+" games. Shared traits suggest a learning opportunity, not proven transferable aim or a guarantee."+(flex.source.hero.role!==role?" Different role: transfer weight is halved.":'')));
@@ -1138,7 +1185,8 @@ function renderRoster() {
     button.type = "button";
     button.setAttribute("aria-label",hero.name);
     button.setAttribute("aria-pressed",String(hero.key === selectedHero));
-    button.append(portrait(hero),node("span",hero.name));
+    const e=adviceEvidence(hero);button.className+=' evidence-'+e.level;button.title=e.label+': '+e.reason+' '+e.action;button.setAttribute('aria-description',button.title);
+    button.append(portrait(hero),node("span",hero.name),node('small',e.label==='Supported assessment'?'Supported':e.label==='Limited evidence'?'Limited':'Unassessed','roster-evidence'));
     button.onclick = () => { selectedHero = hero.key; renderRoster(); void loadReference(hero.key); };
     return button;
   }));
@@ -1151,7 +1199,7 @@ function renderRoster() {
   const heading = node("div","","detail-heading");
   heading.append(portrait(hero),node("h3",hero.name));
   const assessment=kitAssessment(hero.key);heading.append(infoPopover("Playstyle and aim requirements",node('p',assessment.note+" Aim preference "+(assessment.aim>0?'+':'')+assessment.aim+" points, only while the mode is enabled. "+(assessment.reviewed?"Reviewed kit; changed ability text invalidates this assessment.":"Limited automatic assessment."))));
-  detail.append(heading);
+  detail.append(heading,evidencePanel(hero));
   const summary = node("div","","stat-strip");
   for (const [label,value] of [["Winrate",percent(winrate(stats))],["Games",fmt(stats?.games_played)],["Playtime",duration(stats?.time_played)],["KDA",fmt(stats?.kda)]]) {
     const cell = node("div");
@@ -1206,7 +1254,7 @@ function renderRoster() {
 }
 function pickExplanation(item){
  const box=node('div','','pick-explanation'),w=scoreParts(item),a=w.assessment;
- box.append(node('strong',item.hero.name+' · your performance'));
+ box.append(node('strong',item.hero.name+' · your performance'),evidencePanel(item.hero));
  if(a.rows.length){
   const explain=m=>m.label+': '+fmt(m.value)+' vs '+fmt(m.baseline)+' / 10 min ('+m.n+' reference players). '+(Math.abs(m.effect)<=.12?'Near the reference median.':m.effect>0?'Favourable measured difference.':'A relative weakness.');
   for(const m of a.strengths.slice(0,2))box.append(node('p',explain(m)));
@@ -1557,6 +1605,7 @@ kitSimilarity=memoDerived('similarity',kitSimilarity,(a,b)=>a+':'+b);
 candidates=memoDerived('candidates',candidates,k=>k);
 recentMetricTrend=memoDerived('trend',recentMetricTrend,h=>h.key);
 performanceAssessment=memoDerived('assessment',performanceAssessment,h=>h.key);
+adviceEvidence=memoDerived('advice-evidence',adviceEvidence,h=>h.key);
 scoreParts=memoDerived('score',scoreParts,i=>i.hero.key);
 recommendations=memoDerived('main',recommendations,k=>k);
 transferSources=memoDerived('transfer',transferSources,()=>0);
