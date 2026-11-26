@@ -290,13 +290,13 @@ async function pool(platform,heroes,progress){
  const task=(async()=>{
   const reuse=old&&Date.now()-old.at<6*3600000&&Array.isArray(old.tags);
   const todo=reuse?tags.filter(t=>!old.tags.includes(t.toLowerCase())):tags;
-  const rows=reuse?[...old.rows]:[];let next=0,checked=reuse?old.checked:0,errors=reuse?old.errors:0,stop=null;
+  const rows=reuse?[...old.rows]:[],completedTags=reuse?[...old.tags]:[],collectionAt=reuse?old.at:Date.now();let next=0,checked=reuse?old.checked:0,errors=reuse?old.errors:0,stop=null;
   progress({state:'loading',checked,discovered:tags.length,message:"Fetching public profiles directly"});
   async function worker(){while(next<todo.length&&!stop){const tag=todo[next++];try{
    const src=await getProfile(tag,platform);
    for(const hero of heroes){const row=extract(src.body,tag,platform,hero.key,hero.role,src.at);if(!row.reject)rows.push(row);}
   }catch(e){errors++;if(e.status===429||e.status===403)stop=Error("The profile source is limiting requests. Try again later.");}
-  checked++;if(checked%12===0&&rows.length)progress({rows:[...rows],at:Date.now(),checked,discovered:tags.length,errors});else progress({state:'loading',checked,discovered:tags.length,errors,message:'Fetching public profiles directly'});
+  checked++;if(!stop)completedTags.push(tag.toLowerCase());if(checked%12===0&&rows.length){const checkpoint={version:1,platform,rows:[...rows],tags:[...completedTags],at:collectionAt,checked,discovered:tags.length,errors};pools.set(platform,checkpoint);try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(checkpoint));}catch{}progress(checkpoint);}else progress({state:'loading',checked,discovered:tags.length,errors,message:'Fetching public profiles directly'});
   }}
   await Promise.all([worker(),worker()]);
   if(stop)throw stop;if(!rows.length)throw Error("No usable public reference profiles received. Check your connection or try again later.");
