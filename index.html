@@ -102,6 +102,14 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 .info-content{max-height:min(360px,65vh);overflow-y:auto;overscroll-behavior:contain;padding-top:40px;box-sizing:border-box}
 .info-content .popover-close{position:absolute;right:7px;top:7px;width:28px;height:28px;padding:0;display:grid;place-items:center;border-radius:50%;font:20px/1 Arial,sans-serif;background:#21364a;color:#edf6ff;border:1px solid #8ba9c35c;cursor:pointer}
 .info-popover>summary:focus-visible,.popover-close:focus-visible{outline:2px solid #ffb35f;outline-offset:3px}
+/* Usability pass: preserve the lobby layout while improving interaction. */
+.dismissal-feedback{display:flex;align-items:center;gap:12px;margin:10px 0;padding:10px 14px;border-left:2px solid #ffb35f;background:#172a3ce8;font-size:12px}.dismissal-feedback[hidden]{display:none}.dismissal-feedback button{margin-left:auto}
+.pick-explanation>strong{display:block;color:#ffd09a;margin:14px 0 4px;font-size:12px}.pick-explanation>strong:first-child{margin-top:0}.pick-explanation details{padding:10px;margin-top:14px}.score-line{display:flex;justify-content:space-between;gap:14px;font-size:11px;margin:7px 0}.score-line strong{white-space:nowrap}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #ffb35f;outline-offset:3px}
+.reference-table{width:100%;font-variant-numeric:tabular-nums}.reference-table td,.reference-table th{padding:8px 5px;overflow-wrap:anywhere}
+@media(pointer:coarse){.dismiss-pick,.dismiss-flex,.info-content .popover-close{min-width:36px;min-height:36px}.info-popover>summary{padding:10px 0}.profile-presets button{min-height:36px}}
+@media(max-width:700px){.info-popover[open]>.info-content{position:fixed;left:16px;right:16px;top:15vh;bottom:auto;width:auto;max-width:none;max-height:70vh;z-index:1000;box-shadow:0 0 0 100vmax #020a13b8,0 16px 60px #000b}.reference-table{font-size:11px}.dismissal-feedback{font-size:11px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 <div class="lobby-atmosphere" aria-hidden="true"><div class="sky-ribbon"></div><div class="sky-ribbon second"></div><div class="city-glow"></div><div class="side-rays"></div></div><div class="snowfall" aria-hidden="true"><i style="--x:0%;--delay:-0s;--duration:12s;--size:1px"></i><i style="--x:31%;--delay:-0.7s;--duration:14s;--size:2px"></i><i style="--x:62%;--delay:-1.4s;--duration:16s;--size:3px"></i><i style="--x:93%;--delay:-2.0999999999999996s;--duration:18s;--size:4px"></i><i style="--x:24%;--delay:-2.8s;--duration:20s;--size:1px"></i><i style="--x:55%;--delay:-3.5s;--duration:22s;--size:2px"></i><i style="--x:86%;--delay:-4.199999999999999s;--duration:24s;--size:3px"></i><i style="--x:17%;--delay:-4.8999999999999995s;--duration:12s;--size:4px"></i><i style="--x:48%;--delay:-5.6s;--duration:14s;--size:1px"></i><i style="--x:79%;--delay:-6.3s;--duration:16s;--size:2px"></i><i style="--x:10%;--delay:-7s;--duration:18s;--size:3px"></i><i style="--x:41%;--delay:-7.699999999999999s;--duration:20s;--size:4px"></i><i style="--x:72%;--delay:-8.399999999999999s;--duration:22s;--size:1px"></i><i style="--x:3%;--delay:-9.1s;--duration:24s;--size:2px"></i><i style="--x:34%;--delay:-9.799999999999999s;--duration:12s;--size:3px"></i><i style="--x:65%;--delay:-10.5s;--duration:14s;--size:4px"></i><i style="--x:96%;--delay:-11.2s;--duration:16s;--size:1px"></i><i style="--x:27%;--delay:-11.899999999999999s;--duration:18s;--size:2px"></i><i style="--x:58%;--delay:-12.6s;--duration:20s;--size:3px"></i><i style="--x:89%;--delay:-13.299999999999999s;--duration:22s;--size:4px"></i><i style="--x:20%;--delay:-14s;--duration:24s;--size:1px"></i><i style="--x:51%;--delay:-14.7s;--duration:12s;--size:2px"></i><i style="--x:82%;--delay:-15.399999999999999s;--duration:14s;--size:3px"></i><i style="--x:13%;--delay:-16.099999999999998s;--duration:16s;--size:4px"></i><i style="--x:44%;--delay:-16.799999999999997s;--duration:18s;--size:1px"></i><i style="--x:75%;--delay:-17.5s;--duration:20s;--size:2px"></i><i style="--x:6%;--delay:-18.2s;--duration:22s;--size:3px"></i><i style="--x:37%;--delay:-18.9s;--duration:24s;--size:4px"></i><i style="--x:68%;--delay:-19.599999999999998s;--duration:12s;--size:1px"></i><i style="--x:99%;--delay:-20.299999999999997s;--duration:14s;--size:2px"></i><i style="--x:30%;--delay:-21s;--duration:16s;--size:3px"></i><i style="--x:61%;--delay:-21.7s;--duration:18s;--size:4px"></i><i style="--x:92%;--delay:-22.4s;--duration:20s;--size:1px"></i><i style="--x:23%;--delay:-23.099999999999998s;--duration:22s;--size:2px"></i><i style="--x:54%;--delay:-23.799999999999997s;--duration:24s;--size:3px"></i><i style="--x:85%;--delay:-24.5s;--duration:12s;--size:4px"></i><i style="--x:16%;--delay:-25.2s;--duration:14s;--size:1px"></i><i style="--x:47%;--delay:-25.9s;--duration:16s;--size:2px"></i><i style="--x:78%;--delay:-26.599999999999998s;--duration:18s;--size:3px"></i><i style="--x:9%;--delay:-27.299999999999997s;--duration:20s;--size:4px"></i><i style="--x:40%;--delay:-28s;--duration:22s;--size:1px"></i><i style="--x:71%;--delay:-28.7s;--duration:24s;--size:2px"></i><i style="--x:2%;--delay:-29.4s;--duration:12s;--size:3px"></i><i style="--x:33%;--delay:-30.099999999999998s;--duration:14s;--size:4px"></i><i style="--x:64%;--delay:-30.799999999999997s;--duration:16s;--size:1px"></i><i style="--x:95%;--delay:-31.499999999999996s;--duration:18s;--size:2px"></i><i style="--x:26%;--delay:-32.199999999999996s;--duration:20s;--size:3px"></i><i style="--x:57%;--delay:-32.9s;--duration:22s;--size:4px"></i></div><main>
 <header>
@@ -115,7 +123,7 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 <section class="recommendations" aria-labelledby="advice">
 <div class="row spread"><h2 id="advice">Your hero selection</h2><a href="#heroes" class="jump-link">Hero performance ↓</a></div>
 <p class="muted advice-intro">Three mains per role. A new hero to try. Tailored to your profile.</p>
-<div class="row advice-controls"><details class="info-popover advice-basis"><summary>ⓘ Recommendation basis</summary><div class="info-content"><p id="modeExplanation" class="muted"></p><p id="adviceStatus" class="muted" role="status"></p><p>Not for you? Click × on a hero; the next pick moves up.</p></div></details><button type="button" id="resetSuggestions" disabled>Restore all suggestions</button></div><p id="metaStatus" class="muted" role="status"></p><p class="swipe-note">Swipe left for DPS and Tank →</p><div id="recommendations" class="grid"></div>
+<div class="row advice-controls"><details class="info-popover advice-basis"><summary>ⓘ Recommendation basis</summary><div class="info-content"><p id="modeExplanation" class="muted"></p><p id="adviceStatus" class="muted" role="status"></p><p>Not for you? Click × on a hero; the next pick moves up.</p></div></details><button type="button" id="resetSuggestions" disabled>Restore all suggestions</button></div><p id="metaStatus" class="muted" role="status"></p><div id="dismissalFeedback" class="dismissal-feedback" hidden><span id="dismissalNotice" role="status" aria-live="polite"></span><button id="undoDismissal" type="button">Undo</button></div><p class="swipe-note">Swipe left for DPS and Tank →</p><div id="recommendations" class="grid"></div>
 
 </section>
 <section class="panel" aria-labelledby="heroes">
@@ -269,13 +277,13 @@ async function loadReference(){
 
 function queueReferences(){void loadReference();}
 function renderReferences(hero){
- const panel=node('section','','reference-panel');panel.id='referencePanel';panel.append(node('h4',"Rank averages · same hero · all modes"));
+ const panel=node('section','','reference-panel');panel.id='referencePanel';panel.append(node('h4',"Collected rank references · same hero · all modes"));
  const r=referenceCache[referenceKey(hero.key)]||referenceBatch[[account.player.toLowerCase(),account.platform].join('|')];
  if(!r){const b=node('button',"Compare references");b.type='button';b.onclick=()=>void loadReference(hero.key);panel.append(node('p',"Your combined Competitive + Quick Play stats, compared with the same combination for other players."),b);return panel;}
  if(r.state!=='ready'){panel.append(node('p',(r.state==='error'||r.state==='unavailable')?"Comparison unavailable: "+r.message:(r.state==='queued'?"Reference check queued.":(r.message||"Checking references")+" · Shared player pool: "+r.checked+' / '+(r.discovered||'…')+" profiles checked. Averages will then be calculated for all heroes.")));panel.append(node('small',"Your recommendations and toggles remain available during this check."));return panel;}
  const group=r.current,own=r.own;
  panel.append(node('p',group.n+" verified references · "+(ranks[own.division]||own.division)+' '+own.role+' · '+own.platform.toUpperCase()+" · references fetched "+date(r.poolAt||r.at)));
- panel.append(node('small','Beide kanten: Competitive + Quick Play, gewogen naar hero-speeltijd. API-cache kan achterlopen. Quick Play-aandeel: jij '+percent(own.qpShare*100)+" · reference median "+percent((group.qpMedian??0)*100)+". Region unknown."));
+ panel.append(node('small','Both sides combine Competitive + Quick Play, weighted by hero playtime. Sources may be delayed. Quick Play share: you '+percent(own.qpShare*100)+" · reference median "+percent((group.qpMedian??0)*100)+". Region unknown."));
  if(group.n<5){panel.append(node('p',"Not enough matching profiles yet. At least five are required; no recommendation bonus is applied."));}
  else{
   const table=node('table','','reference-table'),head=node('tr');for(const title of ['Per 10 min',"You","Rank group","Difference"])head.append(node('th',title));const thead=node('thead');thead.append(head);table.append(thead);const body=node('tbody');
@@ -720,6 +728,7 @@ function portrait(hero) {
   const img = node("img");
   img.alt = "";
   img.loading = "lazy";
+  img.decoding = "async";
   if (hero?.portrait?.startsWith("https://")) img.src = hero.portrait;
   img.onerror = () => img.remove();
   return img;
@@ -779,14 +788,23 @@ function recommendations(role){
  if(picks.length)try{localStorage.setItem(key,JSON.stringify({at:Date.now(),heroes:picks.map(i=>i.hero.key)}));}catch{}
  return picks.map((item,index)=>({...item,provisional:(item.stats?.games_played||0)<20,label:(index+1)+'. '+((item.stats?.games_played||0)<20?'Provisional main':index===0?'Main candidate':'Alternative main')}));
 }
+let lastIgnored=null;
+function undoIgnored(){
+  if(!lastIgnored||lastIgnored.account!==accountKey())return;
+  const hero=lastIgnored.hero;lastIgnored=null;setIgnored(hero,false);
+}
 function setIgnored(hero,ignore){
+  lastIgnored=ignore?{hero,account:accountKey()}:null;
   if(ignore)ignoredHeroes.add(hero);else ignoredHeroes.delete(hero);
   persist();render();
   const name=catalog.find(h=>h.key===hero)?.name||hero;
+  byId("undoDismissal").hidden=!ignore;
+  byId("dismissalNotice").textContent=ignore?name+" hidden from your suggestions.":name+" restored.";
+  byId("dismissalFeedback").hidden=false;
   byId('adviceStatus').textContent=ignore?name+" ignored for this profile. The next heroes have moved up.":name+" is included in recommendations again.";
 }
 function resetSuggestions(){
-  const count=ignoredHeroes.size;ignoredHeroes.clear();persist();render();
+  const count=ignoredHeroes.size;ignoredHeroes.clear();lastIgnored=null;byId("dismissalFeedback").hidden=true;persist();render();
   byId('adviceStatus').textContent=count+" ignored heroes are included again for "+displayTag()+". Performance checks still apply.";
 }
 function restoreIgnored(value){ignoredHeroes=new Set(Array.isArray(value)?value.filter(key=>typeof key==='string'&&/^[a-z0-9-]+$/.test(key)):[]);}
@@ -862,7 +880,7 @@ function restore() {
   } catch {}
 }
 function notice(message,error = false) {
-  byId("privacyHelp").hidden = !(error && /Geen gekozen profielbron|privéprofiel/i.test(message));
+  byId("privacyHelp").hidden = !(error && /None of the selected profile sources|private profile|profile not found/i.test(message));
   byId("status").textContent = message;
   byId("status").classList.toggle("error",error);
 }
@@ -979,7 +997,7 @@ function renderAdvice() {
       const trend=recentMetricTrend(hero);const shortReason=trend.ready?(trend.score>.05?"Recent contribution improving":trend.score<-.05?"Recent contribution needs attention":"Recent contribution holding steady"):"Rank context · recent history building";
       if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",shortReason,"pick-context"));else own.append(node("small",personalText));
       const weights=scoreParts(item);
-      info.append(own,infoPopover("Why this pick?",node("p",metaText+". Weak outcome context based on "+fmt(weights.evidenceN)+" time-weighted evidence units. Familiarity +"+fmt(weights.familiarity)+"; aim preference "+fmt(weights.comfort)+"; reference average "+fmt(weights.peerAdjustment)+"; uncertainty deduction "+fmt(weights.uncertainty)+". Competitive and Quick Play are combined; this is not a pure ranked measurement. Open the hero for the full calculation. Recent contribution: "+weights.trend.reason)));
+      info.append(own,infoPopover("Why this pick?",pickExplanation(item)));
       info.append(node('small',item.label.replace(/^\d+\. /,''),'pick-verdict'));
       if(item.learning){const favorite=roleHistory(role).favorite;info.append(node('small',"Played less than "+favorite.hero.name));}
       if(item.provisional)info.append(node('small',"Provisional · more personal experience needed"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
@@ -1125,6 +1143,20 @@ function renderRoster() {
   detail.append(comparison);
   detail.append(infoPopover("About the measurements",node('p',"Output stats are per 10 minutes, weighted by playtime. Utility fields use the source names. Missing means unknown. No rank percentiles or replay assessment.")));
 }
+function pickExplanation(item){
+  const box=node('div','','pick-explanation'),w=scoreParts(item);
+  const signals=[['Rank win-rate context',w.base-50],['Personal outcomes',w.results],['Less Aim preference',w.comfort],['Comparable reference stats',w.peerAdjustment],['Recent contribution',w.recentAdjustment]].filter(([,v])=>Number.isFinite(v));
+  const strongest=signals.filter(([,v])=>v>.05).sort((a,b)=>b[1]-a[1])[0];
+  box.append(node('strong','Why this hero'),node('p',strongest?strongest[0]+' is the strongest positive scoring signal.':'No strong positive scoring signal; this is a relative choice among the available eligible heroes.'));
+  const metrics=heroMetrics(item.hero).filter(m=>m.core&&Number.isFinite(m.value));
+  const level=w.trend.ready?'Recent performance observed':item.provisional?'Limited personal sample':'Career data; recent history building';
+  box.append(node('strong','Evidence'),node('p',level+'. '+metrics.length+' available contribution measurements. Hours describe experience, not skill.'));
+  box.append(node('strong','What remains uncertain'),node('p','Career and reference data mix modes and periods. This ranking is not a win prediction or proof of readiness for your next rank. '+(w.peerAdjustment===0?'Reference stats currently add no points. ':'' )+w.trend.reason));
+  const calculation=node('details'),summary=node('summary','See scoring breakdown');calculation.append(summary);
+  for(const [label,value]of [...signals,['Uncertainty',-w.uncertainty]]){const row=node('div','','score-line');row.append(node('span',label),node('strong',(value>=0?'+':'')+fmt(value)));calculation.append(row);}
+  calculation.append(node('p','Neutral baseline 50 → index '+fmt(w.total)+'. Close choices may retain their place with a 0.35-point stability margin. This index is not a percentage.'));
+  box.append(calculation);return box;
+}
 function infoPopover(label,content){
   const info=node('details','','info-popover');
   const trigger=node('summary','ⓘ '+label);
@@ -1148,7 +1180,7 @@ function render() {
   byId("profileLink").href = "https://overwatch.blizzard.com/en-us/career/" + encodeURIComponent(account.player) + "/";
   for (const mode of Object.keys(modes)) byId(mode + "Link").href = endpoint(mode);
   renderAdvice();
-  renderHeaderLineup();
+  // The hidden decorative lineup does not need rebuilding.
   const general = combinedGeneral();
   byId("overviewStats").replaceChildren(...[["Games",fmt(general?.games_played)],["Winrate",percent(winrate(general))],["Playtime",duration(general?.time_played)]].map(([label,value]) => {
     const item=node("div");item.append(node("strong",value),node("small",label));return item;
@@ -1259,8 +1291,7 @@ async function refresh() {
     if(!referenceCache[referenceKey(selectedHero)])selectedHero=null;
     if(Object.keys(errors).length<2)notice("Profile loaded · refreshing rank win-rate data and hero descriptions…");
     render();
-    await loadAllMeta(true);
-    for (const mode of Object.keys(modes)) if (data[mode]?.source === "OverFast" && !errors[mode]) await loadCareer(mode,token);
+    await Promise.all([loadAllMeta(true), ...Object.keys(modes).filter(mode=>data[mode]?.source === "OverFast" && !errors[mode]).map(mode=>loadCareer(mode,token))]);
     captureProgress();
     queueReferences();
     // Catalog already fetched alongside the profile.
@@ -1271,6 +1302,8 @@ async function refresh() {
     const sources=[...new Set(Object.entries(data).filter(([mode])=>!errors[mode]).map(([,entry])=>entry.source))];
     notice(failures ? (failures===2?"None of the selected profile sources could provide new stats. ":"Some stats are missing. ")+(Object.keys(data).length?"Previously loaded stats remain visible. ":'')+"Open Data and connection for each source's error." : "Profile refreshed via "+sources.join(' + ')+'.',Boolean(failures));
     render();
+  } catch(error) {
+    if(token===generation)notice("Refresh could not finish. Your loaded stats remain available. Try Load / refresh again. " + errorText(error),true);
   } finally {
     busy = false;
     byId("loadProfile").disabled = byId("refresh").disabled = byId("file").disabled = byId("profileProvider").disabled = false;
@@ -1279,6 +1312,7 @@ async function refresh() {
   }
 }
 function setAccount(next,enablePersonal = false) {
+  lastIgnored=null;byId("dismissalFeedback").hidden=true;
   persist();
   generation++;
   providerDiagnostics=[];
@@ -1315,6 +1349,7 @@ function setAccount(next,enablePersonal = false) {
 byId("refresh").onclick = refresh;
 byId('profileProvider').onchange=()=>{if(busy){byId('profileProvider').value=profileProvider;return;}profileProvider=byId('profileProvider').value;persist();refresh();};
 byId("resetSuggestions").onclick = resetSuggestions;
+byId("undoDismissal").onclick=undoIgnored;
 byId("accountForm").onsubmit = async event => {
   event.preventDefault();
   if (busy) { notice("Wait for fetching to finish, then click Load / refresh."); return; }
