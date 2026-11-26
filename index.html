@@ -1193,7 +1193,7 @@ function renderRoster() {
 
   const meta = metaFor(hero.key);
   const comparison = node("div","","comparison");
-  comparison.append(node("h4","Winrate · " + metaLabel()),compareRow(displayTag(),winrate(stats)),compareRow("Current rank",meta?.winrate));
+  comparison.append(node("h4","Winrate · " + metaLabel()),compareRow(displayTag(),winrate(stats)),compareRow(profile?.competitive?.[account.platform]?.[selectedRole]?.division?"Role rank":"Comparison target",meta?.winrate));
   comparison.append(compareRow(ranks[goalFor(selectedRole)],targetFor(hero.key)?.winrate));
   if (meta && played(stats)) {
     const delta = winrate(stats) - meta.winrate;
