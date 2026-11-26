@@ -74,7 +74,7 @@ body:not(.christmas) .panel{background:linear-gradient(120deg,#172037f5,#101727f
 <div class="header-actions row spread"><button id="refresh" type="button" hidden>Refresh</button><button id="accountToggle" type="button" hidden>Settings</button></div>
 <div class="account-settings" id="accountSettings"><form id="accountForm" class="row"><label>BattleTag <span class="tag-input"><input id="battletag" aria-label="Player name" value="Necoy" required maxlength="32" autocomplete="off" placeholder="Enter player name"><span>#</span><input id="tagNumber" aria-label="BattleTag number" value="2548" required pattern="[0-9]{3,12}" inputmode="numeric" placeholder="Number"></span></label><label>Platform <select id="platform"><option value="pc">PC</option><option value="console">Console</option></select></label><label>Region <select id="region"><option value="europe">Europe</option><option value="americas">Americas</option><option value="asia">Asia</option></select></label><button type="submit" id="loadProfile">Load / refresh</button></form></div>
 <div class="header-status"><div class="status-message"><p id="status" class="status" role="status">Connecting to profile sources…</p><p id="privacyHelp" class="profile-error-help" hidden><strong>Check that your profile is public:</strong><br>Overwatch → Options → Social → Privacy → Career Profile Visibility → Public.</p></div><small id="stamp">Last update · —</small></div>
-<details class="freshness-disclosure"><summary>How current are your stats?</summary><p id="freshness" class="freshness" role="status"></p></details><p id="historyStorage" class="muted" role="status" style="font-size:11px;margin:8px 0 0">Recent history stays in this browser. Private browsing may erase it when the session ends.</p></header>
+<details class="freshness-disclosure"><summary>How current are your stats?</summary><p id="freshness" class="freshness" role="status"></p><p id="historyStorage" class="muted" role="status" style="font-size:11px;margin:8px 0 0">Recent history stays in this browser. Private browsing may erase it when the session ends.</p></details></header>
 
 <section class="recommendations" aria-labelledby="advice">
 <div class="row spread"><h2 id="advice">Your hero selection</h2><a href="#heroes" class="jump-link">Hero performance ↓</a></div>
@@ -791,6 +791,7 @@ function persist() {
     byId("historyStorage").textContent="History saved in this browser only · private browsing or clearing site data may erase it.";
   } catch {
     byId("storageNote").textContent = "Automatic saving is unavailable here.";
+    const historyDetails=byId("historyStorage").closest?.("details");if(historyDetails)historyDetails.open=true;
     byId("historyStorage").textContent="History could not be saved. Recommendations still work, but recent tracking may restart after closing or reloading this page.";
   }
 }
@@ -940,10 +941,8 @@ function renderAdvice() {
       const own=node("div","","personal-result");
       if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",percent(winrate(stats))+" won · not a prediction"));else own.append(node("small",personalText));
       const weights=scoreParts(item);
-      info.append(own,infoPopover("Why this pick?",node("p",metaText+". Weak outcome context based on "+fmt(weights.evidenceN)+" time-weighted evidence units. Familiarity +"+fmt(weights.familiarity)+"; aim preference "+fmt(weights.comfort)+"; reference average "+fmt(weights.peerAdjustment)+"; uncertainty deduction "+fmt(weights.uncertainty)+". Competitive and Quick Play are combined; this is not a pure ranked measurement. Open the hero for the full calculation.")));
-      info.append(node('small',item.label,'pick-verdict'));
-      const observed=recentMetricTrend(hero);info.append(node('small',observed.ready?'Recent contribution '+(observed.score>.05?'↑':observed.score<-.05?'↓':'→')+' · '+fmt(observed.minutes)+' observed minutes':'Building recent metric history'));info.append(infoPopover('Recent contribution',node('p',observed.reason)));
-      const compact=node('div','','metric-grid');for(const m of heroMetrics(hero).filter(m=>m.core&&Number.isFinite(m.value)&&/healing_done|hero_damage_done|deaths_avg|final_blows/.test(m.key))){const cell=node('div');cell.append(node('strong',fmt(m.value)),node('small',m.label));compact.append(cell);}info.append(compact);
+      info.append(own,infoPopover("Why this pick?",node("p",metaText+". Weak outcome context based on "+fmt(weights.evidenceN)+" time-weighted evidence units. Familiarity +"+fmt(weights.familiarity)+"; aim preference "+fmt(weights.comfort)+"; reference average "+fmt(weights.peerAdjustment)+"; uncertainty deduction "+fmt(weights.uncertainty)+". Competitive and Quick Play are combined; this is not a pure ranked measurement. Open the hero for the full calculation. Recent contribution: "+weights.trend.reason)));
+      info.append(node('small',item.label.replace(/^\d+\. /,''),'pick-verdict'));
       if(item.learning){const favorite=roleHistory(role).favorite;info.append(node('small',"Played less than "+favorite.hero.name));}
       if(item.provisional)info.append(node('small',"Provisional · more personal experience needed"));      row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
       row.append(info);
