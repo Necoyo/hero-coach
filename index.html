@@ -148,6 +148,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 // Reference data are account/platform/hero scoped; missing data never becomes a zero statistic.
 const referenceCache={},referenceBatch={},referencePending=new Set();
 const referenceLabels={damage:'Hero damage',healing:'Healing',deaths:'Deaths',finals:'Final blows',elims:'Eliminations',assists:'Assists',mitigation:'Mitigation'};
+function benchmarkRank(summary,platform,role){
+ const order=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'];
+ const comp=summary?.competitive?.[platform]||{},valid=r=>r&&order.includes(r.division);
+ const known=comp[role];if(valid(known))return {division:known.division,tier:known.tier??null,source:'role',label:'Known role rank'};
+ const available=Object.entries(comp).filter(([key,r])=>['tank','damage','support','open','open_queue'].includes(key)&&valid(r)).sort((a,b)=>order.indexOf(b[1].division)-order.indexOf(a[1].division)||(a[1].tier??5)-(b[1].tier??5));
+ if(available.length){const [from,r]=available[0];return {division:r.division,tier:r.tier??null,source:'highest',label:'Estimated target from highest available '+from.replaceAll('_',' ')+' rank'};}
+ return {division:'platinum',tier:5,source:'default',label:'Default comparison target; role rank unknown'};
+}
 function referenceKey(hero){return [account.player.toLowerCase(),account.platform,hero].join('|');}
 function referenceResult(hero){const r=referenceCache[referenceKey(hero)];return r?.state==='ready'&&r.version===2&&r.at<=Date.now()&&Date.now()-r.at<48*3600000?r:null;}
 function usefulUtility(key){return /^(players_saved|damage_amplified|healing_amplified|enemies_slept|negative_effects_cleansed|successful_resurrections|resurrects|knockback_kills|damage_absorbed)_avg_per_10_min$/.test(key);}
@@ -174,7 +182,9 @@ function performanceAssessment(hero){
  if((currentRank&&(r.own.division||null)!==currentRank)||(Number.isInteger(season)&&r.own.season!==season))return {...empty,reason:'Role rank or season changed; refreshing the comparison.'};
  for(const [mode,entry]of Object.entries(data)){if(entry.stats?.heroes?.[hero.key]?.time_played>0&&entry.source==='OverFast'&&(!career[mode]||careerErrors[mode]||(Number.isFinite(entry.at)&&career[mode].at<entry.at)))return {...empty,reason:'Waiting for matching detailed personal stats.'};}
  const hasCoverage=g=>g&&Object.keys(g.metrics||{}).length>=2;
- const exact=currentRank&&r.current?.scope==='same-rank'?r.current:null;
+ const expected=benchmarkRank(profile,account.platform,hero.role);
+ if(r.benchmark&&r.benchmark.division!==expected.division)return {...empty,reason:'Comparison target changed; refreshing references.'};
+ const exact=r.current&&['same-rank','target-rank'].includes(r.current.scope)?r.current:null;
  const group=hasCoverage(exact)&&exact.n>=5?exact:hasCoverage(r.broader)?r.broader:hasCoverage(exact)?exact:null;
  if(!group)return {...empty,reason:'Too few compatible same-hero measurements; at least three references per metric are needed.'+(r.partial?' Collection in progress: '+r.checked+' / '+r.discovered+' profiles checked.':'')};
  const values=personalRates(hero),weights=performanceWeights(hero),rows=[];
@@ -190,7 +200,7 @@ function performanceAssessment(hero){
  if(!rows.some(r=>r.key==='deaths')||!rows.some(r=>r.key===primary))return {...empty,rows,scope:group.scope,reason:'Survival and '+primary+' need compatible comparisons before personal fit can be scored.'};
  const coverage=rows.reduce((n,r)=>n+r.weight,0),sample=Math.min(n/(n+15),seconds/(seconds+5400));
  const groupConfidence=rows.reduce((n,r)=>n+r.weight*r.confidence,0)/coverage;
- const scopeFactor=group.scope==='same-rank'?1:.65;
+ const scopeFactor=group.scope==='same-rank'?1:group.scope==='target-rank'?.8:.65;
  const confidence=sample*groupConfidence*Math.min(1,coverage/.85)*scopeFactor;
  let effect=rows.reduce((n,r)=>n+r.effect*r.weight,0)/coverage;
  // Big output must not erase clear survival failure or a missing primary contribution.
@@ -199,11 +209,12 @@ function performanceAssessment(hero){
  if(primaryRow.effect<-.65)effect=Math.min(effect,primaryRow.effect*.35);
  const risk=n>=20&&seconds>=7200&&confidence>=.25&&effect<-.35;
  const state=confidence<.25?'limited':effect>.12?'above':effect<-.12?'below':'similar';
- const scope=group.scope==='same-rank'?'same-rank':'mixed-rank';
+ const scope=group.scope;
+ const scopeLabel=scope==='same-rank'?'Same role rank':scope==='target-rank'?(ranks[r.benchmark.division]+' comparison target · '+r.benchmark.label):'Mixed ranks; not a rank benchmark';
  return {state,score:12*confidence*effect,confidence,effect,rows,coverage,scope,group,risk,
  strengths:rows.filter(r=>r.effect>.12).sort((a,b)=>b.effect*b.weight-a.effect*a.weight),
  weaknesses:rows.filter(r=>r.effect<-.12).sort((a,b)=>a.effect*a.weight-b.effect*b.weight),
- reason:(scope==='same-rank'?'Same role rank':'Mixed ranks; not a rank benchmark')+' · '+Math.min(...rows.map(r=>r.n))+'+ references per scored metric · '+(state==='limited'?'limited evidence':state==='above'?'stronger measured contribution':state==='below'?'weaker measured contribution':'mixed or similar contribution')+(r.partial?' · collection still in progress':'')};
+ reason:scopeLabel+' · '+Math.min(...rows.map(r=>r.n))+'+ references per scored metric · '+(state==='limited'?'limited evidence':state==='above'?'stronger measured contribution':state==='below'?'weaker measured contribution':'mixed or similar contribution')+(r.partial?' · collection still in progress':'')};
 }
 function referenceAdjustment(hero){return performanceAssessment(hero).score;}
 
@@ -252,7 +263,8 @@ function extract(payload,tag,platform,hero,role,at=Date.now()){
 }
 function summarize(rows,own,division){
  const all=[...new Map(rows.filter(r=>!r.reject&&r.hero===own.hero&&r.platform===own.platform&&r.role===own.role&&r.tag.toLowerCase()!==own.tag.toLowerCase()&&r.n>=5&&r.time>=1800&&Date.now()-r.at<=MAX_AGE).map(r=>[r.tag.toLowerCase(),r])).values()];
- const accepted=all.filter(r=>division===null||(r.division===division&&own.season!==null&&r.season===own.season));
+ const latestSeason=Math.max(0,...all.map(r=>r.season||0));
+ const accepted=all.filter(r=>division===null||(r.division===division&&r.season===(own.season??latestSeason)));
  const metrics={};
  for(const key of new Set(accepted.flatMap(r=>Object.keys(r.metrics)))){
   const values=[];let matched=0;
@@ -316,8 +328,10 @@ async function collect(tag,platform,heroes,progress){
   const result={state:'ready',partial,at:Date.now(),heroes:{}};
   for(const {hero,own}of ownRows){
    if(own.reject){result.heroes[hero.key]={state:'unavailable',message:own.reject};continue;}
-   const target=own.division?order[Math.min(order.indexOf(own.division)+1,order.length-1)]:null;
-   result.heroes[hero.key]={version:2,state:'ready',partial,own,current:summarize(p.rows,own,own.division),broader:summarize(p.rows,own,null),target:summarize(p.rows,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors};
+   const benchmark=benchmarkRank(src.body.summary,platform,hero.role);
+   const target=order[Math.min(order.indexOf(benchmark.division)+1,order.length-1)];
+   const current=summarize(p.rows,own,benchmark.division);current.scope=benchmark.source==='role'?'same-rank':'target-rank';
+   result.heroes[hero.key]={version:2,state:'ready',partial,own,benchmark,current,broader:summarize(p.rows,own,null),target:summarize(p.rows,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors};
   }return result;
  }
  const cached=pools.get(platform)||read(platform);if(cached&&Date.now()-cached.at<MAX_AGE)progress(batch(cached,true));
@@ -347,7 +361,7 @@ function renderReferences(hero){
  const panel=node('section','','reference-panel');panel.id='referencePanel';panel.append(node('h4','Same-hero performance comparison'));
  const a=performanceAssessment(hero);panel.append(node('p',a.reason));
  if(a.rows.length){const table=node('table','','reference-table'),head=node('tr');for(const label of ['Per 10 min','You','Reference median','Difference'])head.append(node('th',label));const thead=node('thead');thead.append(head);table.append(thead);const body=node('tbody');for(const m of a.rows){const row=node('tr');row.append(node('td',m.label),node('td',fmt(m.value)),node('td',fmt(m.baseline)),node('td',(m.difference>=0?'+':'')+fmt(m.difference)));row.title=m.n+' comparable players; '+(m.key==='deaths'?'lower':'higher')+' is directionally favourable, not proof of impact.';body.append(row);}table.append(body);panel.append(table);}
- panel.append(node('small','Each reference player counts once. Rates use your Quick Play / Competitive mixture where both modes are available; otherwise only a similar mixture qualifies. Mixed-rank comparisons are labelled and receive less weight. No official rank standards or promotion targets.'));
+ panel.append(node('small','Each reference player counts once. Rates use your Quick Play / Competitive mixture where both modes are available; otherwise only a similar mixture qualifies. Unknown role ranks use the highest available competitive rank, then Platinum 5 as a default target. Reference players keep their actual role ranks. Averages cover a division, not an exact tier. Broader mixed-rank comparisons receive less weight. No official promotion targets.'));
  const details=node('details');details.append(node('summary','Sources and assessment limits'));details.append(node('p','Personal metric contribution: '+(a.state==='unavailable'?'Unavailable — '+a.reason:fmt(a.score)+' points. '+a.reason)+'. Population context is capped at ±1.25 points; personal metrics at ±12 before confidence adjustment. These are coaching heuristics, not a validated prediction model.'));
  const r=referenceResult(hero.key);if(r)details.append(node('p','Reference check: '+date(r.poolAt||r.at)+'. Known current role rank does not establish historical rank or Quick Play MMR. Reference players are a collected sample, not the whole player population.'));
  for(const p of a.group?.players||[]){const link=node('a',p.tag.replace(/-(\d+)$/,'#$1')+' · '+fmt(p.hours)+' h');link.href=p.url;link.target='_blank';link.rel='noopener noreferrer';const line=node('p');line.append(link);details.append(line);}panel.append(details);return panel;
@@ -390,7 +404,7 @@ const metaKey = (mode = active,division = "all") => [account.platform,account.re
 
 function roleRank(role = selectedRole) {
   if (rankOverrides[role] !== "auto") return rankOverrides[role];
-  const division = profile?.competitive?.[account.platform]?.[role]?.division;
+  const division = benchmarkRank(profile,account.platform,role).division;
   if (division === "champion") return "grandmaster";
   return ranks[division] ? division : "all";
 }
@@ -975,7 +989,7 @@ function rankControls(role) {
   select.onchange = () => {goalRanks[role] = select.value;persist();render();loadAllMeta();};
   target.append(select);
   const settings=node("details","","goal-settings");
-  const menu=node('div','','rank-menu');menu.append(target,node("small","Target rank adjusts the meta comparison; it is not a test of rank suitability."));
+  const menu=node('div','','rank-menu');menu.append(target,node('small',(()=>{const b=benchmarkRank(profile,account.platform,role);return 'Comparison: '+ranks[b.division]+(b.tier?' '+b.tier:'')+' · '+b.label+'. Reference averages cover the division, not a precise tier. Actual role rank is unchanged.';})()));
   settings.append(node("summary","Rank & source"),menu);block.context=menu;
   block.append(current,settings);
   return block;
@@ -1018,7 +1032,7 @@ function renderAdvice() {
 
     if (profileError && profile) context.append(node("small","Rank from saved profile data."));
     const roleEntry = metaEntry(role);
-    if (!profile?.competitive?.[account.platform]?.[role] && rankOverrides[role] === "auto") context.append(node("small","All-rank win-rate data is used while your role rank is unavailable."));
+    if (!profile?.competitive?.[account.platform]?.[role] && rankOverrides[role] === "auto") context.append(node("small","The comparison target uses your highest available competitive rank, or Platinum 5 when none is available. This does not assign you a role rank."));
     if (!metaEntry(role)) context.append(node("small","No recent rank win-rate data (maximum age: 72 hours); refresh to calculate recommendations."));
     else if(Date.now()-metaEntry(role).at>86400000) context.append(node("small","Saved rank win-rate data is over 24 hours old; refreshing is recommended."));
     if (!usableMeta(metaCache[metaKey("competitive",goalFor(role))])) context.append(node("small","Target-rank win-rate data is missing; using your current rank as the baseline."));
@@ -1049,7 +1063,7 @@ function renderAdvice() {
       const metaText=currentText + (goalFor(role) !== roleRank(role) ? " · " + targetText : "");
       const personalText = played(stats) ? "You " + percent(winrate(stats)) + " · " + fmt(stats.games_played) + " games · " + duration(stats.time_played) : "Your results are unknown";
       const own=node("div","","personal-result");own.title=personalText;
-      const assessment=performanceAssessment(hero);const strongest=assessment.strengths[0];const shortReason=strongest?strongest.label+' '+(strongest.key==='deaths'?'lower':'higher')+' than '+(assessment.scope==='same-rank'?'same-rank':'mixed-rank')+' median':assessment.rows.length?(assessment.state==='limited'?'Limited comparison evidence':assessment.effect<-.12?'Mixed metrics · relative weaknesses':'Mixed or similar contribution'):'Personal fit unverified · comparisons unavailable';
+      const assessment=performanceAssessment(hero);const strongest=assessment.strengths[0];const shortReason=strongest?strongest.label+' '+(strongest.key==='deaths'?'lower':'higher')+' than '+(assessment.scope==='same-rank'?'same-rank':assessment.scope==='target-rank'?'target-rank':'mixed-rank')+' median':assessment.rows.length?(assessment.state==='limited'?'Limited comparison evidence':assessment.effect<-.12?'Mixed metrics · relative weaknesses':'Mixed or similar contribution'):'Personal fit unverified · comparisons unavailable';
       if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",shortReason,"pick-context"));else own.append(node("small",personalText));
       const weights=scoreParts(item);
       info.append(own,infoPopover("Why this pick?",pickExplanation(item)));
