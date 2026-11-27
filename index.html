@@ -365,21 +365,21 @@ async function getProfile(tag,platform){
 const sharedLoads=new Map();
 async function sharedPool(platform,heroes){
  if(typeof location==='undefined')return null;
- if(sharedLoads.has(platform))return sharedLoads.get(platform);
+ const cached=sharedLoads.get(platform);if(cached&&Date.now()-cached.at<15*60000)return cached.task;
  const task=(async()=>{try{
-  const response=await fetch('https://raw.githubusercontent.com/Necoyo/hero-coach/main/references/'+platform+'.json',{credentials:'omit',signal:AbortSignal.timeout(8000)});
+  const response=await fetch('https://raw.githubusercontent.com/Necoyo/hero-coach/main/references/'+platform+'.json',{credentials:'omit',signal:AbortSignal.timeout(20000)});
   if(!response.ok)return null;const p=expandReferencePool(await response.json()),now=Date.now();
   if(p?.version!==1||p.platform!==platform||!Array.isArray(p.rows)||!Number.isFinite(p.at)||p.at>now||now-p.at>MAX_AGE)return null;
   const roles=new Map(heroes.map(h=>[h.key,h.role]));
   p.rows=p.rows.filter(r=>r&&typeof r.tag==='string'&&r.platform===platform&&roles.get(r.hero)===r.role&&Number.isFinite(r.at)&&r.at<=now&&now-r.at<=MAX_AGE&&r.n>=5&&r.time>=1800&&Number.isFinite(r.qpShare)&&r.qpShare>=0&&r.qpShare<=1&&r.metrics&&typeof r.metrics==='object');
   if(!p.rows.length)return null;p.shared=true;return p;
- }catch{return null;}})();sharedLoads.set(platform,task);return task;
+ }catch{return null;}})();sharedLoads.set(platform,{at:Date.now(),task});return task;
 }
 async function pool(platform,heroes,progress){
  let old=pools.get(platform)||read(platform);
  const shared=await sharedPool(platform,heroes);
- if(shared&&(!old||shared.at>old.at)){old=shared;pools.set(platform,old);try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(old));}catch{}}
- if(old?.shared&&Date.now()-old.at<24*3600000)return old;
+ if(shared&&(!old||Date.now()-shared.at<MAX_AGE||shared.at>old.at)){old=shared;pools.set(platform,old);try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(old));}catch{}}
+ if(old?.shared&&Date.now()-old.at<MAX_AGE)return old;
  const tags=[...new Map([...encountered,...seeds].map(tag=>[tag.toLowerCase(),tag])).values()];
  if(old&&Date.now()-old.at<6*3600000&&tags.every(t=>old.tags?.includes(t.toLowerCase())))return old;
  if(pending.has(platform)){await pending.get(platform);return pool(platform,heroes,progress);}
