@@ -129,6 +129,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 .pick .pick-context{display:-webkit-box!important;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45!important}
 .pick:not(.is-first){min-height:166px}.pick.is-first{height:350px}
 .pick.is-first .personal-result .pick-context{max-width:100%}
+/* A compact coaching surface; methods and caveats live in the explanation window. */
+.pick:not(.is-first){min-height:138px}.pick.is-first{height:330px}
+.coach-summary{display:grid;gap:5px;margin:8px 0 10px}
+.coach-focus{font-size:14px;line-height:1.35;color:#f3e5cb;font-weight:600}
+.coach-detail{font-size:11px;line-height:1.4;color:#c4d7e8}
+.pick-footer{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.pick-footer .advice-confidence{font-size:10px;margin:0;font-weight:400}
+.pick-footer .info-popover>summary{font-size:11px}
+.pick.is-first .coach-summary{max-width:100%}
+.flex-choice>p{font-size:12px;line-height:1.5}.flex-choice .advice-confidence{font-size:10px}
+.floating-explanation.info-content{display:flex!important;flex-direction:column;position:fixed!important;inset:auto;transform:none!important;width:420px;max-width:calc(100vw - 24px);max-height:min(660px,calc(100dvh - 24px));padding:0!important;overflow:hidden;z-index:10000!important;background:#0b1929!important;color:#e6eff8;border:1px solid #6686a5;border-top:2px solid #ffae52;border-radius:8px;box-shadow:0 18px 55px #000b;opacity:1!important;visibility:visible!important;box-sizing:border-box;font:13px/1.6 Arial,sans-serif}
+.window-handle{display:flex;align-items:center;gap:12px;flex-shrink:0;padding:12px 15px;cursor:grab;touch-action:none;background:#192d43;border-bottom:1px solid #46617b;user-select:none}
+.window-handle:active{cursor:grabbing}.window-handle:focus-visible{outline:2px solid #ffb45f;outline-offset:-3px}
+.window-handle>strong{flex:1;font-size:14px}.window-handle>span{font-size:10px;color:#abc0d2}
+.window-handle .popover-close{position:static!important;display:grid;place-items:center;width:28px;height:28px;min-width:28px;padding:0!important;line-height:1;border-radius:50%;background:#0c1928;border:1px solid #657e96;color:white;font:20px Arial,sans-serif;cursor:pointer}
+.window-content{padding:15px 18px;overflow:auto;overscroll-behavior:contain;min-height:0}.window-content p{margin:8px 0 14px}.window-content details{margin-top:12px}.window-content summary{cursor:pointer;color:#f0b774}.window-content .evidence-panel{margin:10px 0}
+@media(max-width:700px){.coach-focus{font-size:14px}.pick-footer{gap:10px}.window-handle .popover-close{width:36px;height:36px}.floating-explanation.info-content{width:calc(100vw - 24px)}.pick:not(.is-first){min-height:150px}}
+
 </style>
 <div class="lobby-atmosphere" aria-hidden="true"><div class="sky-ribbon"></div><div class="sky-ribbon second"></div><div class="city-glow"></div><div class="side-rays"></div></div><div class="snowfall" aria-hidden="true"><i style="--x:0%;--delay:-0s;--duration:12s;--size:1px"></i><i style="--x:31%;--delay:-0.7s;--duration:14s;--size:2px"></i><i style="--x:62%;--delay:-1.4s;--duration:16s;--size:3px"></i><i style="--x:93%;--delay:-2.0999999999999996s;--duration:18s;--size:4px"></i><i style="--x:24%;--delay:-2.8s;--duration:20s;--size:1px"></i><i style="--x:55%;--delay:-3.5s;--duration:22s;--size:2px"></i><i style="--x:86%;--delay:-4.199999999999999s;--duration:24s;--size:3px"></i><i style="--x:17%;--delay:-4.8999999999999995s;--duration:12s;--size:4px"></i><i style="--x:48%;--delay:-5.6s;--duration:14s;--size:1px"></i><i style="--x:79%;--delay:-6.3s;--duration:16s;--size:2px"></i><i style="--x:10%;--delay:-7s;--duration:18s;--size:3px"></i><i style="--x:41%;--delay:-7.699999999999999s;--duration:20s;--size:4px"></i><i style="--x:72%;--delay:-8.399999999999999s;--duration:22s;--size:1px"></i><i style="--x:3%;--delay:-9.1s;--duration:24s;--size:2px"></i><i style="--x:34%;--delay:-9.799999999999999s;--duration:12s;--size:3px"></i><i style="--x:65%;--delay:-10.5s;--duration:14s;--size:4px"></i><i style="--x:96%;--delay:-11.2s;--duration:16s;--size:1px"></i><i style="--x:27%;--delay:-11.899999999999999s;--duration:18s;--size:2px"></i><i style="--x:58%;--delay:-12.6s;--duration:20s;--size:3px"></i><i style="--x:89%;--delay:-13.299999999999999s;--duration:22s;--size:4px"></i><i style="--x:20%;--delay:-14s;--duration:24s;--size:1px"></i><i style="--x:51%;--delay:-14.7s;--duration:12s;--size:2px"></i><i style="--x:82%;--delay:-15.399999999999999s;--duration:14s;--size:3px"></i><i style="--x:13%;--delay:-16.099999999999998s;--duration:16s;--size:4px"></i><i style="--x:44%;--delay:-16.799999999999997s;--duration:18s;--size:1px"></i><i style="--x:75%;--delay:-17.5s;--duration:20s;--size:2px"></i><i style="--x:6%;--delay:-18.2s;--duration:22s;--size:3px"></i><i style="--x:37%;--delay:-18.9s;--duration:24s;--size:4px"></i><i style="--x:68%;--delay:-19.599999999999998s;--duration:12s;--size:1px"></i><i style="--x:99%;--delay:-20.299999999999997s;--duration:14s;--size:2px"></i><i style="--x:30%;--delay:-21s;--duration:16s;--size:3px"></i><i style="--x:61%;--delay:-21.7s;--duration:18s;--size:4px"></i><i style="--x:92%;--delay:-22.4s;--duration:20s;--size:1px"></i><i style="--x:23%;--delay:-23.099999999999998s;--duration:22s;--size:2px"></i><i style="--x:54%;--delay:-23.799999999999997s;--duration:24s;--size:3px"></i><i style="--x:85%;--delay:-24.5s;--duration:12s;--size:4px"></i><i style="--x:16%;--delay:-25.2s;--duration:14s;--size:1px"></i><i style="--x:47%;--delay:-25.9s;--duration:16s;--size:2px"></i><i style="--x:78%;--delay:-26.599999999999998s;--duration:18s;--size:3px"></i><i style="--x:9%;--delay:-27.299999999999997s;--duration:20s;--size:4px"></i><i style="--x:40%;--delay:-28s;--duration:22s;--size:1px"></i><i style="--x:71%;--delay:-28.7s;--duration:24s;--size:2px"></i><i style="--x:2%;--delay:-29.4s;--duration:12s;--size:3px"></i><i style="--x:33%;--delay:-30.099999999999998s;--duration:14s;--size:4px"></i><i style="--x:64%;--delay:-30.799999999999997s;--duration:16s;--size:1px"></i><i style="--x:95%;--delay:-31.499999999999996s;--duration:18s;--size:2px"></i><i style="--x:26%;--delay:-32.199999999999996s;--duration:20s;--size:3px"></i><i style="--x:57%;--delay:-32.9s;--duration:22s;--size:4px"></i></div><main>
 <header>
@@ -141,7 +159,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 
 <section class="recommendations" aria-labelledby="advice">
 <div class="row spread"><h2 id="advice">Your hero selection</h2><a href="#heroes" class="jump-link">Hero performance ↓</a></div>
-<p class="muted advice-intro">Three main options and one to try. Gray portraits are unassessed—not bad heroes. Open a hero to see what evidence is missing.</p>
+<p class="muted advice-intro">Your top three and a fun fourth. Gray means unassessed. Click a hero for its metrics.</p>
 <div class="row advice-controls"><details class="info-popover advice-basis"><summary>ⓘ Recommendation basis</summary><div class="info-content"><p id="modeExplanation" class="muted"></p><p id="adviceStatus" class="muted" role="status"></p><p>Not for you? Click × on a hero; the next pick moves up.</p></div></details><button type="button" id="resetSuggestions" disabled>Restore all suggestions</button></div><p id="metaStatus" class="muted" role="status"></p><div id="dismissalFeedback" class="dismissal-feedback" hidden><span id="dismissalNotice" role="status" aria-live="polite"></span><button id="undoDismissal" type="button">Undo</button></div><p class="swipe-note">Swipe left for DPS and Tank →</p><div id="recommendations" class="grid"></div>
 
 </section>
@@ -151,7 +169,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,su
 <div id="roster" class="roster" aria-label="Choose a hero"></div><p id="empty" class="muted"></p><div id="heroDetail" aria-live="polite"></div>
 </section>
 <details><summary>How do recommendations work?</summary>
-<p><strong>Three mains and one for fun.</strong> When at least three eligible heroes have five games and 30 minutes of play, tiny samples are reserved for exploration. Otherwise low-sample provisional options can fill the remaining places. Existing choices get a small tie margin; meaningful score changes still move them. The fourth pick shares mechanics with a selected main and is an experiment.</p><p><strong>Recent contribution.</strong> This browser saves per-account snapshots of explicit cumulative metric totals. Comparable source and season segments are used to calculate observed rates since an earlier snapshot, against that hero’s own earlier baseline. Counters that reset, disappear or change without playtime break the comparison. Nothing is reconstructed from rounded averages. A trend affects scoring after 30 observed minutes over at least two advancing intervals, against at least two hours of earlier history. One exceptional interval cannot change the trend score.</p><p><strong>What matters.</strong> Supports balance survival, healing and available damage, final blows or assists. DPS balance survival, damage and finishing. Tanks also include available mitigation. A large decline in one dimension cannot be erased by gains elsewhere. Explicit utility changes are shown in the detailed trend, but unknown or ambiguous utility is not assigned invented scoring weights. Recent contribution adds at most ±2 points, moderated by playtime and intervals. Quick Play outcomes add at most ±0.5, Competitive ±1.5 before time weighting and sample moderation. Hours add no skill bonus. Improvement against yourself does not prove higher rank readiness.</p><p><strong>Population context.</strong> Current and target rank context blend 70/30, with the overall score adjustment bounded at ±1.25. Win rate remains central; pick share is relative to the same role, and pick/ban adjustments are small and capped. Missing context is neutral. Same-hero personal performance is the primary signal, bounded at ±12 before sample confidence, metric coverage and comparison quality reduce its influence. Same-rank references are preferred; mixed-rank references receive less weight and are clearly labelled. Three compatible players per metric permit a limited comparison; larger samples strengthen confidence. Survival and the role’s primary output must both be available. Missing comparisons remain unavailable, not average performance. These are coaching heuristics, not predictions.</p><p><strong>Your browser history.</strong> History stays in this browser, separately for each BattleTag and platform. Friends visiting the same GitHub Pages URL build their own histories. History does not synchronise across devices, and moving from a local file to this website starts a new history. API caches may delay matches. Leave the dashboard open or revisit and refresh after playing; no tracking happens while the page is closed.</p><a href="https://overwatch.blizzard.com/en-us/rates/" target="_blank" rel="noopener">Blizzard Hero Statistics</a> · <a href="https://overfast-api.tekrop.fr/" target="_blank" rel="noopener">OverFast API and source limitations</a></details><details id="connectionPanel"><summary>Data and connection</summary><label>Profile source <select id="profileProvider"><option value="auto">Automatic · OWAPI.EU → OverFast</option><option value="eu">OWAPI.EU only</option><option value="overfast">OverFast only</option></select></label><p>Automatic tries the second source when data is missing. Both read public Blizzard profiles. Meta and hero descriptions come from OverFast.</p><div id="providerDiagnostics" aria-live="polite"></div><div id="dataDetails"></div></details><details><summary>Open or save local JSON</summary><p id="storageNote">Your settings and successful updates are saved automatically in this browser.</p>
+<p><strong>Three mains and one for fun.</strong> When at least three eligible heroes have five games and 30 minutes of play, tiny samples are reserved for exploration. Otherwise low-sample provisional options can fill the remaining places. Existing choices get a small tie margin; meaningful score changes still move them. The fourth pick shares mechanics with a selected main and is an experiment.</p><p><strong>Recent contribution.</strong> This browser saves per-account snapshots of explicit cumulative metric totals. Comparable source and season segments are used to calculate observed rates since an earlier snapshot, against that hero’s own earlier baseline. Counters that reset, disappear or change without playtime break the comparison. Nothing is reconstructed from rounded averages. A trend affects scoring after 30 observed minutes over at least two advancing intervals, against at least two hours of earlier history. One exceptional interval cannot change the trend score.</p><p><strong>What matters.</strong> Supports balance survival, healing and available damage, final blows or assists. DPS balance survival, damage and finishing. Tanks also include available mitigation. A large decline in one dimension cannot be erased by gains elsewhere. Explicit utility changes are shown in the detailed trend, but unknown or ambiguous utility is not assigned invented scoring weights. Recent contribution adds at most ±2 points, moderated by playtime and intervals. Quick Play outcomes add at most ±0.5, Competitive ±1.5 before time weighting and sample moderation. Hours add no skill bonus. Improvement against yourself does not prove higher rank readiness.</p><p><strong>Population context.</strong> Current and target rank context blend 70/30, with the overall score adjustment bounded at ±2. Win rate remains central; pick share is relative to the same role, and pick/ban adjustments are small and capped. Missing context is neutral. Same-hero personal performance is the primary signal, bounded at ±12 before sample confidence, metric coverage and comparison quality reduce its influence. Same-rank references are preferred; mixed-rank references receive less weight and are clearly labelled. Three compatible players per metric permit a limited comparison; larger samples strengthen confidence. Survival and the role’s primary output must both be available. Missing comparisons remain unavailable, not average performance. These are coaching heuristics, not predictions.</p><p><strong>Your browser history.</strong> History stays in this browser, separately for each BattleTag and platform. Friends visiting the same GitHub Pages URL build their own histories. History does not synchronise across devices, and moving from a local file to this website starts a new history. API caches may delay matches. Leave the dashboard open or revisit and refresh after playing; no tracking happens while the page is closed.</p><a href="https://overwatch.blizzard.com/en-us/rates/" target="_blank" rel="noopener">Blizzard Hero Statistics</a> · <a href="https://overfast-api.tekrop.fr/" target="_blank" rel="noopener">OverFast API and source limitations</a></details><details id="connectionPanel"><summary>Data and connection</summary><label>Profile source <select id="profileProvider"><option value="auto">Automatic · OWAPI.EU → OverFast</option><option value="eu">OWAPI.EU only</option><option value="overfast">OverFast only</option></select></label><p>Automatic tries the second source when data is missing. Both read public Blizzard profiles. Meta and hero descriptions come from OverFast.</p><div id="providerDiagnostics" aria-live="polite"></div><div id="dataDetails"></div></details><details><summary>Open or save local JSON</summary><p id="storageNote">Your settings and successful updates are saved automatically in this browser.</p>
 <p>Save a successful update as a snapshot. You can also save the JSON for <a id="competitiveLink" target="_blank" rel="noopener">Competitive</a> or <a id="quickplayLink" target="_blank" rel="noopener">Quick Play</a> directly and open it here.</p>
 <div class="row"><button type="button" id="save">Save snapshot</button><label>Game mode for standalone API JSON <select id="importMode"><option value="competitive">Competitive</option><option value="quickplay">Quick Play</option></select></label><label>Open JSON <input type="file" id="file" accept=".json,application/json"></label></div>
 </details>
@@ -305,11 +323,11 @@ function extract(payload,tag,platform,hero,role,at=Date.now()){
  return {tag,hero,role,platform,division,tier:rank?.tier??null,season:Number.isInteger(comp?.season)?comp.season:null,n,time,metrics,modeMetrics,modeTimes,qpShare:(modeTimes.quickplay||0)/time,at,url:'https://overwatch.blizzard.com/en-us/career/'+encodeURIComponent(tag)+'/'};
 }
 function summarize(rows,own,division){
- const all=[...new Map(rows.filter(r=>!r.reject&&r.hero===own.hero&&r.platform===own.platform&&r.role===own.role&&r.tag.toLowerCase()!==own.tag.toLowerCase()&&r.n>=5&&r.time>=1800&&Date.now()-r.at<=MAX_AGE).map(r=>[r.tag.toLowerCase(),r])).values()];
+ const all=[...new Map(rows.filter(r=>!r.reject&&r.hero===own.hero&&r.platform===own.platform&&r.role===own.role&&r.tag.toLowerCase()!==own.tag.toLowerCase()&&r.n>=5&&r.time>=1800&&r.at<=Date.now()&&Date.now()-r.at<=MAX_AGE).map(r=>[r.tag.toLowerCase(),r])).values()];
  const latestSeason=Math.max(0,...all.map(r=>r.season||0));
  const accepted=all.filter(r=>division===null||(r.division===division&&r.season===(own.season??latestSeason)));
  const metrics={};
- for(const key of new Set(accepted.flatMap(r=>Object.keys(r.metrics)))){
+ for(const key of new Set(accepted.flatMap(r=>[...Object.keys(r.metrics||{}),...Object.values(r.modeMetrics||{}).flatMap(m=>Object.keys(m))]))){
   const values=[];let matched=0;
   for(const r of accepted){
    let value=null;const weights={quickplay:own.qpShare,competitive:1-own.qpShare};
@@ -337,8 +355,24 @@ async function getProfile(tag,platform){
  if(!response.ok){const e=Error("Profile source returned HTTP "+response.status);e.status=response.status;throw e;}
  const body=await response.json();if(!body||!body.summary||!body.stats)throw Error("Incomplete or private profile");return {body,at:Date.now()};
 }
+const sharedLoads=new Map();
+async function sharedPool(platform,heroes){
+ if(typeof location==='undefined')return null;
+ if(sharedLoads.has(platform))return sharedLoads.get(platform);
+ const task=(async()=>{try{
+  const response=await fetch('https://raw.githubusercontent.com/Necoyo/hero-coach/main/references/'+platform+'.json',{credentials:'omit',signal:AbortSignal.timeout(8000)});
+  if(!response.ok)return null;const p=await response.json(),now=Date.now();
+  if(p?.version!==1||p.platform!==platform||!Array.isArray(p.rows)||!Number.isFinite(p.at)||p.at>now||now-p.at>MAX_AGE)return null;
+  const roles=new Map(heroes.map(h=>[h.key,h.role]));
+  p.rows=p.rows.filter(r=>r&&typeof r.tag==='string'&&r.platform===platform&&roles.get(r.hero)===r.role&&Number.isFinite(r.at)&&r.at<=now&&now-r.at<=MAX_AGE&&r.n>=5&&r.time>=1800&&Number.isFinite(r.qpShare)&&r.qpShare>=0&&r.qpShare<=1&&r.metrics&&typeof r.metrics==='object');
+  if(!p.rows.length)return null;p.shared=true;return p;
+ }catch{return null;}})();sharedLoads.set(platform,task);return task;
+}
 async function pool(platform,heroes,progress){
- const old=pools.get(platform)||read(platform);
+ let old=pools.get(platform)||read(platform);
+ const shared=await sharedPool(platform,heroes);
+ if(shared&&(!old||shared.at>old.at)){old=shared;pools.set(platform,old);try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(old));}catch{}}
+ if(old?.shared&&Date.now()-old.at<24*3600000)return old;
  const tags=[...new Map([...encountered,...seeds].map(tag=>[tag.toLowerCase(),tag])).values()];
  if(old&&Date.now()-old.at<6*3600000&&tags.every(t=>old.tags?.includes(t.toLowerCase())))return old;
  if(pending.has(platform)){await pending.get(platform);return pool(platform,heroes,progress);}
@@ -351,7 +385,7 @@ async function pool(platform,heroes,progress){
    const src=await getProfile(tag,platform);
    for(const hero of heroes){const row=extract(src.body,tag,platform,hero.key,hero.role,src.at);if(!row.reject)rows.push(row);}
   }catch(e){errors++;if(e.status===429||e.status===403)stop=Error("The profile source is limiting requests. Try again later.");}
-  checked++;if(!stop)completedTags.push(tag.toLowerCase());if(checked%12===0&&rows.length){const checkpoint={version:1,platform,rows:[...rows],tags:[...completedTags],at:collectionAt,checked,discovered:tags.length,errors};pools.set(platform,checkpoint);try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(checkpoint));}catch{}progress(checkpoint);}else progress({state:'loading',checked,discovered:tags.length,errors,message:'Fetching public profiles directly'});
+  checked++;if(!stop)completedTags.push(tag.toLowerCase());if((checked<=12?checked%4===0:checked%12===0)&&rows.length){const checkpoint={version:1,platform,rows:[...rows],tags:[...completedTags],at:collectionAt,checked,discovered:tags.length,errors};pools.set(platform,checkpoint);try{localStorage.setItem('hero-coach-direct-pool-v3-'+platform,JSON.stringify(checkpoint));}catch{}progress(checkpoint);}else progress({state:'loading',checked,discovered:tags.length,errors,message:'Fetching public profiles directly'});
   }}
   await Promise.all([worker(),worker()]);
   if(stop)throw stop;if(!rows.length)throw Error("No usable public reference profiles received. Check your connection or try again later.");
@@ -361,12 +395,12 @@ async function pool(platform,heroes,progress){
  })();pending.set(platform,task);
  try{return await task;}finally{pending.delete(platform);}
 }
-async function collect(tag,platform,heroes,progress){
+async function collect(tag,platform,heroes,progress,subject=null){
  remember(tag);
- const src=await getProfile(tag,platform);
+ const src=subject?{body:{summary:subject.summary},at:Date.now()}:await getProfile(tag,platform);
 
  const order=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'];
- const ownRows=heroes.map(hero=>({hero,own:extract(src.body,tag.replace(/#(\d+)$/,'-$1'),platform,hero.key,hero.role,src.at)}));
+ const ownRows=heroes.map(hero=>({hero,own:subject?(subject.rows[hero.key]||{reject:'No personal hero sample'}):extract(src.body,tag.replace(/#(\d+)$/,'-$1'),platform,hero.key,hero.role,src.at)}));
  function batch(p,partial=false){
   const result={state:'ready',partial,at:Date.now(),heroes:{}};
   for(const {hero,own}of ownRows){
@@ -374,7 +408,7 @@ async function collect(tag,platform,heroes,progress){
    const benchmark=benchmarkRank(src.body.summary,platform,hero.role);
    const target=order[Math.min(order.indexOf(benchmark.division)+1,order.length-1)];
    const current=summarize(p.rows,own,benchmark.division);current.scope=benchmark.source==='role'?'same-rank':'target-rank';
-   result.heroes[hero.key]={version:2,state:'ready',partial,own,benchmark,current,broader:summarize(p.rows,own,null),target:summarize(p.rows,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors};
+   result.heroes[hero.key]={version:2,state:'ready',partial,own,benchmark,current,broader:summarize(p.rows,own,null),target:summarize(p.rows,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors,shared:Boolean(p.shared)};
   }return result;
  }
  const cached=pools.get(platform)||read(platform);if(cached&&Date.now()-cached.at<MAX_AGE)progress(batch(cached,true));
@@ -383,6 +417,12 @@ async function collect(tag,platform,heroes,progress){
 
 return {collect};
 })();
+function referenceSubject(){
+ if(!Object.keys(data).length)return null;
+ const rows={};for(const hero of catalog){const s=combinedHero(hero.key);if(!(s?.time_played>0))continue;const modeTimes=Object.fromEntries(Object.entries(data).map(([m,e])=>[m,e.stats?.heroes?.[hero.key]?.time_played||0])),comp=profile?.competitive?.[account.platform];
+ rows[hero.key]={tag:account.player,hero:hero.key,role:hero.role,platform:account.platform,division:comp?.[hero.role]?.division||null,season:comp?.season??null,n:s.games_played,time:s.time_played,qpShare:(modeTimes.quickplay||0)/s.time_played,modeTimes,metrics:personalRates(hero),at:Date.now()};}
+ return {summary:profile||{},rows};
+}
 async function loadReference(){
  if(typeof location==='undefined')return;
  const tag=account.player,platform=account.platform,key=[tag.toLowerCase(),platform].join('|'),old=referenceBatch[key];
@@ -394,7 +434,7 @@ async function loadReference(){
   if(batch.state==='ready'||batch.state==='error')render();else if(selectedHero){const hero=catalog.find(h=>h.key===selectedHero),panel=byId('referencePanel');if(hero&&panel)panel.replaceWith(renderReferences(hero));}
  };
  update({state:'loading',checked:0,discovered:0,message:"Checking your role ranks"});
- try{update(await browserReferences.collect(tag,platform,catalog,update));}
+ try{update(await browserReferences.collect(tag,platform,catalog,update,referenceSubject()));}
  catch(e){update({state:'error',message:e.message,at:Date.now()});}
  finally{referencePending.delete(key);}
 }
@@ -404,9 +444,9 @@ function renderReferences(hero){
  const panel=node('section','','reference-panel');panel.id='referencePanel';panel.append(node('h4','Same-hero performance comparison'));
  const a=performanceAssessment(hero);panel.append(node('p',a.reason));
  if(a.rows.length){const table=node('table','','reference-table'),head=node('tr');for(const label of ['Per 10 min','You','Reference median','Difference'])head.append(node('th',label));const thead=node('thead');thead.append(head);table.append(thead);const body=node('tbody');for(const m of a.rows){const row=node('tr');row.append(node('td',m.label),node('td',fmt(m.value)),node('td',fmt(m.baseline)),node('td',(m.difference>=0?'+':'')+fmt(m.difference)));row.title=m.n+' comparable players; '+(m.key==='deaths'?'lower':'higher')+' is directionally favourable, not proof of impact.';body.append(row);}table.append(body);panel.append(table);}
- panel.append(node('small','Each reference player counts once. Rates use your Quick Play / Competitive mixture where both modes are available; otherwise only a similar mixture qualifies. Unknown role ranks use the highest available competitive rank, then Platinum 5 as a default target. Reference players keep their actual role ranks. Averages cover a division, not an exact tier. Broader mixed-rank comparisons receive less weight. No official promotion targets.'));
- const details=node('details');details.append(node('summary','Sources and assessment limits'));details.append(node('p','Personal metric contribution: '+(a.state==='unavailable'?'Unavailable — '+a.reason:fmt(a.score)+' points. '+a.reason)+'. Population context is capped at ±1.25 points; personal metrics at ±12 before confidence adjustment. These are coaching heuristics, not a validated prediction model.'));
- const r=referenceResult(hero.key);if(r)details.append(node('p','Reference check: '+date(r.poolAt||r.at)+'. Known current role rank does not establish historical rank or Quick Play MMR. Reference players are a collected sample, not the whole player population.'));
+ 
+ const details=node('details');details.append(node('summary','Sources and assessment limits'));details.append(node('p','Each reference player counts once. Rates use your Quick Play / Competitive mixture where both modes are available; otherwise only a similar mixture qualifies. Unknown role ranks use the highest available competitive rank, then Platinum 5 as a default target. Reference players keep their actual role ranks. Averages cover a division, not an exact tier. Broader mixed-rank comparisons receive less weight. No official promotion targets.'));details.append(node('p','Personal metric contribution: '+(a.state==='unavailable'?'Unavailable — '+a.reason:fmt(a.score)+' points. '+a.reason)+'. Population context is capped at ±2 points; personal metrics at ±12 before confidence adjustment. These are coaching heuristics, not a validated prediction model.'));
+ const r=referenceResult(hero.key);if(r)details.append(node('p',(r.shared?'Shared GitHub reference cache. ':'Direct browser reference collection. ')+'Reference check: '+date(r.poolAt||r.at)+'. Known current role rank does not establish historical rank or Quick Play MMR. Reference players are a collected sample, not the whole player population.'));
  for(const p of a.group?.players||[]){const link=node('a',p.tag.replace(/-(\d+)$/,'#$1')+' · '+fmt(p.hours)+' h');link.href=p.url;link.target='_blank';link.rel='noopener noreferrer';const line=node('p');line.append(link);details.append(line);}panel.append(details);return panel;
 }
 
@@ -817,7 +857,7 @@ function populationContext(row,rows,role){
  const win=row.winrate-50,winContext=win>0?win*presence:win;
  const viable=Math.max(0,Math.min(1,(row.winrate-48)/4));
  const popularity=ratio===null||ratio<=1?0:.75*Math.min(1,Math.log2(ratio))*viable;
- const bans=Number.isFinite(row.banrate)?Math.max(0,Math.min(.5,row.banrate/40))*viable:0;
+ const bans=0; // Ban rates describe availability and frustration as well as strength; display only.
  return {score:50+winContext+popularity+bans,winrate:row.winrate,presence,popularity,bans,ratio};
 }
 function metaScore(item) {
@@ -871,7 +911,7 @@ function hoursSignal(hero){
 function scoreParts(item){
  const meta=metaScore(item),stats=item.stats,n=played(stats)?stats.games_played:0,own=n?winrate(stats):null;
  const evidenceN=Math.min(n,Math.max(0,(stats?.time_played||0)/600),400),hours=hoursSignal(item.hero);
- const base=50+(meta===null?0:Math.max(-1.25,Math.min(1.25,(meta-50)*.45)));
+ const base=50+(meta===null?0:Math.max(-2,Math.min(2,(meta-50)*.6))*(Date.now()-(metaEntry(item.hero.role)?.at||0)>86400000?.5:1));
  const rows=evidence(item.hero.key),time=rows.reduce((s,r)=>s+(r.stats.time_played||0),0);
  let results=0;for(const row of rows){const units=Math.min(row.stats.games_played,(row.stats.time_played||0)/600,400);const share=time?(row.stats.time_played||0)/time:0;results+=share*(row.mode==='competitive'?1.5:.5)*Math.max(-1,Math.min(1,(winrate(row.stats)-50)/15))*units/(units+50);}
  const comfort=(preference(item.hero.key)?.[0]||0)*.35,peerAdjustment=referenceAdjustment(item.hero),trend=recentMetricTrend(item.hero);
@@ -1103,18 +1143,11 @@ function renderAdvice() {
       row.append(portrait(hero));
       const info = node("div");
       const inspectButton=node('button',(index+1)+'. '+hero.name,'pick-name');inspectButton.type='button';inspectButton.onclick=inspect;inspectButton.setAttribute('aria-label',"View "+hero.name);info.append(inspectButton);
-      const currentText = heroMeta ? "Rank win rate " + percent(heroMeta.winrate) : "Rank win rate —";
-      const targetText = target ? ranks[goalFor(role)] + " " + percent(target.winrate) : "Target —";
-      const metaText=currentText + (goalFor(role) !== roleRank(role) ? " · " + targetText : "");
-      const personalText = played(stats) ? "You " + percent(winrate(stats)) + " · " + fmt(stats.games_played) + " games · " + duration(stats.time_played) : "Your results are unknown";
-      const own=node("div","","personal-result");own.title=personalText;
-      const assessment=performanceAssessment(hero);const strongest=assessment.strengths[0];const shortReason=strongest?strongest.label+' '+(strongest.key==='deaths'?'lower':'higher')+' than '+(assessment.scope==='same-rank'?'same-rank':assessment.scope==='target-rank'?'target-rank':'mixed-rank')+' median':assessment.rows.length?(assessment.state==='limited'?'Limited comparison evidence':assessment.effect<-.12?'Mixed metrics · relative weaknesses':'Mixed or similar contribution'):'Personal fit unverified · comparisons unavailable';
-      if(played(stats))own.append(node("strong",duration(stats.time_played)),node("span","experience · "+fmt(stats.games_played)+" games"),node("small",confidence.level==='supported'?shortReason:confidence.reason,"pick-context"));else own.append(node("small",personalText));
-      const weights=scoreParts(item);
-      const badge=node('span','Advice confidence · '+confidence.label,'advice-confidence');badge.title=confidence.reason+' '+confidence.action;
-      info.append(own,badge,infoPopover("Why this pick?",pickExplanation(item)));
-      info.append(node('small',item.label.replace(/^\d+\. /,''),'pick-verdict'));
-      if(item.learning){const favorite=roleHistory(role).favorite;info.append(node('small',"Played less than "+favorite.hero.name));}
+      const focus=coachingFocus(hero),own=node('div','','coach-summary');
+      own.append(node('strong',focus.title,'coach-focus'),node('span',focus.detail,'coach-detail'));
+      const badge=node('span',confidence.level==='supported'?'Compared':confidence.level==='limited'?'Limited data':'Unassessed','advice-confidence');badge.title=confidence.reason+' '+confidence.action;
+      const footer=node('div','','pick-footer');footer.append(badge,infoPopover('Why this pick?',pickExplanation(item)));
+      info.append(own,footer);
       row.title = fit.reason + (preference(hero.key) ? " · " + preference(hero.key)[1] : "") + (heroMeta ? " · Pick rate " + percent(heroMeta.pickrate) + " · Ban rate " + percent(heroMeta.banrate) + " · bounded population context" : "");
       row.append(info);
       card.append(row);
@@ -1126,10 +1159,10 @@ function renderAdvice() {
       const top=node('div','','row'),inspect=node('button',flex.hero.name,'pick-name');inspect.type='button';inspect.onclick=()=>{selectedRole=role;selectedHero=flex.hero.key;render();byId('heroes').scrollIntoView({behavior:'smooth'});};
       const dismiss=node('button','×','flex-dismiss');dismiss.type='button';dismiss.setAttribute('aria-label',"Ignore flex "+flex.hero.name);dismiss.onclick=()=>setIgnored(flex.hero.key,true);
       const e=adviceEvidence(flex.hero);flexPanel.className+=' evidence-'+e.level;
-      top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top,node('small','Advice confidence · '+e.label,'advice-confidence'),node('small',e.reason));
+      top.append(portrait(flex.hero),inspect,dismiss);flexPanel.append(top,node('small',e.level==='supported'?'Compared':e.level==='limited'?'Limited data':'Unassessed','advice-confidence'));
       const explanation=flex.reason==='transfer'?"Related to your "+flex.source.hero.name+': '+flex.similarity.shared.map(x=>x.label).join(' + ')+'.':flex.reason==='comfort'?"Fits Less Aim: "+flex.assessment.note:"Promising trial pick based on the loaded rank win-rate data; personal suitability is still unknown.";
       flexPanel.append(node('p',explanation));
-      flexPanel.append(node('small',played(flex.stats)?fmt(flex.stats.games_played)+" personal games · "+percent(winrate(flex.stats))+" won":"No personal result evidence yet · try in Quick Play first."));
+
       const details=node('div');details.append(evidencePanel(flex.hero));
       details.append(node('p',"Rank win rate "+(flex.meta?percent(flex.meta.winrate):"unavailable")+'. '+flex.assessment.note));
       if(flex.source){const sourceAssessment=performanceAssessment(flex.source.hero);details.append(node('p','Source assessment: '+sourceAssessment.reason+'. '+(sourceAssessment.strengths[0]?'Measured strength: '+sourceAssessment.strengths[0].label+'.':'Transfer is based on shared mechanics only; no measured strength is established.')));}
@@ -1252,9 +1285,20 @@ function renderRoster() {
   detail.append(comparison);
   detail.append(infoPopover("About the measurements",node('p',"Output stats are per 10 minutes, weighted by playtime. Utility fields use the source names. Missing means unknown. No rank percentiles or replay assessment.")));
 }
+function coachingFocus(hero){
+ const a=performanceAssessment(hero),e=adviceEvidence(hero);
+ if(e.level==='unassessed')return {title:'Waiting for enough data',detail:/more game|more minute/.test(e.reason)?e.reason:/Missing your/.test(e.reason)?'Core hero stats are missing.':'Comparison pending · see why',metric:null};
+ const weak=a.weaknesses[0],strong=a.strengths[0];
+ if(weak){const labels={deaths:'Die less',healing:'Heal more',damage:'Deal more damage',finals:'Finish more eliminations',mitigation:'Use mitigation better',assists:'Assist more eliminations'};
+  return {title:(e.level==='limited'?'Tentative focus: ':'Focus: ')+(labels[weak.key]||'Improve '+metricName(weak.key)),detail:metricName(weak.key)+' '+fmt(weak.value)+' vs '+fmt(weak.baseline)+' / 10 min',metric:weak};}
+ if(strong){const labels={deaths:'Good survival',healing:'Strong healing',damage:'Strong damage',finals:'Strong finishing',mitigation:'Strong mitigation',assists:'Strong assist contribution'};
+  return {title:(e.level==='limited'?'Early signal: ':'Strength: ')+(labels[strong.key]||metricName(strong.key)),detail:metricName(strong.key)+' '+fmt(strong.value)+' vs '+fmt(strong.baseline)+' / 10 min',metric:strong};}
+ return {title:'Keep your output consistent',detail:'No clear measured strength or weakness',metric:null};
+}
+
 function pickExplanation(item){
  const box=node('div','','pick-explanation'),w=scoreParts(item),a=w.assessment;
- box.append(node('strong',item.hero.name+' · your performance'),evidencePanel(item.hero));
+ const focus=coachingFocus(item.hero);box.append(node('strong',item.hero.name+' · '+focus.title),node('p',focus.detail));const evidenceDetails=node('details');evidenceDetails.append(node('summary','Data behind this advice'),evidencePanel(item.hero));box.append(evidenceDetails);
  if(a.rows.length){
   const explain=m=>m.label+': '+fmt(m.value)+' vs '+fmt(m.baseline)+' / 10 min ('+m.n+' reference players). '+(Math.abs(m.effect)<=.12?'Near the reference median.':m.effect>0?'Favourable measured difference.':'A relative weakness.');
   for(const m of a.strengths.slice(0,2))box.append(node('p',explain(m)));
@@ -1612,32 +1656,46 @@ transferSources=memoDerived('transfer',transferSources,()=>0);
 function renderTransaction(fn){return function(...args){if(derivedCache)return fn(...args);derivedCache=new Map();try{return fn(...args);}finally{derivedCache=null;}};}
 render=renderTransaction(render);renderAdvice=renderTransaction(renderAdvice);renderRoster=renderTransaction(renderRoster);
 
-// One delegated controller also covers popovers created during profile refreshes.
+// One movable explanation window. Re-rendering cards cannot move or hide this portal.
+let activeExplanation=null;
+function windowPosition(x,y,w,h,vw,vh){return {left:Math.max(12,Math.min(x,vw-w-12)),top:Math.max(12,Math.min(y,vh-h-12))};}
+function placeExplanation(x,y){if(!activeExplanation)return;const body=activeExplanation.body,rect=body.getBoundingClientRect(),p=windowPosition(x,y,rect.width,rect.height,document.documentElement.clientWidth,window.innerHeight);body.style.left=p.left+'px';body.style.top=p.top+'px';}
 function closeInfoPopover(info,returnFocus=false){
-  info.open=false;
-  if(returnFocus)info.querySelector('summary')?.focus();
+ if(activeExplanation&&(!info||activeExplanation.info===info)){const current=activeExplanation;activeExplanation=null;current.body.classList.remove('floating-explanation');current.body.style.left='';current.body.style.top='';current.info.append(current.body);current.info.open=false;if(returnFocus&&current.trigger.isConnected)current.trigger.focus();return;}
+ if(info){info.open=false;if(returnFocus)info.querySelector('summary')?.focus();}
+}
+function openExplanation(info,event){
+ closeInfoPopover(null);const trigger=info.querySelector('summary'),body=info.querySelector('.info-content');if(!body)return;
+ if(!body.querySelector('.window-handle')){
+  const content=node('div','','window-content');while(body.firstChild)content.append(body.firstChild);
+  const handle=node('div','','window-handle');handle.tabIndex=0;handle.setAttribute('aria-label','Move explanation with arrow keys');
+  handle.append(node('strong',trigger.textContent.replace(/^ⓘ /,'')),node('span','Drag to move'));
+  const close=node('button','×','popover-close');close.type='button';close.setAttribute('aria-label','Close explanation');handle.append(close);body.append(handle,content);
+ }
+ activeExplanation={info,trigger,body,drag:null};info.open=true;body.classList.add('floating-explanation');body.setAttribute('role','dialog');body.setAttribute('aria-label',trigger.textContent.replace(/^ⓘ /,''));document.body.append(body);
+ const r=trigger.getBoundingClientRect();placeExplanation(event?.detail?event.clientX+16:r.left,event?.detail?event.clientY+16:r.bottom+8);
 }
 document.addEventListener('click',event=>{
-  const target=event.target;
-  const close=target.closest?.('.popover-close');
-  if(close){event.preventDefault();closeInfoPopover(close.closest('.info-popover'),true);return;}
-  const inside=target.closest?.('.info-popover');
-  document.querySelectorAll('.info-popover[open]').forEach(info=>{if(info!==inside)closeInfoPopover(info);});
+ const target=event.target,close=target.closest?.('.popover-close');
+ if(close){event.preventDefault();closeInfoPopover(null,true);return;}
+ if(activeExplanation?.body.contains(target))return;
+ const summary=target.closest?.('.info-popover>summary');
+ if(summary){event.preventDefault();const info=summary.parentElement;if(activeExplanation?.info===info)closeInfoPopover(info,true);else openExplanation(info,event);return;}
+ closeInfoPopover(null);
 });
-document.addEventListener('toggle',event=>{
-  const info=event.target;
-  if(!info.matches?.('.info-popover')||!info.open)return;
-  document.querySelectorAll('.info-popover[open]').forEach(other=>{if(other!==info)closeInfoPopover(other);});
-  const body=info.querySelector('.info-content');
-  if(body&&!body.querySelector('.popover-close')){
-    const button=node('button','×','popover-close');button.type='button';button.setAttribute('aria-label','Close explanation');body.prepend(button);
-  }
-},true);
+document.addEventListener('pointerdown',event=>{
+ const handle=event.target.closest?.('.window-handle');if(!handle||event.target.closest('button')||!activeExplanation||event.button!==0)return;
+ event.preventDefault();const r=activeExplanation.body.getBoundingClientRect();activeExplanation.drag={x:event.clientX,y:event.clientY,left:r.left,top:r.top};handle.setPointerCapture(event.pointerId);
+});
+document.addEventListener('pointermove',event=>{const d=activeExplanation?.drag;if(d)placeExplanation(d.left+event.clientX-d.x,d.top+event.clientY-d.y);});
+document.addEventListener('pointerup',()=>{if(activeExplanation)activeExplanation.drag=null;});
+document.addEventListener('pointercancel',()=>{if(activeExplanation)activeExplanation.drag=null;});
 document.addEventListener('keydown',event=>{
-  if(event.key!=='Escape')return;
-  const open=document.querySelectorAll('.info-popover[open]');
-  if(open.length){event.preventDefault();open.forEach(info=>closeInfoPopover(info,true));}
+ if(event.key==='Escape'&&activeExplanation){event.preventDefault();closeInfoPopover(null,true);return;}
+ if(event.target.matches?.('.window-handle')&&activeExplanation&&['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)){event.preventDefault();const r=activeExplanation.body.getBoundingClientRect();placeExplanation(r.left+({ArrowLeft:-20,ArrowRight:20}[event.key]||0),r.top+({ArrowUp:-20,ArrowDown:20}[event.key]||0));}
 });
+if(typeof window!=='undefined')window.addEventListener('resize',()=>{if(activeExplanation){const r=activeExplanation.body.getBoundingClientRect();placeExplanation(r.left,r.top);}});
+
 applyChristmas();
 restore();
 // Keep the last selected friend account when reopening this browser.
