@@ -181,7 +181,7 @@ const referenceCache={},referenceBatch={},referencePending=new Set();
 const referenceLabels={damage:'Hero damage',healing:'Healing',deaths:'Deaths',finals:'Final blows',elims:'Eliminations',assists:'Assists',mitigation:'Mitigation'};
 function benchmarkRank(summary,platform,role){
  const order=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'];
- const comp=summary?.competitive?.[platform]||{},valid=r=>r&&order.includes(r.division);
+ const comp=Object.fromEntries(Object.entries(summary?.competitive?.[platform]||{}).map(([k,r])=>[k,r&&typeof r==='object'?{...r,division:r.division==='ultimate'?'champion':r.division}:r])),valid=r=>r&&order.includes(r.division);
  const known=comp[role];if(valid(known))return {division:known.division,tier:known.tier??null,source:'role',label:'Known role rank'};
  const available=Object.entries(comp).filter(([key,r])=>['tank','damage','support','open','open_queue'].includes(key)&&valid(r)).sort((a,b)=>order.indexOf(b[1].division)-order.indexOf(a[1].division)||(a[1].tier??5)-(b[1].tier??5));
  if(available.length){const [from,r]=available[0];return {division:r.division,tier:r.tier??null,source:'highest',label:'Estimated target from highest available '+from.replaceAll('_',' ')+' rank'};}
@@ -210,7 +210,7 @@ function performanceAssessment(hero){
  if(!n||!seconds)return {...empty,reason:'No personal hero sample is available.'};
  const currentRank=profile?.competitive?.[account.platform]?.[hero.role]?.division||null;
  const season=profile?.competitive?.[account.platform]?.season;
- if((currentRank&&(r.own.division||null)!==currentRank)||(Number.isInteger(season)&&r.own.season!==season))return {...empty,reason:'Role rank or season changed; refreshing the comparison.'};
+ if((currentRank&&(r.own.division==='ultimate'?'champion':r.own.division||null)!==(currentRank==='ultimate'?'champion':currentRank))||(Number.isInteger(season)&&r.own.season!==season))return {...empty,reason:'Role rank or season changed; refreshing the comparison.'};
  for(const [mode,entry]of Object.entries(data)){if(entry.stats?.heroes?.[hero.key]?.time_played>0&&entry.source==='OverFast'&&(!career[mode]||careerErrors[mode]||(Number.isFinite(entry.at)&&career[mode].at<entry.at)))return {...empty,reason:'Waiting for matching detailed personal stats.'};}
  const hasCoverage=g=>g&&Object.keys(g.metrics||{}).length>=2;
  const expected=benchmarkRank(profile,account.platform,hero.role);
@@ -241,7 +241,7 @@ function performanceAssessment(hero){
  const risk=n>=20&&seconds>=7200&&confidence>=.25&&effect<-.35;
  const state=confidence<.25?'limited':effect>.12?'above':effect<-.12?'below':'similar';
  const scope=group.scope;
- const scopeLabel=scope==='same-rank'?'Same role rank':scope==='target-rank'?(ranks[r.benchmark.division]+' comparison target · '+r.benchmark.label):'Mixed ranks; not a rank benchmark';
+ const scopeLabel=scope==='same-rank'?'Same role rank':scope==='target-rank'?((r.benchmark.division==='champion'?'Champion':ranks[r.benchmark.division])+' comparison target · '+r.benchmark.label):'Mixed ranks; not a rank benchmark';
  return {state,score:12*confidence*effect,confidence,effect,rows,coverage,scope,group,risk,
  strengths:rows.filter(r=>r.effect>.12).sort((a,b)=>b.effect*b.weight-a.effect*a.weight),
  weaknesses:rows.filter(r=>r.effect<-.12).sort((a,b)=>a.effect*a.weight-b.effect*b.weight),
@@ -313,7 +313,7 @@ function discoverRankHints(html,divisions){
 function flatten(raw){const out={};for(const cat of raw||[])if(Array.isArray(cat.stats))out[cat.category]=Object.fromEntries(cat.stats.filter(x=>Number.isFinite(x.value)).map(x=>[x.key,x.value]));return out;}
 function extract(payload,tag,platform,hero,role,at=Date.now()){
  const comp=payload.summary?.competitive?.[platform],rank=comp?.[role];
- const division=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'].includes(rank?.division)?rank.division:null;
+ const reportedDivision=rank?.division==='ultimate'?'champion':rank?.division;const division=['bronze','silver','gold','platinum','emerald','diamond','master','grandmaster','champion'].includes(reportedDivision)?reportedDivision:null;
  const samples=['quickplay','competitive'].map(mode=>({mode,raw:flatten(payload.stats?.[platform]?.[mode]?.career_stats?.[hero])})).filter(s=>s.raw.game?.time_played>0);
  const time=samples.reduce((n,s)=>n+s.raw.game.time_played,0),n=samples.reduce((n,s)=>n+(s.raw.game.games_played||0),0);
  if(!(time>0)||!Number.isFinite(n)||n<0)return {reject:"No hero experience in Competitive or Quick Play"};
@@ -503,7 +503,7 @@ function roleRankLabel(role) {
   if (rankOverrides[role] !== "auto") return ranks[rankOverrides[role]] + " · manual";
   const value = profile?.competitive?.[account.platform]?.[role];
   if (!value) return "Rank unknown";
-  return (ranks[value.division] || value.division) + (Number.isFinite(value.tier) ? " " + value.tier : "");
+  return (value.division==='ultimate'||value.division==='champion'?'Champion':ranks[value.division] || value.division) + (Number.isFinite(value.tier) ? " " + value.tier : "");
 }
 const usableMeta=entry=>entry && Date.now()-entry.at<=72*3600000 ? entry : null;
 const metaEntry = (role = selectedRole) => usableMeta(metaCache[metaKey("competitive",roleRank(role))]);
@@ -1081,7 +1081,7 @@ function rankControls(role) {
   select.onchange = () => {goalRanks[role] = select.value;persist();render();loadAllMeta();};
   target.append(select);
   const settings=node("details","","goal-settings");
-  const menu=node('div','','rank-menu');menu.append(target,node('small',(()=>{const b=benchmarkRank(profile,account.platform,role);return 'Comparison: '+ranks[b.division]+(b.tier?' '+b.tier:'')+' · '+b.label+'. Reference averages cover the division, not a precise tier. Actual role rank is unchanged.';})()));
+  const menu=node('div','','rank-menu');menu.append(target,node('small',(()=>{const b=benchmarkRank(profile,account.platform,role);return 'Comparison: '+(b.division==='champion'?'Champion':ranks[b.division])+(b.tier?' '+b.tier:'')+' · '+b.label+'. Reference averages cover the division, not a precise tier. Actual role rank is unchanged.';})()));
   settings.append(node("summary","Rank & source"),menu);block.context=menu;
   block.append(current,settings);
   return block;
