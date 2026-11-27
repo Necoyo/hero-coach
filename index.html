@@ -1288,9 +1288,10 @@ function renderRoster() {
 function coachingFocus(hero){
  const a=performanceAssessment(hero),e=adviceEvidence(hero);
  if(e.level==='unassessed')return {title:'Waiting for enough data',detail:/more game|more minute/.test(e.reason)?e.reason:/Missing your/.test(e.reason)?'Core hero stats are missing.':'Comparison pending · see why',metric:null};
- const weak=a.weaknesses[0],strong=a.strengths[0];
+ const meaningful=m=>Math.abs(m.difference)>=Math.max(m.key==='deaths'?.5:1,Math.abs(m.baseline)*.08)&&Math.abs(m.effect)>.2;
+ const weak=a.weaknesses.find(meaningful),strong=a.strengths.find(meaningful);
  if(weak){const labels={deaths:'Die less',healing:'Heal more',damage:'Deal more damage',finals:'Finish more eliminations',mitigation:'Use mitigation better',assists:'Assist more eliminations'};
-  return {title:(e.level==='limited'?'Tentative focus: ':'Focus: ')+(labels[weak.key]||'Improve '+metricName(weak.key)),detail:metricName(weak.key)+' '+fmt(weak.value)+' vs '+fmt(weak.baseline)+' / 10 min',metric:weak};}
+  return {title:(e.level==='limited'?'Tentative focus: ':'Focus: ')+(labels[weak.key]||({'utility:damage_amplified_avg_per_10_min':'Boost more damage','utility:players_saved_avg_per_10_min':'Save more allies','utility:enemies_slept_avg_per_10_min':'Land more sleeps','utility:negative_effects_cleansed_avg_per_10_min':'Improve cleanse timing'}[weak.key])||'Improve '+metricName(weak.key)),detail:metricName(weak.key)+' '+fmt(weak.value)+' vs '+fmt(weak.baseline)+' / 10 min',metric:weak};}
  if(strong){const labels={deaths:'Good survival',healing:'Strong healing',damage:'Strong damage',finals:'Strong finishing',mitigation:'Strong mitigation',assists:'Strong assist contribution'};
   return {title:(e.level==='limited'?'Early signal: ':'Strength: ')+(labels[strong.key]||metricName(strong.key)),detail:metricName(strong.key)+' '+fmt(strong.value)+' vs '+fmt(strong.baseline)+' / 10 min',metric:strong};}
  return {title:'Keep your output consistent',detail:'No clear measured strength or weakness',metric:null};
@@ -1446,6 +1447,7 @@ async function refresh() {
     if(!referenceCache[referenceKey(selectedHero)])selectedHero=null;
     if(Object.keys(errors).length<2)notice("Profile loaded · refreshing rank win-rate data and hero descriptions…");
     render();
+    queueReferences();
     await Promise.all([loadAllMeta(true), ...Object.keys(modes).filter(mode=>data[mode]?.source === "OverFast" && !errors[mode]).map(mode=>loadCareer(mode,token))]);
     captureProgress();
     queueReferences();
@@ -1659,7 +1661,7 @@ render=renderTransaction(render);renderAdvice=renderTransaction(renderAdvice);re
 // One movable explanation window. Re-rendering cards cannot move or hide this portal.
 let activeExplanation=null;
 function windowPosition(x,y,w,h,vw,vh){return {left:Math.max(12,Math.min(x,vw-w-12)),top:Math.max(12,Math.min(y,vh-h-12))};}
-function placeExplanation(x,y){if(!activeExplanation)return;const body=activeExplanation.body,rect=body.getBoundingClientRect(),p=windowPosition(x,y,rect.width,rect.height,document.documentElement.clientWidth,window.innerHeight);body.style.left=p.left+'px';body.style.top=p.top+'px';}
+function placeExplanation(x,y){if(!activeExplanation)return;const body=activeExplanation.body;body.style.width=Math.min(420,document.documentElement.clientWidth-24)+'px';const rect=body.getBoundingClientRect(),p=windowPosition(x,y,rect.width,rect.height,document.documentElement.clientWidth,window.innerHeight);body.style.left=p.left+'px';body.style.top=p.top+'px';}
 function closeInfoPopover(info,returnFocus=false){
  if(activeExplanation&&(!info||activeExplanation.info===info)){const current=activeExplanation;activeExplanation=null;current.body.classList.remove('floating-explanation');current.body.style.left='';current.body.style.top='';current.info.append(current.body);current.info.open=false;if(returnFocus&&current.trigger.isConnected)current.trigger.focus();return;}
  if(info){info.open=false;if(returnFocus)info.querySelector('summary')?.focus();}
