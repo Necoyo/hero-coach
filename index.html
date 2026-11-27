@@ -410,12 +410,13 @@ async function collect(tag,platform,heroes,progress,subject=null){
  const ownRows=heroes.map(hero=>({hero,own:subject?(subject.rows[hero.key]||{reject:'No personal hero sample'}):extract(src.body,tag.replace(/#(\d+)$/,'-$1'),platform,hero.key,hero.role,src.at)}));
  function batch(p,partial=false){
   const result={state:'ready',partial,at:Date.now(),heroes:{}};
+  const byHero=new Map();for(const row of p.rows){if(!byHero.has(row.hero))byHero.set(row.hero,[]);byHero.get(row.hero).push(row);}const poolPlayers=new Set(p.rows.map(r=>r.playerId||r.tag.toLowerCase())).size;
   for(const {hero,own}of ownRows){
    if(own.reject){result.heroes[hero.key]={state:'unavailable',message:own.reject};continue;}
    const benchmark=benchmarkRank(src.body.summary,platform,hero.role);
    const target=order[Math.min(order.indexOf(benchmark.division)+1,order.length-1)];
-   const current=summarize(p.rows,own,benchmark.division);current.scope=benchmark.source==='role'?'same-rank':'target-rank';
-   result.heroes[hero.key]={version:2,state:'ready',partial,own,benchmark,current,broader:summarize(p.rows,own,null),target:summarize(p.rows,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors,shared:Boolean(p.shared),poolPlayers:new Set(p.rows.map(r=>r.playerId||r.tag.toLowerCase())).size,cohortCap:p.cohortCap||null};
+   const candidates=byHero.get(hero.key)||[];const current=summarize(candidates,own,benchmark.division);current.scope=benchmark.source==='role'?'same-rank':'target-rank';
+   result.heroes[hero.key]={version:2,state:'ready',partial,own,benchmark,current,broader:summarize(candidates,own,null),target:summarize(candidates,own,target),at:p.at,poolAt:p.at,checked:p.checked,discovered:p.discovered,errors:p.errors,shared:Boolean(p.shared),poolPlayers,cohortCap:p.cohortCap||null};
   }return result;
  }
  const cached=pools.get(platform)||read(platform);if(cached&&Date.now()-cached.at<MAX_AGE)progress(batch(cached,true));
